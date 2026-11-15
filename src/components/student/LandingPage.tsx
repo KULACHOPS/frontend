@@ -5,6 +5,8 @@ import {
   ChevronRight,
   ArrowRight,
   X,
+  Search,
+  Copy,
 } from 'lucide-react';
 import DoodleCrewFooter from '../ui/doodle-crew-footer';
 
@@ -278,7 +280,7 @@ export const LandingPage: React.FC<LandingPageProps> = () => {
       {/* =========================================================================
           1. CAMPUS HERO SHOWCASE
           ========================================================================= */}
-      <section style={{ position: 'relative', width: '100%', paddingTop: '48px', paddingBottom: 0, overflow: 'hidden', backgroundColor: '#FAF9F5' }}>
+      <section className="kula-hero-section">
         {/* Floating Playful Neo-Brutalist Badges (Desktop) */}
         <div
           className="hero-floating-badge-left"
@@ -370,22 +372,9 @@ export const LandingPage: React.FC<LandingPageProps> = () => {
           </div>
         </div>
 
-        <div style={{ maxWidth: '1240px', margin: '0 auto', padding: '0 20px', textAlign: 'center', position: 'relative', zIndex: 20 }}>
+        <div className="kula-hero-inner">
           {/* Giant Multilingual Cycling Headline */}
-          <h1
-            style={{
-              fontSize: 'clamp(44px, 7.5vw, 108px)',
-              fontWeight: 900,
-              letterSpacing: '-2.5px',
-              color: '#090C0B',
-              lineHeight: 1.02,
-              marginBottom: '24px',
-              minHeight: '1.2em',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
+          <h1 className="kula-hero-headline">
             <span
               key={greetingIndex}
               style={{
@@ -397,224 +386,297 @@ export const LandingPage: React.FC<LandingPageProps> = () => {
             </span>
           </h1>
 
-          {/* Floating Pill Search Bar */}
-          <div style={{ width: '100%', maxWidth: '680px', margin: '0 auto 40px' }}>
-            <div
-              style={{
-                position: 'relative',
-                display: 'flex',
-                alignItems: 'center',
-                padding: '0 8px 0 16px',
-                height: '68px',
-                borderRadius: '9999px',
-                backgroundColor: '#FFFFFF',
-                boxShadow: '0 14px 35px -4px rgba(9, 12, 11, 0.12)',
-                border: '2px solid #E2E8F0',
-                transition: 'all 0.2s ease',
-              }}
+          {/* Campus Location Indicator Pill */}
+          <div className="kula-hero-campus-pill-wrap">
+            <button
+              type="button"
+              onClick={() => setIsCampusModalOpen(true)}
+              className="kula-hero-campus-pill"
+              title="Change Campus"
             >
-              <button
-                type="button"
-                onClick={() => setIsCampusModalOpen(true)}
+              <span
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  color: '#FF5500',
-                  padding: '4px 8px',
-                  background: 'transparent',
-                  border: 'none',
-                  cursor: 'pointer',
+                  width: '7px',
+                  height: '7px',
+                  borderRadius: '50%',
+                  background: '#FF5500',
+                  boxShadow: '0 0 0 2px rgba(255, 85, 0, 0.25)',
                 }}
-                title="Change Campus"
-              >
-                <MapPin size={22} color="#FF5500" />
-                <span
-                  style={{
-                    fontSize: '12px',
-                    fontWeight: 800,
-                    color: '#090C0B',
-                    backgroundColor: '#F0F3F1',
-                    padding: '4px 10px',
-                    borderRadius: '9999px',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  {selectedCampus.shortName} ▾
-                </span>
-              </button>
+              />
+              <MapPin size={14} color="#FF5500" />
+              <span>Delivering to <strong>{selectedCampus.shortName}</strong></span>
+              <span style={{ color: '#FF5500', fontSize: '11.5px', fontWeight: 800, marginLeft: '2px' }}>Change ▾</span>
+            </button>
+          </div>
+
+          {/* Floating Pill Search Bar */}
+          <div className="kula-hero-search-wrapper">
+            <div className="kula-hero-search-pill">
+              <Search size={18} color="#FF5500" style={{ flexShrink: 0, marginLeft: '4px' }} />
 
               <input
                 type="text"
-                placeholder="Enter a delivery address or campus hostel..."
+                className="kula-hero-search-input"
+                placeholder="Search hostel, canteen, or chops..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') scrollToSection('campus-map-section');
                 }}
-                style={{
-                  flex: 1,
-                  border: 'none',
-                  height: '100%',
-                  background: 'transparent',
-                  outline: 'none',
-                  color: '#090C0B',
-                  fontSize: '15px',
-                  fontWeight: 600,
-                  padding: '0 12px',
-                }}
               />
 
               {searchQuery && (
                 <button
+                  type="button"
                   onClick={() => setSearchQuery('')}
-                  style={{
-                    padding: '4px',
-                    color: '#94A3B8',
-                    background: 'transparent',
-                    border: 'none',
-                    cursor: 'pointer',
-                    marginRight: '8px',
-                  }}
+                  className="kula-hero-search-clear"
+                  title="Clear search"
                 >
-                  <X size={18} />
+                  <X size={16} />
                 </button>
               )}
 
               <button
                 type="button"
                 onClick={() => scrollToSection('campus-map-section')}
-                style={{
-                  backgroundColor: '#FF5500',
-                  borderRadius: '9999px',
-                  color: '#FFFFFF',
-                  fontSize: '15px',
-                  padding: '13px 28px',
-                  fontWeight: 800,
-                  border: 'none',
-                  cursor: 'pointer',
-                  boxShadow: '0 4px 14px rgba(255, 85, 0, 0.4)',
-                  transition: 'all 0.2s ease',
-                  whiteSpace: 'nowrap',
-                }}
+                className="kula-hero-search-btn"
               >
-                Order now
+                <span>Order now</span>
+                <ArrowRight size={15} />
               </button>
             </div>
           </div>
         </div>
 
-        {/* HERO CITY / CAMPUS SKYLINE ILLUSTRATION */}
-        <div style={{ width: '100%', overflow: 'hidden', lineHeight: 0, position: 'relative', zIndex: 10, paddingTop: '16px' }}>
+        {/* HERO CITY / CAMPUS SKYLINE ILLUSTRATION (BOLD NEO-BRUTALIST CAMPUS) */}
+        <div className="kula-hero-skyline">
           <svg
-            style={{ width: '100%', height: 'auto', minHeight: '160px', maxHeight: '340px' }}
+            style={{ width: '100%', height: 'auto', display: 'block' }}
             viewBox="0 0 1440 320"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             preserveAspectRatio="xMidYEnd meet"
           >
             <rect width="1440" height="320" fill="transparent" />
-            <path d="M0 260 L1440 260 L1440 320 L0 320 Z" fill="#FF5500" opacity="0.12" />
-            <path d="M800 180 L1440 180 L1440 230 L800 230 Z" fill="#FFA366" opacity="0.25" />
-            <path d="M820 230 Q860 210 900 230 Q940 210 980 230 Q1020 210 1060 230 Q1100 210 1140 230 Q1180 210 1220 230 Q1260 210 1300 230 Q1340 210 1380 230" stroke="#FF5500" strokeWidth="4" fill="none" opacity="0.4" />
 
-            {/* Drifting Animated Clouds */}
+            {/* Giant Retro Sun */}
+            <circle cx="720" cy="85" r="75" fill="#FFC501" stroke="#090C0B" strokeWidth="8" />
+            <line x1="720" y1="-8" x2="720" y2="6" stroke="#FF5500" strokeWidth="8" strokeLinecap="round" />
+            <line x1="785" y1="20" x2="775" y2="30" stroke="#FF5500" strokeWidth="8" strokeLinecap="round" />
+            <line x1="810" y1="85" x2="795" y2="85" stroke="#FF5500" strokeWidth="8" strokeLinecap="round" />
+            <line x1="655" y1="20" x2="665" y2="30" stroke="#FF5500" strokeWidth="8" strokeLinecap="round" />
+            <line x1="630" y1="85" x2="645" y2="85" stroke="#FF5500" strokeWidth="8" strokeLinecap="round" />
+
+            {/* Drifting Animated Clouds with Bold Outlines */}
             <g style={{ animation: 'heroCloudDrift1 45s linear infinite' }}>
-              <path d="M0 45 Q20 28 42 38 Q65 22 95 35 Q125 25 145 42 Q165 32 185 45 Z" fill="#FFFFFF" opacity="0.75" />
+              <path
+                d="M0 45 Q22 22 50 34 Q76 14 112 30 Q145 18 172 36 Q195 24 215 40 Q225 54 205 60 L10 60 Z"
+                fill="#FFFFFF"
+                stroke="#090C0B"
+                strokeWidth="7"
+                strokeLinejoin="round"
+              />
             </g>
             <g style={{ animation: 'heroCloudDrift2 30s linear infinite', animationDelay: '-15s' }}>
-              <path d="M0 80 Q25 62 55 72 Q80 54 115 68 Q145 58 170 76 Q195 66 220 80 Z" fill="#FFFFFF" opacity="0.6" />
+              <path
+                d="M0 75 Q26 55 58 66 Q84 46 122 62 Q154 50 180 68 Q205 56 226 72 Q235 86 215 92 L10 92 Z"
+                fill="#FFFFFF"
+                stroke="#090C0B"
+                strokeWidth="7"
+                strokeLinejoin="round"
+              />
             </g>
 
-            {/* Left Building (Yellow Striped Tower) */}
-            <g transform="translate(40, 40)">
-              <rect x="0" y="0" width="160" height="230" fill="#F8C134" stroke="#090C0B" strokeWidth="5" />
-              {[...Array(14)].map((_, i) => (
-                <rect key={i} x="10" y={15 + i * 15} width="140" height="7" fill="#090C0B" />
-              ))}
-              <rect x="15" y="-15" width="30" height="15" fill="#E80B2E" stroke="#090C0B" strokeWidth="4" />
-              {/* Blinking Red Beacon Light */}
-              <circle cx="30" cy="-20" r="5" fill="#E80B2E" style={{ animation: 'heroBeaconBlink 1.4s ease-in-out infinite' }} />
+            {/* ==============================================================
+                CAMPUS ARCHITECTURE (BOLD SILHOUETTES & SOLID CONTRAST)
+                ============================================================== */}
+
+            {/* 1. Yellow Campus Clock Tower (x: 40) */}
+            <g transform="translate(40, 30)">
+              {/* Solid 3D shadow */}
+              <rect x="14" y="14" width="160" height="225" rx="6" fill="#090C0B" />
+              {/* Spire & Beacon */}
+              <polygon points="94,-8 78,28 110,28" fill="#FF5500" stroke="#090C0B" strokeWidth="7" />
+              <circle cx="94" cy="-14" r="9" fill="#E80B2E" stroke="#090C0B" strokeWidth="5" style={{ animation: 'heroBeaconBlink 1.4s ease-in-out infinite' }} />
+              {/* Tower Body */}
+              <rect x="0" y="0" width="160" height="225" rx="6" fill="#FFC501" stroke="#090C0B" strokeWidth="8" />
+              {/* Bold Black Zebra Stripes */}
+              <rect x="10" y="65" width="140" height="12" fill="#090C0B" />
+              <rect x="10" y="92" width="140" height="12" fill="#090C0B" />
+              <rect x="10" y="119" width="140" height="12" fill="#090C0B" />
+              <rect x="10" y="146" width="140" height="12" fill="#090C0B" />
+              <rect x="10" y="173" width="140" height="12" fill="#090C0B" />
+              <rect x="10" y="200" width="140" height="12" fill="#090C0B" />
+              {/* Clock Face */}
+              <circle cx="80" cy="35" r="22" fill="#FFFFFF" stroke="#090C0B" strokeWidth="6" />
+              <line x1="80" y1="35" x2="80" y2="22" stroke="#090C0B" strokeWidth="5" strokeLinecap="round" />
+              <line x1="80" y1="35" x2="92" y2="35" stroke="#090C0B" strokeWidth="5" strokeLinecap="round" />
+              <circle cx="80" cy="35" r="4" fill="#FF5500" />
             </g>
 
-            {/* Foliage */}
-            <circle cx="280" cy="240" r="45" fill="#05AA70" />
-            <circle cx="340" cy="235" r="40" fill="#038B5C" />
-            <circle cx="410" cy="240" r="45" fill="#05AA70" />
-
-            {/* Center Stadium / Dome Structure */}
-            <g transform="translate(320, 80)">
-              <ellipse cx="260" cy="90" rx="260" ry="32" fill="#05AA70" stroke="#090C0B" strokeWidth="6" />
-              <ellipse cx="260" cy="85" rx="240" ry="24" fill="#014C32" />
-              <path d="M50 90 L120 180 L400 180 L470 90 Z" fill="#FFFFFF" stroke="#090C0B" strokeWidth="6" />
-              <path d="M100 90 L150 180" stroke="#090C0B" strokeWidth="5" />
-              <path d="M160 90 L195 180" stroke="#090C0B" strokeWidth="5" />
-              <path d="M220 90 L240 180" stroke="#090C0B" strokeWidth="5" />
-              <path d="M280 90 L280 180" stroke="#090C0B" strokeWidth="5" />
-              <path d="M340 90 L320 180" stroke="#090C0B" strokeWidth="5" />
-              <path d="M400 90 L365 180" stroke="#090C0B" strokeWidth="5" />
-              <rect x="235" y="110" width="50" height="14" rx="4" fill="#E80B2E" />
-              <rect x="245" y="132" width="30" height="10" rx="3" fill="#3B82F6" />
+            {/* 2. Campus Bukka / Hot Chops Joint (x: 235) */}
+            <g transform="translate(235, 120)">
+              {/* 3D Shadow */}
+              <rect x="10" y="10" width="175" height="135" rx="8" fill="#090C0B" />
+              {/* Building Body */}
+              <rect x="0" y="0" width="175" height="135" rx="8" fill="#FFF0E8" stroke="#090C0B" strokeWidth="8" />
+              {/* Neon "HOT CHOPS" Sign */}
+              <rect x="25" y="-36" width="125" height="34" rx="8" fill="#090C0B" stroke="#FFC501" strokeWidth="5" />
+              <text x="87" y="-14" fill="#FFC501" fontSize="13" fontWeight="900" textAnchor="middle" letterSpacing="1.5">
+                HOT CHOPS
+              </text>
+              {/* Striped Canopy Awning */}
+              <path d="M-8 0 L183 0 L175 36 Q87 46 -3 36 Z" fill="#FF5500" stroke="#090C0B" strokeWidth="8" />
+              <path d="M24 0 L48 0 L44 38 L22 37 Z" fill="#FFFFFF" stroke="#090C0B" strokeWidth="5" />
+              <path d="M78 0 L102 0 L100 40 L76 40 Z" fill="#FFFFFF" stroke="#090C0B" strokeWidth="5" />
+              <path d="M132 0 L156 0 L152 38 L130 38 Z" fill="#FFFFFF" stroke="#090C0B" strokeWidth="5" />
+              {/* Order Counter */}
+              <rect x="25" y="60" width="125" height="65" rx="6" fill="#090C0B" stroke="#090C0B" strokeWidth="6" />
+              <rect x="33" y="68" width="109" height="49" rx="4" fill="#FFC501" />
+              <text x="87" y="98" fill="#090C0B" fontSize="12" fontWeight="900" textAnchor="middle">
+                OPEN 24/7
+              </text>
             </g>
 
-            {/* Right Skyscraper (Blue Highrise with Windows) */}
-            <g transform="translate(880, 60)">
-              <rect x="0" y="0" width="150" height="210" fill="#559CFF" stroke="#090C0B" strokeWidth="5" />
-              <rect x="15" y="-20" width="45" height="20" fill="#FFC501" stroke="#090C0B" strokeWidth="4" />
-              {/* Blinking Red Beacon Light */}
-              <circle cx="37" cy="-26" r="5" fill="#E80B2E" style={{ animation: 'heroBeaconBlink 1.6s ease-in-out infinite 0.5s' }} />
-              {[...Array(6)].map((_, r) => (
+            {/* Foliage between Buildings */}
+            <circle cx="435" cy="225" r="38" fill="#05AA70" stroke="#090C0B" strokeWidth="7" />
+            <circle cx="465" cy="215" r="32" fill="#014C32" stroke="#090C0B" strokeWidth="7" />
+
+            {/* 3. The Grand Campus Stadium & Arena (x: 490 to 830) */}
+            <g transform="translate(490, 80)">
+              {/* Left Floodlight */}
+              <line x1="25" y1="20" x2="25" y2="175" stroke="#090C0B" strokeWidth="8" />
+              <polygon points="5,20 45,20 38,4 12,4" fill="#FFC501" stroke="#090C0B" strokeWidth="6" />
+              <circle cx="18" cy="12" r="4" fill="#FFFFFF" />
+              <circle cx="32" cy="12" r="4" fill="#FFFFFF" />
+              {/* Right Floodlight */}
+              <line x1="315" y1="20" x2="315" y2="175" stroke="#090C0B" strokeWidth="8" />
+              <polygon points="295,20 335,20 328,4 302,4" fill="#FFC501" stroke="#090C0B" strokeWidth="6" />
+              <circle cx="308" cy="12" r="4" fill="#FFFFFF" />
+              <circle cx="322" cy="12" r="4" fill="#FFFFFF" />
+              {/* Dome 3D Shadow */}
+              <ellipse cx="178" cy="40" rx="150" ry="32" fill="#090C0B" />
+              {/* Dome Roof */}
+              <ellipse cx="170" cy="34" rx="150" ry="32" fill="#05AA70" stroke="#090C0B" strokeWidth="9" />
+              <ellipse cx="170" cy="28" rx="130" ry="22" fill="#014C32" />
+              {/* Stadium Body */}
+              <path d="M38 34 L78 175 L262 175 L302 34 Z" fill="#FFFFFF" stroke="#090C0B" strokeWidth="9" />
+              {/* Stadium Structural Arches */}
+              <path d="M75 34 L100 175" stroke="#090C0B" strokeWidth="7" />
+              <path d="M120 34 L135 175" stroke="#090C0B" strokeWidth="7" />
+              <path d="M170 34 L170 175" stroke="#090C0B" strokeWidth="7" />
+              <path d="M220 34 L205 175" stroke="#090C0B" strokeWidth="7" />
+              <path d="M265 34 L240 175" stroke="#090C0B" strokeWidth="7" />
+              {/* Bold Red KULACHOP Banner */}
+              <rect x="95" y="88" width="150" height="32" rx="7" fill="#FF5500" stroke="#090C0B" strokeWidth="6" />
+              <text x="170" y="110" fill="#FFFFFF" fontSize="14" fontWeight="900" textAnchor="middle" letterSpacing="2.5">
+                KULACHOP
+              </text>
+            </g>
+
+            {/* 4. Campus Student Hostel Tower (x: 870) */}
+            <g transform="translate(870, 45)">
+              {/* 3D Black Shadow */}
+              <rect x="14" y="14" width="165" height="210" rx="6" fill="#090C0B" />
+              {/* Rooftop Water Tank & Beacon */}
+              <rect x="25" y="-30" width="55" height="30" rx="6" fill="#FFC501" stroke="#090C0B" strokeWidth="6" />
+              <line x1="110" y1="0" x2="110" y2="-45" stroke="#090C0B" strokeWidth="7" />
+              <circle cx="110" cy="-48" r="9" fill="#E80B2E" stroke="#090C0B" strokeWidth="5" style={{ animation: 'heroBeaconBlink 1.5s ease-in-out infinite 0.4s' }} />
+              {/* Tower Body */}
+              <rect x="0" y="0" width="165" height="210" rx="6" fill="#3B82F6" stroke="#090C0B" strokeWidth="9" />
+              {/* Lit Windows Grid */}
+              {[...Array(5)].map((_, r) => (
                 <g key={r}>
                   {[...Array(4)].map((_, c) => (
-                    <rect key={c} x={20 + c * 30} y={20 + r * 28} width="18" height="16" fill="#FFFFFF" rx="2" />
+                    <rect
+                      key={c}
+                      x={18 + c * 35}
+                      y={20 + r * 36}
+                      width="22"
+                      height="20"
+                      rx="3"
+                      fill={(r + c) % 2 === 0 ? '#FFC501' : '#FFFFFF'}
+                      stroke="#090C0B"
+                      strokeWidth="4.5"
+                    />
                   ))}
                 </g>
               ))}
             </g>
 
-            {/* Trees in front */}
-            <circle cx="850" cy="245" r="35" fill="#05AA70" stroke="#090C0B" strokeWidth="4" />
-            <circle cx="1060" cy="240" r="40" fill="#014C32" stroke="#090C0B" strokeWidth="4" />
-            <circle cx="1120" cy="250" r="32" fill="#05AA70" stroke="#090C0B" strokeWidth="4" />
+            {/* 5. Trees & Akoka Campus Main Gate (x: 1070 to 1420) */}
+            <circle cx="1075" cy="215" r="48" fill="#05AA70" stroke="#090C0B" strokeWidth="8" />
+            <circle cx="1135" cy="205" r="54" fill="#014C32" stroke="#090C0B" strokeWidth="8" />
+            <circle cx="1195" cy="215" r="44" fill="#05AA70" stroke="#090C0B" strokeWidth="8" />
 
-            {/* Foreground Asphalt Road */}
-            <path
-              d="M0 270 Q400 240 800 260 L1440 230 L1440 320 L0 320 Z"
-              fill="#2C3A3B"
-              stroke="#090C0B"
-              strokeWidth="5"
-            />
-            <path
-              d="M0 295 Q400 265 800 285 L1440 255"
-              stroke="#FFFFFF"
-              strokeWidth="5"
-              strokeDasharray="25 20"
-            />
+            <g transform="translate(1240, 90)">
+              <rect x="8" y="8" width="145" height="165" fill="#090C0B" />
+              {/* Gate Pillars */}
+              <rect x="0" y="0" width="38" height="165" fill="#FF5500" stroke="#090C0B" strokeWidth="8" />
+              <rect x="115" y="0" width="38" height="165" fill="#FF5500" stroke="#090C0B" strokeWidth="8" />
+              {/* Archway Banner */}
+              <polygon points="-8,0 161,0 148,-32 5,-32" fill="#FFC501" stroke="#090C0B" strokeWidth="8" />
+              <text x="76" y="-12" fill="#090C0B" fontSize="12" fontWeight="900" textAnchor="middle" letterSpacing="1">
+                MAIN GATE
+              </text>
+            </g>
 
-            {/* Animated Delivery Courier Riding Continuously Across Road */}
-            <g style={{ animation: 'heroRiderDrive 18s linear infinite' }}>
+            {/* ==============================================================
+                6. BOLD ASPHALT HIGHWAY & ROAD MARKINGS (y: 255 to 320)
+                ============================================================== */}
+            {/* Black Highway */}
+            <path d="M0 255 L1440 255 L1440 320 L0 320 Z" fill="#090C0B" stroke="#090C0B" strokeWidth="8" />
+
+            {/* Alternating Yellow & Black Campus Curb */}
+            <path d="M0 255 L1440 255" stroke="#FFC501" strokeWidth="8" />
+
+            {/* Thick White Dashed Divider Line */}
+            <line x1="0" y1="288" x2="1440" y2="288" stroke="#FFFFFF" strokeWidth="9" strokeDasharray="45 30" />
+
+            {/* ==============================================================
+                7. THE CHUNKY ANIMATED DELIVERY COURIER (SUPER BOLD & SCALED)
+                ============================================================== */}
+            <g style={{ animation: 'heroRiderDrive 16s linear infinite' }}>
               <g style={{ animation: 'floatSlow 1.4s ease-in-out infinite' }}>
+                {/* Wind Trails Behind Courier */}
+                <path d="M-20 18 L-45 18" stroke="#FFC501" strokeWidth="6" strokeLinecap="round" />
+                <path d="M-12 32 L-35 32" stroke="#FFFFFF" strokeWidth="5" strokeLinecap="round" />
+
                 {/* Rear Wheel with Rotating Spokes */}
-                <g style={{ transformOrigin: '20px 40px', animation: 'heroWheelSpin 1.2s linear infinite' }}>
-                  <circle cx="20" cy="40" r="14" fill="#090C0B" />
-                  <circle cx="20" cy="40" r="6" fill="#FFFFFF" />
-                  <line x1="20" y1="26" x2="20" y2="54" stroke="#090C0B" strokeWidth="1.5" />
-                  <line x1="6" y1="40" x2="34" y2="40" stroke="#090C0B" strokeWidth="1.5" />
+                <g style={{ transformOrigin: '30px 42px', animation: 'heroWheelSpin 1s linear infinite' }}>
+                  <circle cx="30" cy="42" r="22" fill="#090C0B" />
+                  <circle cx="30" cy="42" r="14" fill="#FFC501" stroke="#090C0B" strokeWidth="4" />
+                  <line x1="30" y1="20" x2="30" y2="64" stroke="#FFFFFF" strokeWidth="3" />
+                  <line x1="8" y1="42" x2="52" y2="42" stroke="#FFFFFF" strokeWidth="3" />
+                  <circle cx="30" cy="42" r="5" fill="#090C0B" />
                 </g>
+
                 {/* Front Wheel with Rotating Spokes */}
-                <g style={{ transformOrigin: '68px 40px', animation: 'heroWheelSpin 1.2s linear infinite' }}>
-                  <circle cx="68" cy="40" r="14" fill="#090C0B" />
-                  <circle cx="68" cy="40" r="6" fill="#FFFFFF" />
-                  <line x1="68" y1="26" x2="68" y2="54" stroke="#090C0B" strokeWidth="1.5" />
-                  <line x1="54" y1="40" x2="82" y2="40" stroke="#090C0B" strokeWidth="1.5" />
+                <g style={{ transformOrigin: '98px 42px', animation: 'heroWheelSpin 1s linear infinite' }}>
+                  <circle cx="98" cy="42" r="22" fill="#090C0B" />
+                  <circle cx="98" cy="42" r="14" fill="#FFC501" stroke="#090C0B" strokeWidth="4" />
+                  <line x1="98" y1="20" x2="98" y2="64" stroke="#FFFFFF" strokeWidth="3" />
+                  <line x1="76" y1="42" x2="120" y2="42" stroke="#FFFFFF" strokeWidth="3" />
+                  <circle cx="98" cy="42" r="5" fill="#090C0B" />
                 </g>
-                {/* Bike Frame & Delivery Courier */}
-                <path d="M20 40 L38 35 L52 20 L68 40" stroke="#FF5500" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" />
-                <rect x="0" y="8" width="32" height="26" rx="4" fill="#FF5500" stroke="#090C0B" strokeWidth="2.5" />
-                <circle cx="16" cy="21" r="5" fill="#FFC501" />
-                <circle cx="48" cy="4" r="11" fill="#FFC501" stroke="#090C0B" strokeWidth="2.5" />
-                <path d="M48 15 L45 32" stroke="#090C0B" strokeWidth="6" strokeLinecap="round" />
-                <path d="M48 20 L58 24" stroke="#090C0B" strokeWidth="4" strokeLinecap="round" />
+
+                {/* Chunky Bike Frame */}
+                <path d="M30 42 L58 38 L78 16 L98 42" stroke="#FF5500" strokeWidth="13" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M30 42 L58 38 L78 16 L98 42" stroke="#090C0B" strokeWidth="3.5" fill="none" />
+                <path d="M58 38 L70 12 L86 12" stroke="#090C0B" strokeWidth="6" strokeLinecap="round" />
+
+                {/* Big Thermal Delivery Box with Flame Badge */}
+                <rect x="2" y="4" width="46" height="36" rx="8" fill="#FF5500" stroke="#090C0B" strokeWidth="5" />
+                <circle cx="25" cy="22" r="9" fill="#FFC501" stroke="#090C0B" strokeWidth="3" />
+                <path d="M25 17 Q27 20 25 24 Q29 21 25 27" stroke="#090C0B" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+
+                {/* Courier Torso & Arms */}
+                <path d="M66 10 L60 35" stroke="#090C0B" strokeWidth="13" strokeLinecap="round" />
+                <path d="M66 16 L82 14" stroke="#090C0B" strokeWidth="7" strokeLinecap="round" />
+
+                {/* Helmet & Visor */}
+                <circle cx="70" cy="-2" r="16" fill="#FF5500" stroke="#090C0B" strokeWidth="5" />
+                <path d="M74 -4 L84 -2 L80 5 L70 4 Z" fill="#090C0B" />
               </g>
             </g>
           </svg>
@@ -624,7 +686,7 @@ export const LandingPage: React.FC<LandingPageProps> = () => {
       {/* =========================================================================
           2. "WHAT'S ON KULACHOP?" (TRY THE EVERYTHING CAMPUS PLATFORM)
           ========================================================================= */}
-      <section style={{ padding: '80px 20px', backgroundColor: '#FFFFFF', borderTop: '2px solid #E5EAE7', borderBottom: '2px solid #E5EAE7', textAlign: 'center' }}>
+      <section style={{ padding: '60px 20px', backgroundColor: '#FFFFFF', borderTop: '2px solid #E5EAE7', borderBottom: '2px solid #E5EAE7', textAlign: 'center', overflow: 'hidden' }}>
         <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
           <h2 style={{ fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 900, color: '#090C0B', letterSpacing: '-1.5px', marginBottom: '8px' }}>
             What’s on Kulachop?
@@ -1461,101 +1523,21 @@ export const LandingPage: React.FC<LandingPageProps> = () => {
       {/* =========================================================================
           9. "PLACE YOUR ORDER IN SECONDS" PROMO BANNER (SCREENSHOT SECTION 9)
           ========================================================================= */}
-      <section style={{ maxWidth: '1240px', margin: '80px auto', padding: '0 20px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '28px', alignItems: 'stretch' }}>
+      <section className="kula-order-promo-section">
+        <div className="kula-order-promo-grid">
           {/* Left Orange Promo Card */}
-          <div
-            style={{
-              border: '4px solid #090C0B',
-              borderRadius: '32px',
-              backgroundColor: '#FF5500',
-              color: '#FFFFFF',
-              padding: '44px 36px',
-              boxShadow: '0 12px 0 #090C0B',
-              position: 'relative',
-              overflow: 'hidden',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              minHeight: '400px',
-            }}
-          >
+          <div className="kula-order-promo-card-left">
             <div>
-              <h2 style={{ fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 900, letterSpacing: '-1.5px', lineHeight: 1.1, marginBottom: '24px' }}>
+              <h2 className="kula-order-promo-title">
                 Place your <br />
                 order in seconds
               </h2>
 
-              {/* App download buttons commented out since mobile app is not yet live */}
-              {/*
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap', marginBottom: '32px' }}>
-                <button
-                  onClick={() => showToast('Kulachop on Google Play launching soon!', 'info')}
-                  style={{
-                    backgroundColor: '#FFFFFF',
-                    color: '#FF5500',
-                    fontWeight: 800,
-                    fontSize: '13px',
-                    padding: '12px 20px',
-                    borderRadius: '14px',
-                    border: 'none',
-                    cursor: 'pointer',
-                    boxShadow: '0 4px 10px rgba(0,0,0,0.15)',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                  }}
-                >
-                  <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M4 3.5v17l14-8.5-14-8.5z" />
-                  </svg>
-                  <span>Download on Google Play</span>
-                </button>
-
-                <button
-                  onClick={() => showToast('Kulachop on App Store launching soon!', 'info')}
-                  style={{
-                    backgroundColor: '#FFFFFF',
-                    color: '#FF5500',
-                    fontWeight: 800,
-                    fontSize: '13px',
-                    padding: '12px 20px',
-                    borderRadius: '14px',
-                    border: 'none',
-                    cursor: 'pointer',
-                    boxShadow: '0 4px 10px rgba(0,0,0,0.15)',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                  }}
-                >
-                  <svg width="15" height="18" fill="currentColor" viewBox="0 0 170 170">
-                    <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.69-3.04-7.66-7.8-11.91-14.28-6.1-9.35-10.8-19.8-14.11-31.35-3.31-11.55-4.97-22.38-4.97-32.48 0-14.34 3.48-26.29 10.43-35.85 6.95-9.56 15.65-14.52 26.11-14.88 5.43 0 11.39 1.41 17.88 4.23 6.49 2.82 10.63 4.3 12.42 4.45 1.52-.15 5.92-1.74 13.2-4.77 7.28-3.03 13.54-4.38 18.78-4.05 14.12.98 25.09 5.86 32.91 14.65-12.38 7.5-18.42 17.71-18.13 30.64.22 10.21 4.13 18.68 11.73 25.42 7.6 6.74 16.73 10.76 27.38 12.06-2.17 6.3-4.89 12.5-8.15 18.6z" />
-                  </svg>
-                  <span>Download on App Store</span>
-                </button>
-              </div>
-              */}
-
               {/* Web Order Button */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap', marginBottom: '32px' }}>
+              <div className="kula-order-promo-actions">
                 <a
                   href="#campus-map-section"
-                  style={{
-                    backgroundColor: '#FFFFFF',
-                    color: '#FF5500',
-                    fontWeight: 800,
-                    fontSize: '14px',
-                    padding: '14px 28px',
-                    borderRadius: '16px',
-                    border: 'none',
-                    cursor: 'pointer',
-                    boxShadow: '0 4px 10px rgba(0,0,0,0.15)',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    textDecoration: 'none',
-                  }}
+                  className="kula-order-promo-btn"
                 >
                   <span>Order Now on Web</span>
                   <ArrowRight size={18} />
@@ -1563,32 +1545,33 @@ export const LandingPage: React.FC<LandingPageProps> = () => {
               </div>
 
               {/* Promo Code KULAWEB */}
-              <div style={{ background: 'rgba(0,0,0,0.25)', padding: '16px 20px', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.12)', maxWidth: '340px' }}>
-                <span
-                  style={{
-                    background: 'rgba(255, 255, 255, 0.15)',
-                    border: '1.5px dashed rgba(255, 197, 1, 0.8)',
-                    color: '#FFC501',
-                    fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
-                    fontWeight: 800,
-                    fontSize: '20px',
-                    padding: '6px 16px',
-                    borderRadius: '12px',
-                    display: 'inline-block',
-                    letterSpacing: '2px',
-                    marginBottom: '8px',
-                  }}
-                >
-                  KULAWEB
-                </span>
-                <p style={{ color: '#FFFFFF', fontSize: '14px', fontWeight: 600, margin: 0 }}>
-                  Get <strong style={{ color: '#FFC501' }}>₦300 off</strong> your first order when you use this promo code!
+              <div className="kula-order-promo-code-card">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '8px' }}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      navigator.clipboard?.writeText('KULAWEB');
+                      showToast('Promo code KULAWEB copied to clipboard! 🎉', 'success');
+                    }}
+                    title="Click to copy promo code"
+                    className="kula-order-promo-code-pill"
+                    style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+                  >
+                    <span>KULAWEB</span>
+                    <Copy size={14} />
+                  </button>
+                  <span style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.8px', background: 'rgba(255,255,255,0.2)', padding: '3px 8px', borderRadius: '6px' }}>
+                    Tap to copy
+                  </span>
+                </div>
+                <p className="kula-order-promo-code-desc">
+                  Get <strong style={{ color: '#FFC501', textDecoration: 'underline' }}>₦300 off</strong> your first order when you use this promo code!
                 </p>
               </div>
             </div>
 
             {/* Drink Bottles Illustration */}
-            <div style={{ position: 'absolute', right: '16px', bottom: '8px', opacity: 0.85, pointerEvents: 'none' }}>
+            <div className="kula-order-promo-drinks-illus">
               <svg width="140" height="160" viewBox="0 0 140 160" fill="none">
                 <rect x="70" y="30" width="36" height="110" rx="8" fill="#FFC501" stroke="#090C0B" strokeWidth="3" />
                 <rect x="80" y="15" width="16" height="15" fill="#E80B2E" stroke="#090C0B" strokeWidth="2.5" />
@@ -1599,11 +1582,10 @@ export const LandingPage: React.FC<LandingPageProps> = () => {
           </div>
 
           {/* Right Mobile Phone in Hand Image */}
-          <div style={{ border: '4px solid #090C0B', borderRadius: '32px', overflow: 'hidden', boxShadow: '0 12px 0 #090C0B', minHeight: '400px' }}>
+          <div className="kula-order-promo-card-right">
             <img
               src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=800&q=80"
               alt="Hands holding phone ordering on Kulachop"
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
           </div>
         </div>

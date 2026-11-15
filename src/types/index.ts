@@ -2,6 +2,8 @@
 
 export type Role = 'student' | 'vendor' | 'rider' | 'admin';
 
+export type StudentTab = 'explore' | 'search' | 'orders' | 'wallet' | 'profile';
+
 export interface Campus {
   id: string;
   name: string;

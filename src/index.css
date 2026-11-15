@@ -390,10 +390,10 @@ button:disabled {
 
 @keyframes heroRiderDrive {
   0% {
-    transform: translate(-140px, 230px);
+    transform: translate(-180px, 215px);
   }
   100% {
-    transform: translate(1520px, 230px);
+    transform: translate(1540px, 215px);
   }
 }
 
@@ -576,87 +576,263 @@ button:disabled {
    AUTHENTIC KULACHOP DESIGN SYSTEM UTILITIES
    ========================================================================== */
 
-/* Hero Container and Typography */
-.kula-hero-container {
-  width: 100%;
+/* Hero Section & Responsive Mobile Design */
+.kula-hero-section {
   position: relative;
-  background-color: #F8F9F8;
-  padding: 40px 16px 60px;
+  width: 100%;
+  padding-top: 48px;
+  padding-bottom: 0;
   overflow: hidden;
+  background-color: #FAF9F5;
+  box-sizing: border-box;
 }
 
-@media (min-width: 768px) {
-  .kula-hero-container {
-    padding: 60px 24px 80px;
+@media (max-width: 768px) {
+  .kula-hero-section {
+    padding-top: 24px;
   }
 }
 
-.kula-hero-title {
-  font-size: 2.75rem;
-  line-height: 1.05;
-  font-weight: 900;
-  letter-spacing: -2px;
-  color: #090C0B;
+.kula-hero-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 20px;
   text-align: center;
-  margin-bottom: 24px;
+  position: relative;
+  z-index: 20;
+  box-sizing: border-box;
 }
 
-@media (min-width: 640px) {
-  .kula-hero-title {
-    font-size: 4rem;
-    letter-spacing: -3px;
+@media (max-width: 640px) {
+  .kula-hero-inner {
+    padding: 0 14px;
   }
 }
 
-@media (min-width: 1024px) {
-  .kula-hero-title {
-    font-size: 6.5rem;
-    letter-spacing: -4.5px;
+/* Giant Multilingual Cycling Headline */
+.kula-hero-headline {
+  font-weight: 900;
+  letter-spacing: -2.5px;
+  color: #090C0B;
+  line-height: 1.05;
+  margin-bottom: 20px;
+  min-height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: clamp(48px, 7vw, 104px);
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .kula-hero-headline {
+    font-size: clamp(34px, 7.5vw, 56px);
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    min-height: 72px;
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .kula-hero-headline {
+    font-size: clamp(28px, 8.5vw, 42px);
+    letter-spacing: -1px;
+    line-height: 1.15;
+    min-height: 58px;
+    margin-bottom: 14px;
+  }
+}
+
+/* Campus Indicator Badge */
+.kula-hero-campus-pill-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.kula-hero-campus-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: #FFFFFF;
+  border: 1.5px solid #E5EAE7;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #090C0B;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(9, 12, 11, 0.05);
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.kula-hero-campus-pill:hover {
+  border-color: #FF5500;
+  box-shadow: 0 4px 14px rgba(255, 85, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 480px) {
+  .kula-hero-campus-pill {
+    font-size: 12px;
+    padding: 5px 12px;
+    gap: 6px;
   }
 }
 
 /* Hero Pill Search Bar */
-.kula-search-pill {
+.kula-hero-search-wrapper {
   width: 100%;
   max-width: 680px;
-  margin: 0 auto;
-  background: #FFFFFF;
-  border-radius: 9999px;
-  height: 64px;
-  padding: 6px 8px 6px 20px;
+  margin: 0 auto 36px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+  .kula-hero-search-wrapper {
+    margin-bottom: 22px;
+  }
+}
+
+.kula-hero-search-pill {
+  position: relative;
   display: flex;
   align-items: center;
-  box-shadow: 0 10px 30px -4px rgba(9, 12, 11, 0.08);
-  border: 1.5px solid #E2E8F0;
-  transition: all 0.25s ease;
-}
-
-.kula-search-pill:focus-within {
-  border-color: #090C0B;
-  box-shadow: 0 0 0 3px rgba(9, 12, 11, 0.1), 0 16px 36px -4px rgba(9, 12, 11, 0.12);
-}
-
-.kula-search-btn {
-  background-color: #FF5500;
-  color: #FFFFFF;
+  height: 64px;
+  padding: 0 8px 0 18px;
   border-radius: 9999px;
-  font-weight: 700;
-  font-size: 14px;
-  padding: 12px 26px;
+  background-color: #FFFFFF;
+  box-shadow: 0 12px 32px -4px rgba(9, 12, 11, 0.1);
+  border: 2px solid #E2E8F0;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.kula-hero-search-pill:focus-within {
+  border-color: #FF5500;
+  box-shadow: 0 0 0 3px rgba(255, 85, 0, 0.15), 0 16px 36px -4px rgba(9, 12, 11, 0.14);
+}
+
+.kula-hero-search-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  height: 100%;
+  background: transparent;
+  outline: none;
+  color: #090C0B;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+
+.kula-hero-search-clear {
+  padding: 4px;
+  color: #94A3B8;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-right: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.kula-hero-search-clear:hover {
+  color: #090C0B;
+}
+
+.kula-hero-search-btn {
+  background-color: #FF5500;
+  border-radius: 9999px;
+  color: #FFFFFF;
+  font-size: 14.5px;
+  padding: 12px 24px;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(255, 85, 0, 0.35);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  white-space: nowrap;
 }
 
-.kula-search-btn:hover {
+.kula-hero-search-btn:hover {
   background-color: #E04800;
   transform: scale(1.02);
 }
 
-.kula-search-btn:active {
+.kula-hero-search-btn:active {
   transform: scale(0.98);
+}
+
+/* Search bar on tablet & mobile */
+@media (max-width: 640px) {
+  .kula-hero-search-pill {
+    height: 52px;
+    padding: 0 5px 0 14px;
+  }
+  .kula-hero-search-input {
+    font-size: 13.5px;
+    padding: 0 8px;
+  }
+  .kula-hero-search-btn {
+    font-size: 13px;
+    padding: 9px 16px;
+    height: 42px;
+  }
+}
+
+@media (max-width: 400px) {
+  .kula-hero-search-pill {
+    height: 48px;
+    padding: 0 4px 0 10px;
+  }
+  .kula-hero-search-input {
+    font-size: 12.5px;
+    padding: 0 6px;
+  }
+  .kula-hero-search-btn {
+    font-size: 12px;
+    padding: 8px 12px;
+    height: 38px;
+  }
+}
+
+/* Skyline Illustration */
+.kula-hero-skyline {
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  position: relative;
+  z-index: 10;
+  padding-top: 16px;
+}
+
+.kula-hero-skyline svg {
+  width: 100%;
+  height: auto;
+  min-height: 120px;
+  max-height: 340px;
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .kula-hero-skyline {
+    padding-top: 8px;
+  }
+  .kula-hero-skyline svg {
+    min-height: 90px;
+    max-height: 180px;
+  }
 }
 
 /* Kulachop Section Title */
@@ -749,4 +925,687 @@ button:disabled {
   border-radius: 12px;
   display: inline-block;
   letter-spacing: 2px;
+}
+
+/* ==========================================================================
+   Capsule Navbar Mobile & Responsive Design System
+   ========================================================================== */
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.kula-nav-header {
+  position: sticky;
+  top: 14px;
+  z-index: 50;
+  width: 100%;
+  padding: 0 16px;
+  display: flex;
+  justify-content: center;
+  background: transparent;
+  pointer-events: none;
+  box-sizing: border-box;
+  transition: top 0.2s ease, padding 0.2s ease;
+}
+
+.kula-nav-capsule {
+  pointer-events: auto;
+  width: 100%;
+  max-width: 1120px;
+  background: #FFFFFF;
+  border-radius: 9999px;
+  border: 1.5px solid #E5EAE7;
+  box-shadow: 0 6px 24px -4px rgba(9, 12, 11, 0.08), 0 2px 6px -1px rgba(9, 12, 11, 0.04);
+  padding: 8px 14px 8px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.kula-nav-logo-box {
+  width: 36px;
+  height: 36px;
+  border-radius: 11px;
+  background: linear-gradient(135deg, #FF5500 0%, #FF7700 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFC501;
+  box-shadow: 0 4px 12px rgba(255, 85, 0, 0.3);
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+
+.kula-nav-logo-text {
+  font-weight: 900;
+  font-size: 20px;
+  letter-spacing: -0.6px;
+  color: #090C0B;
+  white-space: nowrap;
+  user-select: none;
+  transition: font-size 0.2s ease;
+}
+
+.kula-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  transition: gap 0.2s ease;
+}
+
+.kula-nav-btn-signin {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #FFFFFF;
+  background: #090C0B;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(9, 12, 11, 0.15);
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.kula-nav-btn-wallet {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: #F5F7F6;
+  border-radius: 9999px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #090C0B;
+  border: 1px solid #E5EAE7;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.kula-nav-btn-cart {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 14px;
+  height: 38px;
+  border-radius: 9999px;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 13px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.kula-nav-btn-menu {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: #F5F7F6;
+  border: 1px solid #E5EAE7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #090C0B;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.kula-nav-btn-track {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: #FFF0E8;
+  border: 1.5px solid #FF5500;
+  border-radius: 9999px;
+  color: #FF5500;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+/* Tablet view (<= 768px) */
+@media (max-width: 768px) {
+  .kula-nav-header {
+    top: 10px;
+    padding: 0 12px;
+  }
+
+  .kula-nav-capsule {
+    padding: 6px 10px 6px 14px;
+    gap: 8px;
+  }
+
+  .kula-nav-logo-box {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+  }
+
+  .kula-nav-logo-text {
+    font-size: 17px;
+    letter-spacing: -0.4px;
+  }
+
+  .kula-nav-actions {
+    gap: 6px;
+  }
+
+  /* Hide Sign In button on mobile view */
+  .kula-nav-btn-signin {
+    display: none !important;
+  }
+
+  .kula-nav-btn-wallet {
+    padding: 5px 9px;
+    font-size: 12px;
+  }
+
+  .kula-nav-btn-cart {
+    height: 35px;
+    padding: 6px 11px;
+    font-size: 12px;
+  }
+
+  .kula-nav-btn-menu {
+    width: 35px;
+    height: 35px;
+    border-radius: 10px;
+  }
+
+  .kula-nav-btn-signout {
+    display: none !important;
+  }
+}
+
+/* Mobile phones (<= 520px) */
+@media (max-width: 520px) {
+  .kula-nav-header {
+    top: 8px;
+    padding: 0 8px;
+  }
+
+  .kula-nav-capsule {
+    padding: 5px 8px 5px 12px;
+    gap: 6px;
+  }
+
+  .kula-nav-logo-box {
+    width: 29px;
+    height: 29px;
+    border-radius: 8px;
+  }
+
+  .kula-nav-logo-text {
+    font-size: 15px;
+    letter-spacing: -0.3px;
+  }
+
+  .kula-nav-actions {
+    gap: 5px;
+  }
+
+  .kula-nav-btn-wallet {
+    padding: 4px 7px;
+    font-size: 11px;
+  }
+
+  .kula-nav-btn-cart {
+    height: 33px;
+    padding: 5px 9px;
+  }
+
+  .kula-nav-btn-menu {
+    width: 33px;
+    height: 33px;
+    border-radius: 9px;
+  }
+
+  .kula-nav-btn-track {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+}
+
+/* Very narrow devices (<= 360px) */
+@media (max-width: 360px) {
+  .kula-nav-header {
+    top: 6px;
+    padding: 0 5px;
+  }
+
+  .kula-nav-capsule {
+    padding: 4px 6px 4px 9px;
+    gap: 4px;
+  }
+
+  .kula-nav-logo-box {
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+  }
+
+  .kula-nav-logo-text {
+    font-size: 13.5px;
+  }
+
+  .kula-nav-actions {
+    gap: 4px;
+  }
+
+  .kula-nav-btn-cart {
+    height: 30px;
+    padding: 4px 7px;
+  }
+
+  .kula-nav-btn-menu {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* ==========================================================================
+   Place Your Order Promo Banner (Section 9 Responsive Overhaul)
+   ========================================================================== */
+.kula-order-promo-section {
+  max-width: 1240px;
+  margin: 72px auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.kula-order-promo-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 28px;
+  align-items: stretch;
+}
+
+.kula-order-promo-card-left {
+  border: 4px solid #090C0B;
+  border-radius: 32px;
+  background-color: #FF5500;
+  color: #FFFFFF;
+  padding: 44px 38px;
+  box-shadow: 0 12px 0 #090C0B;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justifyContent: space-between;
+  min-height: 420px;
+  box-sizing: border-box;
+}
+
+.kula-order-promo-title {
+  font-size: clamp(34px, 4.4vw, 54px);
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  line-height: 1.08;
+  margin: 0 0 22px 0;
+  color: #FFFFFF;
+  text-shadow: 0 2px 0 rgba(9, 12, 11, 0.25);
+}
+
+.kula-order-promo-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+  position: relative;
+  z-index: 2;
+}
+
+.kula-order-promo-btn {
+  background-color: #FFFFFF;
+  color: #FF5500;
+  font-weight: 800;
+  font-size: 15px;
+  padding: 14px 28px;
+  border-radius: 16px;
+  border: 3px solid #090C0B;
+  box-shadow: 0 5px 0 #090C0B;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  white-space: nowrap;
+}
+
+.kula-order-promo-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 #090C0B;
+  background-color: #FFFDF8;
+}
+
+.kula-order-promo-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #090C0B;
+}
+
+.kula-order-promo-code-card {
+  background: rgba(0, 0, 0, 0.28);
+  padding: 18px 22px;
+  border-radius: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  max-width: 360px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2;
+}
+
+.kula-order-promo-code-pill {
+  background: #FFC501;
+  color: #090C0B;
+  border: 2px solid #090C0B;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-weight: 900;
+  font-size: 19px;
+  padding: 6px 16px;
+  border-radius: 10px;
+  display: inline-block;
+  letter-spacing: 2px;
+  box-shadow: 0 3px 0 #090C0B;
+  margin-bottom: 8px;
+  transition: transform 0.12s ease;
+}
+
+.kula-order-promo-code-pill:hover {
+  transform: scale(1.03);
+}
+
+.kula-order-promo-code-pill:active {
+  transform: scale(0.97);
+}
+
+.kula-order-promo-code-desc {
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.kula-order-promo-drinks-illus {
+  position: absolute;
+  right: 18px;
+  bottom: 12px;
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.kula-order-promo-drinks-illus svg {
+  width: 140px;
+  height: 160px;
+  display: block;
+}
+
+.kula-order-promo-card-right {
+  border: 4px solid #090C0B;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 12px 0 #090C0B;
+  min-height: 420px;
+  position: relative;
+  box-sizing: border-box;
+  background-color: #E6E4DD;
+}
+
+.kula-order-promo-card-right img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Tablet viewports (<= 960px) */
+@media (max-width: 960px) {
+  .kula-order-promo-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .kula-order-promo-card-left {
+    padding: 36px 30px;
+    border-radius: 28px;
+    box-shadow: 0 10px 0 #090C0B;
+    min-height: auto;
+  }
+
+  .kula-order-promo-card-right {
+    min-height: 280px;
+    max-height: 340px;
+    border-radius: 28px;
+    box-shadow: 0 10px 0 #090C0B;
+  }
+
+  .kula-order-promo-drinks-illus {
+    right: 20px;
+    bottom: 16px;
+    opacity: 0.8;
+  }
+}
+
+/* Mobile viewports (<= 640px) */
+@media (max-width: 640px) {
+  .kula-order-promo-section {
+    margin: 40px auto;
+    padding: 0 14px;
+  }
+
+  .kula-order-promo-grid {
+    gap: 18px;
+  }
+
+  .kula-order-promo-card-left {
+    padding: 28px 18px 24px;
+    border-width: 3.5px;
+    border-radius: 22px;
+    box-shadow: 0 8px 0 #090C0B;
+  }
+
+  .kula-order-promo-title {
+    font-size: clamp(26px, 7.5vw, 34px);
+    letter-spacing: -1px;
+    line-height: 1.12;
+    margin-bottom: 18px;
+    max-width: 82%;
+  }
+
+  .kula-order-promo-actions {
+    margin-bottom: 20px;
+  }
+
+  .kula-order-promo-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 13px 20px;
+    font-size: 14.5px;
+    border-radius: 14px;
+    box-shadow: 0 4px 0 #090C0B;
+  }
+
+  .kula-order-promo-code-card {
+    max-width: 100%;
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.32);
+  }
+
+  .kula-order-promo-code-pill {
+    font-size: 16px;
+    padding: 5px 12px;
+    border-radius: 8px;
+    letter-spacing: 1.5px;
+  }
+
+  .kula-order-promo-code-desc {
+    font-size: 13px;
+  }
+
+  /* Reposition drinks illustration to top-right watermark so it never covers promo code text */
+  .kula-order-promo-drinks-illus {
+    top: 14px;
+    right: 12px;
+    bottom: auto;
+    opacity: 0.28;
+    transform: scale(0.68) rotate(6deg);
+    transform-origin: top right;
+  }
+
+  .kula-order-promo-card-right {
+    min-height: 200px;
+    max-height: 250px;
+    border-width: 3.5px;
+    border-radius: 22px;
+    box-shadow: 0 8px 0 #090C0B;
+  }
+}
+
+/* Very narrow devices (<= 360px) */
+@media (max-width: 360px) {
+  .kula-order-promo-section {
+    padding: 0 10px;
+    margin: 30px auto;
+  }
+
+  .kula-order-promo-card-left {
+    padding: 22px 14px 20px;
+    border-width: 3px;
+    border-radius: 18px;
+    box-shadow: 0 6px 0 #090C0B;
+  }
+
+  .kula-order-promo-title {
+    font-size: 24px;
+  }
+
+  .kula-order-promo-btn {
+    padding: 11px 16px;
+    font-size: 13.5px;
+  }
+
+  .kula-order-promo-code-card {
+    padding: 12px 12px;
+    border-radius: 14px;
+  }
+
+  .kula-order-promo-code-pill {
+    font-size: 15px;
+    padding: 4px 10px;
+  }
+
+  .kula-order-promo-drinks-illus {
+    top: 10px;
+    right: 8px;
+    transform: scale(0.55) rotate(6deg);
+    opacity: 0.22;
+  }
+
+  .kula-order-promo-card-right {
+    min-height: 170px;
+    max-height: 200px;
+    border-width: 3px;
+    border-radius: 18px;
+    box-shadow: 0 6px 0 #090C0B;
+  }
+}
+
+/* ==========================================================================
+   Desktop Sidebar & Authenticated App Layout
+   ========================================================================== */
+.kula-auth-layout {
+  min-height: 100vh;
+  background-color: #F8FAF9;
+  display: flex;
+  flex-direction: column;
+}
+
+.kula-auth-body-container {
+  display: flex;
+  flex: 1;
+  min-height: 100vh;
+}
+
+.kula-desktop-sidebar {
+  display: flex !important;
+}
+
+.kula-auth-main-content {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  padding-bottom: 40px;
+}
+
+.kula-mobile-nav-wrapper {
+  display: none !important;
+}
+
+.kula-pwa-bottom-nav {
+  display: none !important;
+}
+
+/* Tablet & Mobile Breakpoint (<= 959px) */
+@media (max-width: 959px) {
+  .kula-desktop-sidebar {
+    display: none !important;
+  }
+
+  .kula-mobile-nav-wrapper {
+    display: block !important;
+  }
+
+  .kula-pwa-bottom-nav {
+    display: flex !important;
+  }
+
+  .kula-auth-body-container {
+    display: block !important;
+  }
+
+  .kula-auth-main-content {
+    padding-bottom: 80px !important;
+  }
+}
+
+.kula-dashboard-wrapper {
+  animation: fadeIn 0.25s ease-out;
+}
+
+@media (max-width: 640px) {
+  .kula-dashboard-wrapper {
+    padding: 12px 12px 90px !important;
+  }
 }

@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 import type {
   Role,
+  StudentTab,
   Campus,
   Vendor,
   MenuItem,
@@ -95,6 +96,10 @@ interface AppContextType {
   riderConfirmPickup: (orderId: string) => void;
   riderConfirmDelivery: (orderId: string, inputCode: string) => { success: boolean; message: string };
 
+  // Navigation & PWA Tabs
+  activeTab: StudentTab;
+  setActiveTab: (tab: StudentTab) => void;
+
   // Authentication
   isAuthenticated: boolean;
   setIsAuthenticated: (auth: boolean) => void;
@@ -145,21 +150,27 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [activeVendorId, setActiveVendorId] = useState<string>('v1');
   const [isRiderOnline, setIsRiderOnline] = useState<boolean>(true);
 
+  // Navigation & PWA Tabs
+  const [activeTab, setActiveTab] = useState<StudentTab>('explore');
+
   // Authentication state (Default false: clean landing page for visitors)
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
 
   const login = (phone: string, name?: string) => {
     setIsAuthenticated(true);
+    setActiveTab('explore');
     if (name) {
       setStudent((s) => ({ ...s, name, phone }));
     }
     setIsAuthModalOpen(false);
-    showToast(`Welcome to Kulachops, ${name || 'Student'}!`, 'success');
+    showToast(`Welcome back to Kulachops, ${name || 'Student'}! 🎉`, 'success');
   };
 
   const logout = () => {
     setIsAuthenticated(false);
+    setActiveTab('explore');
+    setSelectedVendorForMenu(null);
     showToast('You have signed out of your Kulachops account', 'info');
   };
 
@@ -556,6 +567,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         riderConfirmDelivery,
         toast,
         showToast,
+        activeTab,
+        setActiveTab,
         isAuthenticated,
         setIsAuthenticated,
         isAuthModalOpen,

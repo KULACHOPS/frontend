@@ -188,6 +188,40 @@ export const AuthModal: React.FC = () => {
                 <span>Continue</span>
                 <ArrowRight size={16} />
               </button>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', margin: '4px 0' }}>
+                <div style={{ flex: 1, height: '1px', background: '#E5EAE7' }} />
+                <span style={{ fontSize: '11px', fontWeight: 800, color: '#8E9993', textTransform: 'uppercase' }}>or quick test</span>
+                <div style={{ flex: 1, height: '1px', background: '#E5EAE7' }} />
+              </div>
+
+              <button
+                type="button"
+                onClick={() => {
+                  login('08123456789', 'Tobi Adeleke');
+                }}
+                style={{
+                  width: '100%',
+                  padding: '13px',
+                  borderRadius: '14px',
+                  background: '#FFC501',
+                  color: '#090C0B',
+                  fontWeight: 900,
+                  fontSize: '13.5px',
+                  border: '2px solid #090C0B',
+                  boxShadow: '0 4px 0 #090C0B',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  transition: 'transform 0.1s ease',
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-1px)')}
+                onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
+              >
+                <span>⚡ 1-Tap Student Demo Login</span>
+              </button>
             </form>
           ) : (
             <form onSubmit={handleVerifyOtp} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
