@@ -8,11 +8,9 @@ import {
   Bike,
   Plus,
   ShoppingBag,
-  Wallet,
-  ArrowRight,
+  // Wallet,
   RotateCcw,
   Sparkles,
-  Copy,
   LogOut,
 } from 'lucide-react';
 import type { MenuItem } from '../../types';
@@ -33,17 +31,17 @@ export const StudentDashboard: React.FC = () => {
     cart,
     setIsCartOpen,
     addToCart,
-    topUpWallet,
+    // topUpWallet,
     showToast,
     logout,
     openRatingForOrder,
   } = useApp();
 
-  // Local State for Explore & Search Tabs
+  // Local State
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [vendorFilter, setVendorFilter] = useState<'all' | 'open' | 'fast' | 'topRated'>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [walletTopUpInput, setWalletTopUpInput] = useState<string>('2500');
+  // const [walletTopUpInput, setWalletTopUpInput] = useState<string>('2500');
   const [ordersSubFilter, setOrdersSubFilter] = useState<'all' | 'active' | 'completed'>('all');
 
   // Total cart items count
@@ -59,9 +57,9 @@ export const StudentDashboard: React.FC = () => {
 
   // Campus Categories
   const categories = [
-    { id: 'all', name: 'All Chops', emoji: '🍽️' },
-    { id: 'Rice Dishes', name: 'Rice & Jollof', emoji: '🍚' },
-    { id: 'Grills & Shawarma', name: 'Grills & Shawarma', emoji: '🌯' },
+    { id: 'all', name: 'All', emoji: '🍽️' },
+    { id: 'Rice Dishes', name: 'Rice & Bowls', emoji: '🍚' },
+    { id: 'Grills & Shawarma', name: 'Shawarma & Grills', emoji: '🌯' },
     { id: 'Swallow', name: 'Swallow & Soups', emoji: '🍲' },
     { id: 'Late Night', name: 'Late Night (2AM)', emoji: '🌙' },
     { id: 'Chillers', name: 'Drinks & Chillers', emoji: '🧋' },
@@ -71,14 +69,12 @@ export const StudentDashboard: React.FC = () => {
   // Filtered vendors for Explore tab
   const filteredVendors = useMemo(() => {
     return vendors.filter((v) => {
-      // Category match
       if (selectedCategory !== 'all') {
         const matchesCat = v.cuisineTypes.some((c) =>
           c.toLowerCase().includes(selectedCategory.toLowerCase())
         );
         if (!matchesCat) return false;
       }
-      // Pill filter
       if (vendorFilter === 'open' && !v.isOpen) return false;
       if (vendorFilter === 'topRated' && v.rating < 4.8) return false;
       if (vendorFilter === 'fast' && parseInt(v.prepTimeEstimate) > 20) return false;
@@ -129,402 +125,348 @@ export const StudentDashboard: React.FC = () => {
       addToCart(item.menuItem, vendor, item.selectedOptions, item.quantity, item.specialInstructions);
     });
     setIsCartOpen(true);
-    showToast(`Items from Order #${order.orderNumber} added to your bag! 🛍️`, 'success');
+    showToast(`Added to your bag! 🛍️`, 'success');
   };
 
-  // Wallet Top-up Handler
+  /*
+  // Wallet Top-up Handler (commented out)
   const handleTopUp = (amount: number) => {
     if (isNaN(amount) || amount <= 0) {
       showToast('Please enter a valid amount', 'error');
       return;
     }
     topUpWallet(amount);
-    showToast(`₦${amount.toLocaleString()} added to your Kulachop Wallet! 🎉`, 'success');
+    showToast(`₦${amount.toLocaleString()} credited to your wallet! 🎉`, 'success');
   };
+  */
 
   return (
-    <div className="kula-dashboard-wrapper" style={{ maxWidth: '1240px', margin: '0 auto', padding: '16px 16px 90px' }}>
+    <div className="kula-dashboard-wrapper" style={{ maxWidth: '1160px', margin: '0 auto', padding: '20px 24px 80px' }}>
       {/* =========================================================================
-          TOP STUDENT STATUS & HOSTEL CAPSULE (DESKTOP & MOBILE)
+          MOBILE-ONLY TOP STATUS CAPSULE (Hidden on desktop where sidebar exists)
           ========================================================================= */}
       <div
+        className="kula-mobile-only-header"
         style={{
           background: '#FFFFFF',
-          border: '3px solid #090C0B',
-          borderRadius: '24px',
-          boxShadow: '0 6px 0 #090C0B',
-          padding: '16px 20px',
-          marginBottom: '20px',
+          border: '1.5px solid #E5E7EB',
+          borderRadius: '16px',
+          padding: '14px 16px',
+          marginBottom: '18px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           flexWrap: 'wrap',
-          gap: '12px',
+          gap: '10px',
         }}
       >
-        {/* Left: Greeting & Hostel Delivery Point */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <div
             onClick={() => setActiveTab('profile')}
             style={{
-              width: '46px',
-              height: '46px',
+              width: '38px',
+              height: '38px',
               borderRadius: '50%',
               background: '#FF5500',
-              border: '2px solid #090C0B',
-              boxShadow: '0 3px 0 #090C0B',
+              color: '#FFFFFF',
+              fontWeight: 800,
+              fontSize: '15px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#FFFFFF',
-              fontWeight: 900,
-              fontSize: '18px',
               cursor: 'pointer',
-              flexShrink: 0,
             }}
           >
             {student.name.charAt(0)}
           </div>
-
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-              <h2 style={{ fontSize: '18px', fontWeight: 900, color: '#090C0B', margin: 0, letterSpacing: '-0.5px' }}>
-                Hey, {student.name.split(' ')[0]} 👋
-              </h2>
-              <span
-                style={{
-                  background: '#E6F8F0',
-                  color: '#087A4F',
-                  border: '1.5px solid #087A4F',
-                  fontSize: '11px',
-                  fontWeight: 800,
-                  padding: '2px 8px',
-                  borderRadius: '99px',
-                }}
-              >
-                Verified Student
-              </span>
+            <div style={{ fontSize: '15px', fontWeight: 800, color: '#111827' }}>
+              Hey, {student.name.split(' ')[0]} 👋
             </div>
-
-            {/* Hostel delivery point picker */}
             <button
               type="button"
               onClick={() => setIsCampusModalOpen(true)}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '5px',
+                gap: '4px',
                 background: 'transparent',
                 border: 'none',
-                padding: '2px 0 0',
-                color: '#525C57',
-                fontSize: '12.5px',
-                fontWeight: 700,
+                padding: 0,
+                color: '#6B7280',
+                fontSize: '12px',
                 cursor: 'pointer',
-                textAlign: 'left',
               }}
             >
-              <MapPin size={13} color="#FF5500" />
-              <span>
-                {selectedCampus.shortName} • {defaultAddress?.hostelOrBuilding || 'Moremi Hall'} ({defaultAddress?.roomOrNumber || 'Room 214'})
-              </span>
-              <span style={{ color: '#FF5500', fontWeight: 900, fontSize: '11px' }}>Change ▾</span>
+              <MapPin size={11} color="#FF5500" />
+              <span>{defaultAddress?.hostelOrBuilding || 'Moremi Hall'}</span>
+              <span style={{ color: '#FF5500', fontWeight: 700 }}>▾</span>
             </button>
           </div>
         </div>
 
-        {/* Right: Wallet Balance & Quick Bag Button */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {/*
           <button
             type="button"
             onClick={() => setActiveTab('wallet')}
             style={{
-              background: '#FFF9E6',
-              border: '2px solid #090C0B',
-              borderRadius: '14px',
-              boxShadow: '0 3px 0 #090C0B',
-              padding: '8px 14px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
+              background: '#F9FAFB',
+              border: '1px solid #E5E7EB',
+              borderRadius: '10px',
+              padding: '6px 10px',
+              fontSize: '12px',
+              fontWeight: 700,
+              color: '#111827',
               cursor: 'pointer',
-              color: '#090C0B',
-              fontWeight: 800,
-              fontSize: '13px',
-              transition: 'transform 0.1s ease',
             }}
           >
-            <div
+            ₦{student.walletBalance.toLocaleString()}
+          </button>
+          */}
+          {cartCount > 0 && (
+            <button
+              type="button"
+              onClick={() => setIsCartOpen(true)}
               style={{
-                width: '22px',
-                height: '22px',
-                borderRadius: '6px',
-                background: '#FFC501',
-                border: '1.5px solid #090C0B',
+                background: '#FF5500',
+                color: '#FFFFFF',
+                border: 'none',
+                borderRadius: '10px',
+                padding: '6px 10px',
+                fontSize: '12px',
+                fontWeight: 700,
+                cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center',
+                gap: '5px',
               }}
             >
-              <Wallet size={12} />
-            </div>
-            <span>₦{student.walletBalance.toLocaleString()}</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setIsCartOpen(true)}
-            style={{
-              background: cartCount > 0 ? '#FF5500' : '#F5F7F6',
-              color: cartCount > 0 ? '#FFFFFF' : '#090C0B',
-              border: '2px solid #090C0B',
-              borderRadius: '14px',
-              boxShadow: '0 3px 0 #090C0B',
-              padding: '8px 14px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              cursor: 'pointer',
-              fontWeight: 800,
-              fontSize: '13px',
-            }}
-          >
-            <ShoppingBag size={14} />
-            <span className="hidden-sm">Bag</span>
-            {cartCount > 0 && (
-              <span
-                style={{
-                  background: '#FFC501',
-                  color: '#090C0B',
-                  fontWeight: 900,
-                  fontSize: '11px',
-                  padding: '1px 6px',
-                  borderRadius: '99px',
-                }}
-              >
-                {cartCount}
-              </span>
-            )}
-          </button>
+              <ShoppingBag size={13} />
+              <span>{cartCount}</span>
+            </button>
+          )}
         </div>
       </div>
 
       {/* =========================================================================
-          TAB 1: EXPLORE / CHOPS PAGE
+          DESKTOP-ONLY CLEAN HEADER BAR
           ========================================================================= */}
-      {activeTab === 'explore' && (
-        <div className="animate-fade-in">
-          {/* Active Order Live Tracker Banner (If in progress) */}
-          {activeOrder && (
-            <div
-              style={{
-                background: '#FFFAF0',
-                border: '3px solid #090C0B',
-                borderRadius: '22px',
-                boxShadow: '0 6px 0 #090C0B',
-                padding: '18px 20px',
-                marginBottom: '24px',
-                position: 'relative',
-                overflow: 'hidden',
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <div
-                    style={{
-                      width: '44px',
-                      height: '44px',
-                      borderRadius: '14px',
-                      background: '#FF5500',
-                      border: '2px solid #090C0B',
-                      boxShadow: '0 3px 0 #090C0B',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: '#FFFFFF',
-                    }}
-                  >
-                    <Bike size={22} />
-                  </div>
-                  <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span
-                        style={{
-                          background: '#FF5500',
-                          color: '#FFFFFF',
-                          fontWeight: 900,
-                          fontSize: '10px',
-                          textTransform: 'uppercase',
-                          padding: '2px 8px',
-                          borderRadius: '6px',
-                          letterSpacing: '0.5px',
-                        }}
-                      >
-                        Active Order
-                      </span>
-                      <strong style={{ fontSize: '15px', color: '#090C0B' }}>
-                        {activeOrder.vendorName}
-                      </strong>
-                    </div>
-                    <p style={{ margin: '3px 0 0', fontSize: '13px', color: '#525C57', fontWeight: 600 }}>
-                      Courier on the way to {activeOrder.deliveryAddress?.hostelOrBuilding || 'Hostel'} • ETA: ~12 mins
-                    </p>
-                  </div>
-                </div>
+      <div
+        className="kula-desktop-only-header"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '20px',
+          marginBottom: '24px',
+        }}
+      >
+        <div>
+          <h1 style={{ fontSize: '24px', fontWeight: 900, color: '#111827', margin: '0 0 4px', letterSpacing: '-0.5px' }}>
+            {activeTab === 'explore' && `Explore Canteens`}
+            {activeTab === 'search' && `Search Food & Canteens`}
+            {activeTab === 'orders' && `Your Orders`}
+            {/* {activeTab === 'wallet' && `Campus Wallet`} */}
+            {activeTab === 'profile' && `Student Profile`}
+          </h1>
+          <p style={{ margin: 0, fontSize: '13.5px', color: '#6B7280' }}>
+            {activeTab === 'explore' && `Delivering to ${defaultAddress?.hostelOrBuilding || 'Moremi Hall'} at ${selectedCampus.shortName}`}
+            {activeTab === 'search' && `Find anything you're craving across campus`}
+            {activeTab === 'orders' && `Track active deliveries and view past meals`}
+            {/* {activeTab === 'wallet' && `Manage funds, bank transfers, and student cashback`} */}
+            {activeTab === 'profile' && `Account details, hostel address, and settings`}
+          </p>
+        </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  {/* Secret Student PIN */}
-                  <div
-                    style={{
-                      background: '#FFC501',
-                      border: '2px solid #090C0B',
-                      borderRadius: '12px',
-                      padding: '6px 12px',
-                      textAlign: 'center',
-                    }}
-                  >
-                    <span style={{ fontSize: '10px', fontWeight: 900, display: 'block', color: '#090C0B', textTransform: 'uppercase' }}>
-                      Delivery PIN
-                    </span>
-                    <strong style={{ fontFamily: 'monospace', fontSize: '16px', fontWeight: 900, color: '#090C0B', letterSpacing: '1px' }}>
-                      {activeOrder.deliveryCode}
-                    </strong>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() => setActiveTrackingOrderId(activeOrder.id)}
-                    style={{
-                      background: '#090C0B',
-                      color: '#FFFFFF',
-                      border: '2px solid #090C0B',
-                      borderRadius: '12px',
-                      padding: '10px 16px',
-                      fontWeight: 800,
-                      fontSize: '13px',
-                      cursor: 'pointer',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '6px',
-                    }}
-                  >
-                    <span>Track Live</span>
-                    <ArrowRight size={14} />
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Promo & Daily Perks Banner */}
+        {/* Desktop Quick Search Input */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <div
             style={{
-              background: 'linear-gradient(135deg, #FF5500 0%, #E04400 100%)',
-              border: '3px solid #090C0B',
-              borderRadius: '24px',
-              boxShadow: '0 8px 0 #090C0B',
-              padding: '24px 22px',
-              color: '#FFFFFF',
-              marginBottom: '26px',
               position: 'relative',
-              overflow: 'hidden',
+              width: '280px',
             }}
           >
-            <div style={{ maxWidth: '640px', position: 'relative', zIndex: 2 }}>
-              <span
-                style={{
-                  background: '#FFC501',
-                  color: '#090C0B',
-                  border: '1.5px solid #090C0B',
-                  fontWeight: 900,
-                  fontSize: '11px',
-                  padding: '3px 10px',
-                  borderRadius: '99px',
-                  display: 'inline-block',
-                  marginBottom: '10px',
-                }}
-              >
-                ⚡ CAMPUS LUNCH SPECIAL
-              </span>
-              <h3 style={{ fontSize: 'clamp(22px, 4vw, 32px)', fontWeight: 900, letterSpacing: '-1px', margin: '0 0 8px', lineHeight: 1.15 }}>
-                Get ₦300 OFF hot canteens with code{' '}
-                <span
-                  onClick={() => {
-                    navigator.clipboard?.writeText('KULAWEB');
-                    showToast('Code KULAWEB copied! 🎁', 'success');
-                  }}
-                  title="Click to copy"
-                  style={{
-                    background: '#FFC501',
-                    color: '#090C0B',
-                    padding: '2px 8px',
-                    borderRadius: '8px',
-                    cursor: 'pointer',
-                    display: 'inline-block',
-                    border: '2px solid #090C0B',
-                  }}
-                >
-                  KULAWEB
-                </span>
-              </h3>
-              <p style={{ margin: 0, fontSize: '13.5px', fontWeight: 600, opacity: 0.95 }}>
-                Order from Madam Kofo, Akoka Grill, Mama Put & more. Fast dispatch straight to your room!
-              </p>
-            </div>
+            <Search size={15} color="#9CA3AF" style={{ position: 'absolute', left: '12px', top: '11px' }} />
+            <input
+              type="text"
+              placeholder="Search dishes or canteens..."
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                if (activeTab !== 'search') setActiveTab('search');
+              }}
+              style={{
+                width: '100%',
+                padding: '9px 12px 9px 34px',
+                borderRadius: '10px',
+                border: '1px solid #E5E7EB',
+                background: '#FFFFFF',
+                fontSize: '13px',
+                outline: 'none',
+                boxSizing: 'border-box',
+                fontFamily: 'inherit',
+                color: '#111827',
+              }}
+            />
           </div>
 
-          {/* Search Shortcut Pill Bar */}
-          <div
-            onClick={() => setActiveTab('search')}
-            style={{
-              background: '#FFFFFF',
-              border: '2.5px solid #090C0B',
-              borderRadius: '16px',
-              boxShadow: '0 4px 0 #090C0B',
-              padding: '12px 18px',
-              marginBottom: '22px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px',
-              cursor: 'pointer',
-              color: '#8E9993',
-            }}
-          >
-            <Search size={18} color="#FF5500" />
-            <span style={{ fontSize: '14px', fontWeight: 700, flex: 1, color: '#525C57' }}>
-              Craving Shawarma, Party Jollof, Asun, or Cold Drinks? Tap to search...
-            </span>
-            <span
+          {cartCount > 0 && (
+            <button
+              type="button"
+              onClick={() => setIsCartOpen(true)}
               style={{
                 background: '#FF5500',
                 color: '#FFFFFF',
-                fontSize: '11px',
-                fontWeight: 800,
-                padding: '4px 10px',
-                borderRadius: '8px',
+                border: 'none',
+                borderRadius: '10px',
+                padding: '9px 14px',
+                fontSize: '13px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                whiteSpace: 'nowrap',
               }}
             >
-              Search
-            </span>
-          </div>
+              <ShoppingBag size={15} />
+              <span>Bag ({cartCount})</span>
+            </button>
+          )}
+        </div>
+      </div>
 
-          {/* Category Horizontal Scroll Pills */}
-          <div style={{ marginBottom: '24px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-              <h3 style={{ fontSize: '17px', fontWeight: 900, color: '#090C0B', margin: 0 }}>
-                Campus Food Categories
-              </h3>
-              <span style={{ fontSize: '12px', fontWeight: 700, color: '#FF5500' }}>
-                {filteredVendors.length} spots open
+      {/* =========================================================================
+          TAB 1: EXPLORE / CANTEENS PAGE
+          ========================================================================= */}
+      {activeTab === 'explore' && (
+        <div className="animate-fade-in">
+          {/* Active Order Banner (Clean, Minimal, Informative) */}
+          {activeOrder && (
+            <div
+              style={{
+                background: '#FFFFFF',
+                border: '1px solid #E5E7EB',
+                borderLeft: '4px solid #FF5500',
+                borderRadius: '12px',
+                padding: '14px 18px',
+                marginBottom: '20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '12px',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div
+                  style={{
+                    width: '36px',
+                    height: '36px',
+                    borderRadius: '50%',
+                    background: '#FFF5EE',
+                    color: '#FF5500',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Bike size={18} />
+                </div>
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <span
+                      style={{
+                        width: '7px',
+                        height: '7px',
+                        borderRadius: '50%',
+                        background: '#FF5500',
+                        display: 'inline-block',
+                      }}
+                    />
+                    <strong style={{ fontSize: '13.5px', color: '#111827' }}>
+                      Courier on the way from {activeOrder.vendorName}
+                    </strong>
+                  </div>
+                  <span style={{ fontSize: '12px', color: '#6B7280' }}>
+                    ETA: ~12 mins to {activeOrder.deliveryAddress?.hostelOrBuilding || 'Hostel'} • Delivery PIN:{' '}
+                    <strong style={{ color: '#111827', fontFamily: 'monospace' }}>{activeOrder.deliveryCode}</strong>
+                  </span>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setActiveTrackingOrderId(activeOrder.id)}
+                style={{
+                  background: '#111827',
+                  color: '#FFFFFF',
+                  border: 'none',
+                  borderRadius: '8px',
+                  padding: '7px 14px',
+                  fontSize: '12.5px',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                }}
+              >
+                Track Live ➔
+              </button>
+            </div>
+          )}
+
+          {/* Slim Promo Strip (Replaces the giant screaming orange block) */}
+          <div
+            style={{
+              background: '#FFF7ED',
+              border: '1px solid #FFEDD5',
+              borderRadius: '12px',
+              padding: '10px 16px',
+              marginBottom: '22px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: '10px',
+              fontSize: '13px',
+              color: '#9A3412',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Sparkles size={16} color="#EA580C" />
+              <span>
+                Use code <strong style={{ color: '#C2410C' }}>KULAWEB</strong> for ₦300 off your food order today!
               </span>
             </div>
+            <button
+              type="button"
+              onClick={() => {
+                navigator.clipboard?.writeText('KULAWEB');
+                showToast('Code KULAWEB copied! 🎁', 'success');
+              }}
+              style={{
+                background: '#FFFFFF',
+                border: '1px solid #FDBA74',
+                color: '#C2410C',
+                borderRadius: '6px',
+                padding: '4px 10px',
+                fontSize: '12px',
+                fontWeight: 700,
+                cursor: 'pointer',
+              }}
+            >
+              Copy Code
+            </button>
+          </div>
 
+          {/* Categories Horizontal Scroll */}
+          <div style={{ marginBottom: '22px' }}>
             <div
               style={{
                 display: 'flex',
-                gap: '10px',
+                gap: '8px',
                 overflowX: 'auto',
-                paddingBottom: '8px',
+                paddingBottom: '4px',
                 scrollbarWidth: 'none',
               }}
             >
@@ -536,20 +478,19 @@ export const StudentDashboard: React.FC = () => {
                     type="button"
                     onClick={() => setSelectedCategory(cat.id)}
                     style={{
-                      background: isSelected ? '#090C0B' : '#FFFFFF',
-                      color: isSelected ? '#FFC501' : '#090C0B',
-                      border: '2px solid #090C0B',
-                      borderRadius: '999px',
-                      padding: '8px 16px',
-                      fontWeight: 800,
-                      fontSize: '13px',
+                      background: isSelected ? '#111827' : '#FFFFFF',
+                      color: isSelected ? '#FFFFFF' : '#4B5563',
+                      border: isSelected ? '1px solid #111827' : '1px solid #E5E7EB',
+                      borderRadius: '99px',
+                      padding: '7px 14px',
+                      fontWeight: 600,
+                      fontSize: '12.5px',
                       whiteSpace: 'nowrap',
                       cursor: 'pointer',
                       display: 'inline-flex',
                       alignItems: 'center',
-                      gap: '6px',
-                      boxShadow: isSelected ? '0 4px 0 #FF5500' : '0 2px 0 #090C0B',
-                      transition: 'transform 0.1s ease',
+                      gap: '5px',
+                      transition: 'all 0.15s ease',
                     }}
                   >
                     <span>{cat.emoji}</span>
@@ -560,49 +501,55 @@ export const StudentDashboard: React.FC = () => {
             </div>
           </div>
 
-          {/* Quick Filter Toggles */}
+          {/* Filter Chips Bar */}
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '8px',
+              justifyContent: 'space-between',
               flexWrap: 'wrap',
-              marginBottom: '20px',
+              gap: '10px',
+              marginBottom: '18px',
             }}
           >
-            {[
-              { id: 'all', label: 'All Canteens' },
-              { id: 'open', label: '🟢 Open Now' },
-              { id: 'fast', label: '⚡ Under 20 min' },
-              { id: 'topRated', label: '⭐ Top Rated (4.8+)' },
-            ].map((f) => (
-              <button
-                key={f.id}
-                type="button"
-                onClick={() => setVendorFilter(f.id as any)}
-                style={{
-                  background: vendorFilter === f.id ? '#FF5500' : '#FFFFFF',
-                  color: vendorFilter === f.id ? '#FFFFFF' : '#090C0B',
-                  border: '2px solid #090C0B',
-                  borderRadius: '10px',
-                  padding: '5px 12px',
-                  fontSize: '12px',
-                  fontWeight: 800,
-                  cursor: 'pointer',
-                  boxShadow: vendorFilter === f.id ? '0 2px 0 #090C0B' : 'none',
-                }}
-              >
-                {f.label}
-              </button>
-            ))}
+            <div style={{ display: 'flex', gap: '6px' }}>
+              {[
+                { id: 'all', label: 'All Canteens' },
+                { id: 'open', label: 'Open Now' },
+                { id: 'fast', label: 'Under 20m' },
+                { id: 'topRated', label: 'Top Rated (4.8+)' },
+              ].map((f) => (
+                <button
+                  key={f.id}
+                  type="button"
+                  onClick={() => setVendorFilter(f.id as any)}
+                  style={{
+                    background: vendorFilter === f.id ? '#111827' : '#FFFFFF',
+                    color: vendorFilter === f.id ? '#FFFFFF' : '#4B5563',
+                    border: '1px solid #E5E7EB',
+                    borderRadius: '8px',
+                    padding: '5px 10px',
+                    fontSize: '12px',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                  }}
+                >
+                  {f.label}
+                </button>
+              ))}
+            </div>
+
+            <span style={{ fontSize: '12px', color: '#6B7280', fontWeight: 600 }}>
+              {filteredVendors.length} canteens available
+            </span>
           </div>
 
-          {/* Vendors Grid */}
+          {/* Clean Canteen Cards Grid */}
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))',
-              gap: '20px',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+              gap: '18px',
               marginBottom: '36px',
             }}
           >
@@ -612,81 +559,79 @@ export const StudentDashboard: React.FC = () => {
                 onClick={() => setSelectedVendorForMenu(vendor)}
                 style={{
                   background: '#FFFFFF',
-                  border: '3px solid #090C0B',
-                  borderRadius: '22px',
-                  boxShadow: '0 6px 0 #090C0B',
+                  border: '1px solid #E5E7EB',
+                  borderRadius: '16px',
                   overflow: 'hidden',
                   cursor: 'pointer',
                   display: 'flex',
                   flexDirection: 'column',
-                  transition: 'transform 0.15s ease, box-shadow 0.15s ease',
+                  transition: 'border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease',
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-3px)';
-                  e.currentTarget.style.boxShadow = '0 9px 0 #090C0B';
+                  e.currentTarget.style.borderColor = '#D1D5DB';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 6px 16px rgba(0,0,0,0.06)';
                 }}
                 onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = '#E5E7EB';
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 6px 0 #090C0B';
+                  e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.04)';
                 }}
               >
-                {/* Banner Image Container */}
-                <div style={{ position: 'relative', height: '160px', width: '100%', background: '#F0F3F1' }}>
+                {/* Banner Image */}
+                <div style={{ position: 'relative', height: '145px', width: '100%', background: '#F3F4F6' }}>
                   <img
                     src={vendor.bannerImage}
                     alt={vendor.name}
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     loading="lazy"
                   />
-                  {/* Open / Closed pill */}
+                  {!vendor.isOpen && (
+                    <span
+                      style={{
+                        position: 'absolute',
+                        top: '8px',
+                        left: '8px',
+                        background: 'rgba(17,24,39,0.85)',
+                        color: '#FFFFFF',
+                        fontSize: '10.5px',
+                        fontWeight: 700,
+                        padding: '2px 7px',
+                        borderRadius: '6px',
+                      }}
+                    >
+                      Closed
+                    </span>
+                  )}
                   <span
                     style={{
                       position: 'absolute',
-                      top: '10px',
-                      left: '10px',
-                      background: vendor.isOpen ? '#090C0B' : '#E80B2E',
-                      color: vendor.isOpen ? '#FFC501' : '#FFFFFF',
-                      border: '1.5px solid #090C0B',
-                      fontSize: '10px',
-                      fontWeight: 900,
-                      padding: '3px 8px',
-                      borderRadius: '8px',
-                      textTransform: 'uppercase',
-                    }}
-                  >
-                    {vendor.isOpen ? '🟢 Open' : 'Closed'}
-                  </span>
-
-                  {/* Rating pill */}
-                  <span
-                    style={{
-                      position: 'absolute',
-                      bottom: '10px',
-                      right: '10px',
-                      background: '#FFFFFF',
-                      color: '#090C0B',
-                      border: '1.5px solid #090C0B',
+                      bottom: '8px',
+                      right: '8px',
+                      background: 'rgba(255,255,255,0.92)',
+                      backdropFilter: 'blur(4px)',
+                      color: '#111827',
                       fontSize: '11px',
-                      fontWeight: 900,
-                      padding: '3px 8px',
-                      borderRadius: '8px',
+                      fontWeight: 700,
+                      padding: '2px 7px',
+                      borderRadius: '6px',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '4px',
+                      gap: '3px',
                     }}
                   >
-                    <Star size={12} fill="#FFC501" color="#090C0B" />
+                    <Star size={11} fill="#F59E0B" color="#F59E0B" />
                     <span>{vendor.rating}</span>
-                    <span style={{ color: '#8E9993' }}>({vendor.reviewCount})</span>
                   </span>
                 </div>
 
                 {/* Content */}
-                <div style={{ padding: '16px' }}>
-                  <h4 style={{ fontSize: '16px', fontWeight: 900, color: '#090C0B', margin: '0 0 4px' }}>
+                <div style={{ padding: '14px' }}>
+                  <h4 style={{ fontSize: '15px', fontWeight: 800, color: '#111827', margin: '0 0 3px' }}>
                     {vendor.name}
                   </h4>
-                  <p style={{ fontSize: '12px', color: '#525C57', margin: '0 0 10px', fontWeight: 600, lineClamp: 1 }}>
+                  <p style={{ fontSize: '12px', color: '#6B7280', margin: '0 0 10px', lineClamp: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                     {vendor.tagline}
                   </p>
 
@@ -696,19 +641,19 @@ export const StudentDashboard: React.FC = () => {
                       alignItems: 'center',
                       justifyContent: 'space-between',
                       fontSize: '11.5px',
-                      fontWeight: 800,
-                      color: '#090C0B',
-                      paddingTop: '10px',
-                      borderTop: '1px solid #E5EAE7',
+                      color: '#4B5563',
+                      fontWeight: 600,
+                      borderTop: '1px solid #F3F4F6',
+                      paddingTop: '8px',
                     }}
                   >
                     <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                      <Clock size={13} color="#FF5500" />
+                      <Clock size={12} color="#9CA3AF" />
                       <span>{vendor.prepTimeEstimate}</span>
                     </span>
                     <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                      <Bike size={13} color="#FF5500" />
-                      <span>₦{vendor.deliveryFee} delivery</span>
+                      <Bike size={12} color="#9CA3AF" />
+                      <span>₦{vendor.deliveryFee}</span>
                     </span>
                   </div>
                 </div>
@@ -716,20 +661,20 @@ export const StudentDashboard: React.FC = () => {
             ))}
           </div>
 
-          {/* Popular Student Dishes Quick-Add */}
-          <div style={{ marginBottom: '32px' }}>
+          {/* Popular Campus Dishes */}
+          <div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
-              <h3 style={{ fontSize: '18px', fontWeight: 900, color: '#090C0B', margin: 0 }}>
-                Popular Campus Cravings 🍛
+              <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#111827', margin: 0 }}>
+                Popular on Campus
               </h3>
-              <span style={{ fontSize: '12px', color: '#525C57', fontWeight: 700 }}>Quick 1-Tap Add</span>
+              <span style={{ fontSize: '12px', color: '#6B7280' }}>Quick add</span>
             </div>
 
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-                gap: '16px',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+                gap: '14px',
               }}
             >
               {menuItems.slice(0, 4).map((item) => {
@@ -739,34 +684,32 @@ export const StudentDashboard: React.FC = () => {
                     key={item.id}
                     style={{
                       background: '#FFFFFF',
-                      border: '2.5px solid #090C0B',
-                      borderRadius: '18px',
-                      boxShadow: '0 4px 0 #090C0B',
-                      padding: '12px',
+                      border: '1px solid #E5E7EB',
+                      borderRadius: '14px',
+                      padding: '10px 12px',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '12px',
+                      gap: '10px',
                     }}
                   >
                     <img
                       src={item.image}
                       alt={item.name}
                       style={{
-                        width: '64px',
-                        height: '64px',
-                        borderRadius: '12px',
+                        width: '56px',
+                        height: '56px',
+                        borderRadius: '10px',
                         objectFit: 'cover',
-                        border: '1.5px solid #090C0B',
                       }}
                     />
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <h5 style={{ fontSize: '13.5px', fontWeight: 800, color: '#090C0B', margin: '0 0 2px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      <h5 style={{ fontSize: '13px', fontWeight: 700, color: '#111827', margin: '0 0 1px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                         {item.name}
                       </h5>
-                      <span style={{ fontSize: '11px', color: '#8E9993', fontWeight: 600, display: 'block' }}>
+                      <span style={{ fontSize: '11px', color: '#9CA3AF', display: 'block' }}>
                         {itemVendor?.name.split(' ')[0]}
                       </span>
-                      <strong style={{ fontSize: '13px', color: '#FF5500', fontWeight: 900 }}>
+                      <strong style={{ fontSize: '12.5px', color: '#111827', fontWeight: 800 }}>
                         ₦{item.price.toLocaleString()}
                       </strong>
                     </div>
@@ -775,21 +718,28 @@ export const StudentDashboard: React.FC = () => {
                       type="button"
                       onClick={() => handleQuickAdd(item)}
                       style={{
-                        width: '32px',
-                        height: '32px',
-                        borderRadius: '10px',
-                        background: '#FF5500',
-                        color: '#FFFFFF',
-                        border: '2px solid #090C0B',
+                        width: '28px',
+                        height: '28px',
+                        borderRadius: '8px',
+                        background: '#F3F4F6',
+                        color: '#111827',
+                        border: 'none',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         cursor: 'pointer',
-                        boxShadow: '0 2px 0 #090C0B',
-                        flexShrink: 0,
+                        transition: 'background 0.15s ease',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#FF5500';
+                        e.currentTarget.style.color = '#FFFFFF';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = '#F3F4F6';
+                        e.currentTarget.style.color = '#111827';
                       }}
                     >
-                      <Plus size={16} strokeWidth={3} />
+                      <Plus size={15} />
                     </button>
                   </div>
                 );
@@ -804,21 +754,21 @@ export const StudentDashboard: React.FC = () => {
           ========================================================================= */}
       {activeTab === 'search' && (
         <div className="animate-fade-in">
-          {/* Large Sticky Search Input */}
+          {/* Main Search Input */}
           <div
             style={{
               background: '#FFFFFF',
-              border: '3px solid #090C0B',
-              borderRadius: '20px',
-              boxShadow: '0 6px 0 #090C0B',
-              padding: '14px 18px',
+              border: '1px solid #E5E7EB',
+              borderRadius: '14px',
+              padding: '12px 16px',
               display: 'flex',
               alignItems: 'center',
-              gap: '12px',
-              marginBottom: '20px',
+              gap: '10px',
+              marginBottom: '18px',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.03)',
             }}
           >
-            <Search size={22} color="#FF5500" />
+            <Search size={18} color="#9CA3AF" />
             <input
               type="text"
               placeholder="Search canteen, Shawarma, Jollof, Suya, Drinks..."
@@ -829,9 +779,9 @@ export const StudentDashboard: React.FC = () => {
                 width: '100%',
                 border: 'none',
                 outline: 'none',
-                fontSize: '15px',
-                fontWeight: 700,
-                color: '#090C0B',
+                fontSize: '14px',
+                fontWeight: 600,
+                color: '#111827',
                 fontFamily: 'inherit',
               }}
             />
@@ -840,17 +790,17 @@ export const StudentDashboard: React.FC = () => {
                 type="button"
                 onClick={() => setSearchQuery('')}
                 style={{
-                  background: '#F0F3F1',
-                  border: '1px solid #090C0B',
+                  background: '#F3F4F6',
+                  border: 'none',
                   borderRadius: '50%',
-                  width: '24px',
-                  height: '24px',
+                  width: '20px',
+                  height: '20px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   cursor: 'pointer',
-                  fontSize: '12px',
-                  fontWeight: 900,
+                  fontSize: '11px',
+                  color: '#6B7280',
                 }}
               >
                 ✕
@@ -859,25 +809,25 @@ export const StudentDashboard: React.FC = () => {
           </div>
 
           {/* Quick Trending Chips */}
-          <div style={{ marginBottom: '24px' }}>
-            <span style={{ fontSize: '12px', fontWeight: 800, color: '#525C57', textTransform: 'uppercase', display: 'block', marginBottom: '8px' }}>
-              🔥 Trending Campus Searches
+          <div style={{ marginBottom: '20px' }}>
+            <span style={{ fontSize: '11.5px', fontWeight: 700, color: '#6B7280', display: 'block', marginBottom: '8px' }}>
+              POPULAR SEARCHES
             </span>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-              {['Shawarma', 'Party Jollof', 'Peppered Chicken', 'Amala & Gbegiri', 'Chillers & Parfait', 'Suya Box'].map((chip) => (
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+              {['Shawarma', 'Party Jollof', 'Peppered Chicken', 'Amala', 'Chillers', 'Suya Box'].map((chip) => (
                 <button
                   key={chip}
                   type="button"
                   onClick={() => setSearchQuery(chip)}
                   style={{
                     background: '#FFFFFF',
-                    border: '2px solid #090C0B',
-                    borderRadius: '10px',
-                    padding: '6px 12px',
+                    border: '1px solid #E5E7EB',
+                    borderRadius: '8px',
+                    padding: '5px 10px',
                     fontSize: '12px',
-                    fontWeight: 800,
+                    fontWeight: 600,
+                    color: '#374151',
                     cursor: 'pointer',
-                    boxShadow: '0 2px 0 #090C0B',
                   }}
                 >
                   {chip}
@@ -886,47 +836,45 @@ export const StudentDashboard: React.FC = () => {
             </div>
           </div>
 
-          {/* Search Results Display */}
+          {/* Search Results */}
           {searchQuery ? (
             <div>
-              <h3 style={{ fontSize: '16px', fontWeight: 900, color: '#090C0B', marginBottom: '16px' }}>
-                Search Results for "{searchQuery}"
+              <h3 style={{ fontSize: '15px', fontWeight: 800, color: '#111827', marginBottom: '14px' }}>
+                Results for "{searchQuery}"
               </h3>
 
               {searchResults.matchingVendors.length === 0 && searchResults.matchingItems.length === 0 ? (
-                <div style={{ textAlign: 'center', padding: '40px 20px', background: '#FFFFFF', border: '2px dashed #DDD6CA', borderRadius: '18px' }}>
-                  <p style={{ fontSize: '15px', fontWeight: 800, color: '#090C0B' }}>No dishes found matching "{searchQuery}"</p>
-                  <p style={{ fontSize: '13px', color: '#8E9993' }}>Try searching for Shawarma, Jollof, Chicken, or Drinks!</p>
+                <div style={{ textAlign: 'center', padding: '36px 20px', background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '14px' }}>
+                  <p style={{ fontSize: '14px', fontWeight: 700, color: '#111827' }}>No dishes found matching "{searchQuery}"</p>
+                  <p style={{ fontSize: '12px', color: '#6B7280' }}>Try Shawarma, Jollof, or Drinks!</p>
                 </div>
               ) : (
                 <>
-                  {/* Matching Vendors */}
                   {searchResults.matchingVendors.length > 0 && (
-                    <div style={{ marginBottom: '24px' }}>
-                      <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#525C57', marginBottom: '10px' }}>
-                        Matching Canteens ({searchResults.matchingVendors.length})
+                    <div style={{ marginBottom: '22px' }}>
+                      <h4 style={{ fontSize: '13px', fontWeight: 700, color: '#6B7280', marginBottom: '8px' }}>
+                        Canteens ({searchResults.matchingVendors.length})
                       </h4>
-                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '14px' }}>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '12px' }}>
                         {searchResults.matchingVendors.map((v) => (
                           <div
                             key={v.id}
                             onClick={() => setSelectedVendorForMenu(v)}
                             style={{
                               background: '#FFFFFF',
-                              border: '2px solid #090C0B',
-                              borderRadius: '14px',
-                              boxShadow: '0 4px 0 #090C0B',
-                              padding: '12px',
+                              border: '1px solid #E5E7EB',
+                              borderRadius: '12px',
+                              padding: '10px 12px',
                               cursor: 'pointer',
                               display: 'flex',
                               alignItems: 'center',
-                              gap: '12px',
+                              gap: '10px',
                             }}
                           >
-                            <img src={v.logo} alt={v.name} style={{ width: '48px', height: '48px', borderRadius: '10px', objectFit: 'cover' }} />
+                            <img src={v.logo} alt={v.name} style={{ width: '42px', height: '42px', borderRadius: '8px', objectFit: 'cover' }} />
                             <div>
-                              <strong style={{ fontSize: '14px', color: '#090C0B', display: 'block' }}>{v.name}</strong>
-                              <span style={{ fontSize: '11px', color: '#525C57' }}>⭐ {v.rating} • {v.prepTimeEstimate}</span>
+                              <strong style={{ fontSize: '13.5px', color: '#111827', display: 'block' }}>{v.name}</strong>
+                              <span style={{ fontSize: '11px', color: '#6B7280' }}>⭐ {v.rating} • {v.prepTimeEstimate}</span>
                             </div>
                           </div>
                         ))}
@@ -934,13 +882,12 @@ export const StudentDashboard: React.FC = () => {
                     </div>
                   )}
 
-                  {/* Matching Menu Items */}
                   {searchResults.matchingItems.length > 0 && (
                     <div>
-                      <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#525C57', marginBottom: '10px' }}>
-                        Matching Dishes ({searchResults.matchingItems.length})
+                      <h4 style={{ fontSize: '13px', fontWeight: 700, color: '#6B7280', marginBottom: '8px' }}>
+                        Dishes ({searchResults.matchingItems.length})
                       </h4>
-                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '14px' }}>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '12px' }}>
                         {searchResults.matchingItems.map((item) => {
                           const v = vendors.find((vend) => vend.id === item.vendorId);
                           return (
@@ -948,20 +895,19 @@ export const StudentDashboard: React.FC = () => {
                               key={item.id}
                               style={{
                                 background: '#FFFFFF',
-                                border: '2px solid #090C0B',
-                                borderRadius: '16px',
-                                boxShadow: '0 4px 0 #090C0B',
-                                padding: '14px',
+                                border: '1px solid #E5E7EB',
+                                borderRadius: '12px',
+                                padding: '12px',
                                 display: 'flex',
                                 alignItems: 'center',
-                                gap: '12px',
+                                gap: '10px',
                               }}
                             >
-                              <img src={item.image} alt={item.name} style={{ width: '64px', height: '64px', borderRadius: '12px', objectFit: 'cover' }} />
+                              <img src={item.image} alt={item.name} style={{ width: '56px', height: '56px', borderRadius: '10px', objectFit: 'cover' }} />
                               <div style={{ flex: 1, minWidth: 0 }}>
-                                <strong style={{ fontSize: '14px', color: '#090C0B', display: 'block' }}>{item.name}</strong>
-                                <span style={{ fontSize: '11px', color: '#525C57' }}>{v?.name}</span>
-                                <div style={{ marginTop: '4px', fontSize: '13px', fontWeight: 900, color: '#FF5500' }}>
+                                <strong style={{ fontSize: '13px', color: '#111827', display: 'block' }}>{item.name}</strong>
+                                <span style={{ fontSize: '11px', color: '#6B7280' }}>{v?.name}</span>
+                                <div style={{ marginTop: '2px', fontSize: '12.5px', fontWeight: 800, color: '#111827' }}>
                                   ₦{item.price.toLocaleString()}
                                 </div>
                               </div>
@@ -969,13 +915,13 @@ export const StudentDashboard: React.FC = () => {
                                 type="button"
                                 onClick={() => handleQuickAdd(item)}
                                 style={{
-                                  background: '#FF5500',
+                                  background: '#111827',
                                   color: '#FFFFFF',
-                                  border: '1.5px solid #090C0B',
-                                  borderRadius: '8px',
-                                  padding: '8px 12px',
-                                  fontWeight: 800,
-                                  fontSize: '12px',
+                                  border: 'none',
+                                  borderRadius: '6px',
+                                  padding: '6px 10px',
+                                  fontWeight: 700,
+                                  fontSize: '11.5px',
                                   cursor: 'pointer',
                                 }}
                               >
@@ -992,10 +938,10 @@ export const StudentDashboard: React.FC = () => {
             </div>
           ) : (
             <div>
-              <h4 style={{ fontSize: '15px', fontWeight: 900, color: '#090C0B', marginBottom: '12px' }}>
+              <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#111827', marginBottom: '10px' }}>
                 Browse by Category
               </h4>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '12px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', gap: '10px' }}>
                 {categories.slice(1).map((cat) => (
                   <div
                     key={cat.id}
@@ -1005,16 +951,15 @@ export const StudentDashboard: React.FC = () => {
                     }}
                     style={{
                       background: '#FFFFFF',
-                      border: '2px solid #090C0B',
-                      borderRadius: '16px',
-                      boxShadow: '0 4px 0 #090C0B',
-                      padding: '16px 12px',
+                      border: '1px solid #E5E7EB',
+                      borderRadius: '12px',
+                      padding: '14px 10px',
                       textAlign: 'center',
                       cursor: 'pointer',
                     }}
                   >
-                    <span style={{ fontSize: '32px', display: 'block', marginBottom: '6px' }}>{cat.emoji}</span>
-                    <strong style={{ fontSize: '13px', color: '#090C0B' }}>{cat.name}</strong>
+                    <span style={{ fontSize: '26px', display: 'block', marginBottom: '4px' }}>{cat.emoji}</span>
+                    <strong style={{ fontSize: '12px', color: '#111827' }}>{cat.name}</strong>
                   </div>
                 ))}
               </div>
@@ -1024,7 +969,7 @@ export const StudentDashboard: React.FC = () => {
       )}
 
       {/* =========================================================================
-          TAB 3: ORDERS PAGE (DEDICATED FULL-PAGE SCREEN)
+          TAB 3: ORDERS PAGE
           ========================================================================= */}
       {activeTab === 'orders' && (
         <div className="animate-fade-in">
@@ -1032,45 +977,44 @@ export const StudentDashboard: React.FC = () => {
           <div
             style={{
               background: '#FFFFFF',
-              border: '3px solid #090C0B',
-              borderRadius: '20px',
-              boxShadow: '0 5px 0 #090C0B',
-              padding: '16px 20px',
-              marginBottom: '24px',
+              border: '1px solid #E5E7EB',
+              borderRadius: '14px',
+              padding: '14px 18px',
+              marginBottom: '20px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
               flexWrap: 'wrap',
-              gap: '12px',
+              gap: '10px',
             }}
           >
             <div>
-              <h3 style={{ fontSize: '18px', fontWeight: 900, color: '#090C0B', margin: 0 }}>
-                My Campus Orders
+              <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#111827', margin: 0 }}>
+                Orders
               </h3>
-              <p style={{ fontSize: '12px', color: '#525C57', margin: '2px 0 0' }}>
-                Track live hostel deliveries and 1-click re-order your favorite combos.
+              <p style={{ fontSize: '12px', color: '#6B7280', margin: '2px 0 0' }}>
+                Track live deliveries and re-order previous meals.
               </p>
             </div>
 
-            <div style={{ display: 'flex', gap: '8px' }}>
+            <div style={{ display: 'flex', gap: '6px' }}>
               {[
                 { id: 'all', label: `All (${orders.length})` },
                 { id: 'active', label: `Active (${activeOrder ? 1 : 0})` },
-                { id: 'completed', label: 'Past Orders' },
+                { id: 'completed', label: 'Delivered' },
               ].map((f) => (
                 <button
                   key={f.id}
                   type="button"
                   onClick={() => setOrdersSubFilter(f.id as any)}
                   style={{
-                    background: ordersSubFilter === f.id ? '#090C0B' : '#F5F7F6',
-                    color: ordersSubFilter === f.id ? '#FFC501' : '#090C0B',
-                    border: '1.5px solid #090C0B',
-                    borderRadius: '10px',
-                    padding: '6px 12px',
+                    background: ordersSubFilter === f.id ? '#111827' : '#F9FAFB',
+                    color: ordersSubFilter === f.id ? '#FFFFFF' : '#374151',
+                    border: '1px solid #E5E7EB',
+                    borderRadius: '8px',
+                    padding: '5px 10px',
                     fontSize: '12px',
-                    fontWeight: 800,
+                    fontWeight: 600,
                     cursor: 'pointer',
                   }}
                 >
@@ -1081,7 +1025,7 @@ export const StudentDashboard: React.FC = () => {
           </div>
 
           {/* Orders List */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {orders
               .filter((o) => {
                 if (ordersSubFilter === 'active') return o.status !== 'delivered' && o.status !== 'cancelled';
@@ -1095,70 +1039,62 @@ export const StudentDashboard: React.FC = () => {
                     key={order.id}
                     style={{
                       background: '#FFFFFF',
-                      border: '3px solid #090C0B',
-                      borderRadius: '22px',
-                      boxShadow: '0 6px 0 #090C0B',
-                      padding: '20px',
-                      position: 'relative',
+                      border: '1px solid #E5E7EB',
+                      borderRadius: '16px',
+                      padding: '18px',
                     }}
                   >
-                    {/* Top Row: Vendor & Status */}
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px', marginBottom: '14px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px', marginBottom: '12px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                         <img
                           src={order.vendorImage}
                           alt={order.vendorName}
-                          style={{ width: '48px', height: '48px', borderRadius: '12px', objectFit: 'cover', border: '2px solid #090C0B' }}
+                          style={{ width: '40px', height: '40px', borderRadius: '10px', objectFit: 'cover' }}
                         />
                         <div>
-                          <strong style={{ fontSize: '16px', fontWeight: 900, color: '#090C0B', display: 'block' }}>
+                          <strong style={{ fontSize: '15px', fontWeight: 800, color: '#111827', display: 'block' }}>
                             {order.vendorName}
                           </strong>
-                          <span style={{ fontSize: '12px', color: '#525C57', fontWeight: 600 }}>
-                            Order #{order.orderNumber} • {order.items.length} item(s)
+                          <span style={{ fontSize: '11.5px', color: '#6B7280' }}>
+                            Order #{order.orderNumber}
                           </span>
                         </div>
                       </div>
 
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <span
-                          style={{
-                            background: isActive ? '#FF5500' : '#E6F8F0',
-                            color: isActive ? '#FFFFFF' : '#087A4F',
-                            border: '1.5px solid #090C0B',
-                            fontWeight: 900,
-                            fontSize: '11px',
-                            padding: '4px 10px',
-                            borderRadius: '8px',
-                            textTransform: 'uppercase',
-                          }}
-                        >
-                          {isActive ? '🛵 On The Way' : '✅ Delivered'}
-                        </span>
-                      </div>
+                      <span
+                        style={{
+                          background: isActive ? '#FFF7ED' : '#F0FDF4',
+                          color: isActive ? '#C2410C' : '#15803D',
+                          fontSize: '11px',
+                          fontWeight: 700,
+                          padding: '3px 8px',
+                          borderRadius: '6px',
+                        }}
+                      >
+                        {isActive ? '🛵 On The Way' : 'Delivered'}
+                      </span>
                     </div>
 
-                    {/* Active Order Highlight with PIN */}
                     {isActive && (
                       <div
                         style={{
-                          background: '#FFFAF0',
-                          border: '2px solid #090C0B',
-                          borderRadius: '14px',
-                          padding: '12px 16px',
-                          marginBottom: '14px',
+                          background: '#FFF7ED',
+                          border: '1px solid #FFEDD5',
+                          borderRadius: '10px',
+                          padding: '10px 14px',
+                          marginBottom: '12px',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'space-between',
                           flexWrap: 'wrap',
-                          gap: '10px',
+                          gap: '8px',
                         }}
                       >
                         <div>
-                          <span style={{ fontSize: '11px', fontWeight: 800, color: '#525C57', display: 'block' }}>
-                            YOUR SECRET DELIVERY CODE:
+                          <span style={{ fontSize: '11px', color: '#9A3412', display: 'block' }}>
+                            DELIVERY PIN:
                           </span>
-                          <strong style={{ fontSize: '20px', fontWeight: 900, fontFamily: 'monospace', letterSpacing: '2px', color: '#090C0B' }}>
+                          <strong style={{ fontSize: '18px', fontWeight: 900, fontFamily: 'monospace', color: '#9A3412' }}>
                             {order.deliveryCode}
                           </strong>
                         </div>
@@ -1166,89 +1102,90 @@ export const StudentDashboard: React.FC = () => {
                           type="button"
                           onClick={() => setActiveTrackingOrderId(order.id)}
                           style={{
-                            background: '#FF5500',
+                            background: '#111827',
                             color: '#FFFFFF',
-                            border: '2px solid #090C0B',
-                            borderRadius: '10px',
-                            padding: '8px 16px',
-                            fontWeight: 800,
-                            fontSize: '13px',
+                            border: 'none',
+                            borderRadius: '8px',
+                            padding: '6px 12px',
+                            fontWeight: 700,
+                            fontSize: '12px',
                             cursor: 'pointer',
                           }}
                         >
-                          Open Live Map ↗
+                          Live Map ➔
                         </button>
                       </div>
                     )}
 
                     {/* Items List */}
-                    <div style={{ borderTop: '1px solid #E5EAE7', paddingTop: '12px', marginBottom: '14px' }}>
+                    <div style={{ borderTop: '1px solid #F3F4F6', paddingTop: '10px', marginBottom: '12px' }}>
                       {order.items.map((it, idx) => (
-                        <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', margin: '4px 0', color: '#090C0B' }}>
+                        <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12.5px', margin: '3px 0', color: '#374151' }}>
                           <span>
                             <strong>{it.quantity}x</strong> {it.menuItem.name}
                           </span>
-                          <span style={{ fontWeight: 700 }}>₦{it.totalPrice.toLocaleString()}</span>
+                          <span style={{ fontWeight: 600 }}>₦{it.totalPrice.toLocaleString()}</span>
                         </div>
                       ))}
                     </div>
 
-                    {/* Bottom Row: Total & Actions */}
+                    {/* Footer */}
                     <div
                       style={{
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        borderTop: '2px solid #090C0B',
-                        paddingTop: '12px',
+                        borderTop: '1px solid #F3F4F6',
+                        paddingTop: '10px',
                         flexWrap: 'wrap',
-                        gap: '10px',
+                        gap: '8px',
                       }}
                     >
                       <div>
-                        <span style={{ fontSize: '11px', color: '#525C57', fontWeight: 700, display: 'block' }}>Total Paid</span>
-                        <strong style={{ fontSize: '17px', color: '#090C0B', fontWeight: 900 }}>
+                        <span style={{ fontSize: '11px', color: '#6B7280' }}>Total Paid</span>
+                        <strong style={{ fontSize: '15px', color: '#111827', display: 'block', fontWeight: 800 }}>
                           ₦{order.totalAmount.toLocaleString()}
                         </strong>
                       </div>
 
-                      <div style={{ display: 'flex', gap: '8px' }}>
+                      <div style={{ display: 'flex', gap: '6px' }}>
                         {order.status === 'delivered' && (
                           <button
                             type="button"
                             onClick={() => openRatingForOrder(order)}
                             style={{
-                              background: '#FFF9E6',
-                              border: '1.5px solid #090C0B',
-                              borderRadius: '10px',
-                              padding: '8px 14px',
+                              background: '#F9FAFB',
+                              border: '1px solid #E5E7EB',
+                              borderRadius: '8px',
+                              padding: '6px 12px',
                               fontSize: '12px',
-                              fontWeight: 800,
+                              fontWeight: 600,
                               cursor: 'pointer',
+                              color: '#374151',
                             }}
                           >
-                            ⭐ Rate Meal
+                            Rate Meal
                           </button>
                         )}
                         <button
                           type="button"
                           onClick={() => handleReorder(order)}
                           style={{
-                            background: '#FF5500',
+                            background: '#111827',
                             color: '#FFFFFF',
-                            border: '2px solid #090C0B',
-                            borderRadius: '10px',
-                            padding: '8px 14px',
+                            border: 'none',
+                            borderRadius: '8px',
+                            padding: '6px 12px',
                             fontSize: '12px',
-                            fontWeight: 800,
+                            fontWeight: 700,
                             cursor: 'pointer',
                             display: 'flex',
                             alignItems: 'center',
-                            gap: '6px',
+                            gap: '5px',
                           }}
                         >
-                          <RotateCcw size={13} />
-                          <span>Re-order 1-Click</span>
+                          <RotateCcw size={12} />
+                          <span>Re-order</span>
                         </button>
                       </div>
                     </div>
@@ -1260,251 +1197,54 @@ export const StudentDashboard: React.FC = () => {
       )}
 
       {/* =========================================================================
-          TAB 4: WALLET & ACTIVITY PAGE (DEDICATED FULL-PAGE SCREEN)
+          TAB 4: WALLET PAGE (commented out)
           ========================================================================= */}
+      {/*
       {activeTab === 'wallet' && (
         <div className="animate-fade-in">
-          {/* Main Wallet Card */}
-          <div
-            style={{
-              background: 'linear-gradient(135deg, #090C0B 0%, #1A1F1D 100%)',
-              border: '3px solid #090C0B',
-              borderRadius: '24px',
-              boxShadow: '0 8px 0 #FF5500',
-              padding: '28px 24px',
-              color: '#FFFFFF',
-              marginBottom: '26px',
-              position: 'relative',
-              overflow: 'hidden',
-            }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
-              <div>
-                <span style={{ fontSize: '11px', fontWeight: 900, color: '#FFC501', letterSpacing: '1px', textTransform: 'uppercase' }}>
-                  KULACHOP CAMPUS WALLET
-                </span>
-                <h2 style={{ fontSize: 'clamp(32px, 6vw, 48px)', fontWeight: 900, margin: '8px 0 0', letterSpacing: '-1.5px' }}>
-                  ₦{student.walletBalance.toLocaleString()}
-                </h2>
-              </div>
-              <div
-                style={{
-                  width: '44px',
-                  height: '44px',
-                  borderRadius: '14px',
-                  background: '#FF5500',
-                  border: '2px solid #FFC501',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#FFFFFF',
-                }}
-              >
-                <Wallet size={22} />
-              </div>
-            </div>
-
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px', borderTop: '1px solid rgba(255,255,255,0.15)', paddingTop: '16px' }}>
-              <span style={{ fontSize: '13px', fontWeight: 600, color: '#E5EAE7' }}>
-                Account Holder: <strong>{student.name}</strong>
-              </span>
-              <span style={{ fontSize: '12px', background: 'rgba(255,197,1,0.2)', color: '#FFC501', padding: '3px 10px', borderRadius: '8px', fontWeight: 800 }}>
-                2% Instant Cashback Active
-              </span>
-            </div>
-          </div>
-
-          {/* Quick Top Up Box */}
-          <div
-            style={{
-              background: '#FFFFFF',
-              border: '3px solid #090C0B',
-              borderRadius: '22px',
-              boxShadow: '0 6px 0 #090C0B',
-              padding: '22px',
-              marginBottom: '24px',
-            }}
-          >
-            <h3 style={{ fontSize: '16px', fontWeight: 900, color: '#090C0B', margin: '0 0 12px' }}>
-              Top Up Wallet (Instant Debit & Bank Transfer)
-            </h3>
-
-            {/* Quick Amount Buttons */}
-            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '16px' }}>
-              {[1000, 2500, 5000, 10000].map((amt) => (
-                <button
-                  key={amt}
-                  type="button"
-                  onClick={() => setWalletTopUpInput(amt.toString())}
-                  style={{
-                    background: walletTopUpInput === amt.toString() ? '#FF5500' : '#F5F7F6',
-                    color: walletTopUpInput === amt.toString() ? '#FFFFFF' : '#090C0B',
-                    border: '2px solid #090C0B',
-                    borderRadius: '12px',
-                    padding: '8px 16px',
-                    fontWeight: 900,
-                    fontSize: '13px',
-                    cursor: 'pointer',
-                    boxShadow: walletTopUpInput === amt.toString() ? '0 2px 0 #090C0B' : 'none',
-                  }}
-                >
-                  +₦{amt.toLocaleString()}
-                </button>
-              ))}
-            </div>
-
-            {/* Custom Amount Form */}
-            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-              <div style={{ position: 'relative', flex: 1, minWidth: '180px' }}>
-                <span style={{ position: 'absolute', left: '14px', top: '12px', fontWeight: 900, fontSize: '15px', color: '#090C0B' }}>
-                  ₦
-                </span>
-                <input
-                  type="number"
-                  placeholder="Enter amount"
-                  value={walletTopUpInput}
-                  onChange={(e) => setWalletTopUpInput(e.target.value)}
-                  style={{
-                    width: '100%',
-                    padding: '12px 14px 12px 34px',
-                    borderRadius: '12px',
-                    border: '2px solid #090C0B',
-                    fontSize: '15px',
-                    fontWeight: 900,
-                    outline: 'none',
-                    boxSizing: 'border-box',
-                    fontFamily: 'inherit',
-                  }}
-                />
-              </div>
-
-              <button
-                type="button"
-                onClick={() => handleTopUp(parseInt(walletTopUpInput))}
-                style={{
-                  background: '#FFC501',
-                  color: '#090C0B',
-                  border: '2px solid #090C0B',
-                  borderRadius: '12px',
-                  padding: '12px 24px',
-                  fontWeight: 900,
-                  fontSize: '14px',
-                  cursor: 'pointer',
-                  boxShadow: '0 4px 0 #090C0B',
-                }}
-              >
-                Top Up Now
-              </button>
-            </div>
-          </div>
-
-          {/* Virtual Account Bank Transfer Info */}
-          <div
-            style={{
-              background: '#FFF9E6',
-              border: '2px solid #090C0B',
-              borderRadius: '18px',
-              padding: '16px 20px',
-              marginBottom: '24px',
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
-              <div>
-                <strong style={{ fontSize: '14px', color: '#090C0B', display: 'block' }}>
-                  Dedicated Student Virtual Account
-                </strong>
-                <p style={{ margin: '3px 0 0', fontSize: '12px', color: '#525C57' }}>
-                  Transfer from any banking app (OPay, PalmPay, GTB, Kuda) to fund instantly.
-                </p>
-                <div style={{ marginTop: '8px', fontSize: '14px', fontWeight: 900, fontFamily: 'monospace' }}>
-                  WEMA BANK • <strong>0123456789</strong> • KULACHOP-{student.name.split(' ')[0].toUpperCase()}
-                </div>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => {
-                  navigator.clipboard?.writeText('0123456789');
-                  showToast('Virtual Account number copied! 📋', 'success');
-                }}
-                style={{
-                  background: '#090C0B',
-                  color: '#FFFFFF',
-                  border: 'none',
-                  borderRadius: '10px',
-                  padding: '8px 14px',
-                  fontWeight: 800,
-                  fontSize: '12px',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                }}
-              >
-                <Copy size={13} />
-                <span>Copy</span>
-              </button>
-            </div>
-          </div>
+          ...
         </div>
       )}
+      */}
 
       {/* =========================================================================
-          TAB 5: PROFILE & HOSTEL SETTINGS (DEDICATED FULL-PAGE SCREEN)
+          TAB 5: PROFILE PAGE
           ========================================================================= */}
       {activeTab === 'profile' && (
         <div className="animate-fade-in">
-          {/* Student Profile Card */}
+          {/* Student Info Card */}
           <div
             style={{
               background: '#FFFFFF',
-              border: '3px solid #090C0B',
-              borderRadius: '24px',
-              boxShadow: '0 6px 0 #090C0B',
-              padding: '24px',
-              marginBottom: '22px',
+              border: '1px solid #E5E7EB',
+              borderRadius: '16px',
+              padding: '20px',
+              marginBottom: '18px',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '18px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '16px' }}>
               <div
                 style={{
-                  width: '64px',
-                  height: '64px',
+                  width: '52px',
+                  height: '52px',
                   borderRadius: '50%',
-                  background: '#FF5500',
-                  border: '3px solid #090C0B',
-                  boxShadow: '0 4px 0 #090C0B',
+                  background: '#F3F4F6',
+                  color: '#111827',
+                  fontWeight: 900,
+                  fontSize: '20px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: '#FFFFFF',
-                  fontWeight: 900,
-                  fontSize: '26px',
                 }}
               >
                 {student.name.charAt(0)}
               </div>
               <div>
-                <h3 style={{ fontSize: '20px', fontWeight: 900, color: '#090C0B', margin: '0 0 4px' }}>
+                <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#111827', margin: '0 0 2px' }}>
                   {student.name}
                 </h3>
-                <span style={{ fontSize: '13px', color: '#525C57', fontWeight: 600, display: 'block' }}>
+                <span style={{ fontSize: '12.5px', color: '#6B7280' }}>
                   {student.phone} • {student.email}
-                </span>
-                <span
-                  style={{
-                    background: '#E6F8F0',
-                    color: '#087A4F',
-                    border: '1.5px solid #087A4F',
-                    fontWeight: 800,
-                    fontSize: '11px',
-                    padding: '2px 8px',
-                    borderRadius: '6px',
-                    display: 'inline-block',
-                    marginTop: '6px',
-                  }}
-                >
-                  ✅ {selectedCampus.name}
                 </span>
               </div>
             </div>
@@ -1512,27 +1252,24 @@ export const StudentDashboard: React.FC = () => {
             {/* Saved Hostel Delivery Point */}
             <div
               style={{
-                background: '#F8FAF9',
-                border: '2px solid #090C0B',
-                borderRadius: '16px',
-                padding: '14px 18px',
+                background: '#F9FAFB',
+                border: '1px solid #E5E7EB',
+                borderRadius: '12px',
+                padding: '12px 14px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 flexWrap: 'wrap',
-                gap: '10px',
+                gap: '8px',
               }}
             >
               <div>
-                <span style={{ fontSize: '11px', fontWeight: 800, color: '#8E9993', textTransform: 'uppercase' }}>
+                <span style={{ fontSize: '10.5px', fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase' }}>
                   DEFAULT HOSTEL DROP-OFF
                 </span>
-                <strong style={{ fontSize: '14px', color: '#090C0B', display: 'block', marginTop: '2px' }}>
+                <strong style={{ fontSize: '13px', color: '#111827', display: 'block', marginTop: '2px' }}>
                   {defaultAddress?.hostelOrBuilding || 'Moremi Hall'}, {defaultAddress?.blockOrFloor || 'Block B'}, {defaultAddress?.roomOrNumber || 'Room 214'}
                 </strong>
-                <span style={{ fontSize: '12px', color: '#525C57' }}>
-                  Landmark: {defaultAddress?.landmark || 'Beside common room'}
-                </span>
               </div>
 
               <button
@@ -1540,80 +1277,55 @@ export const StudentDashboard: React.FC = () => {
                 onClick={() => setIsCampusModalOpen(true)}
                 style={{
                   background: '#FFFFFF',
-                  border: '1.5px solid #090C0B',
-                  borderRadius: '10px',
-                  padding: '6px 14px',
-                  fontSize: '12px',
-                  fontWeight: 800,
+                  border: '1px solid #D1D5DB',
+                  borderRadius: '6px',
+                  padding: '5px 10px',
+                  fontSize: '11.5px',
+                  fontWeight: 600,
                   cursor: 'pointer',
                 }}
               >
-                Change ▾
+                Change
               </button>
             </div>
           </div>
 
-          {/* Referral & Rewards Card */}
+          {/* Referral Card */}
           <div
             style={{
-              background: '#FFF9E6',
-              border: '3px solid #090C0B',
-              borderRadius: '20px',
-              boxShadow: '0 6px 0 #090C0B',
-              padding: '20px',
-              marginBottom: '22px',
+              background: '#FFF7ED',
+              border: '1px solid #FFEDD5',
+              borderRadius: '14px',
+              padding: '16px',
+              marginBottom: '18px',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-              <Sparkles size={18} color="#FF5500" />
-              <strong style={{ fontSize: '15px', fontWeight: 900, color: '#090C0B' }}>
-                Refer a Roommate, Get ₦500 Wallet Credit
-              </strong>
-            </div>
-            <p style={{ margin: '0 0 12px', fontSize: '12.5px', color: '#525C57' }}>
-              Share your personal student invite code. When your roommate places their first meal order, both of you get ₦500 instantly!
+            <strong style={{ fontSize: '14px', fontWeight: 800, color: '#9A3412', display: 'block', marginBottom: '4px' }}>
+              Refer a Roommate, Get ₦500
+            </strong>
+            <p style={{ margin: '0 0 10px', fontSize: '12px', color: '#C2410C' }}>
+              Share code <strong style={{ fontFamily: 'monospace' }}>TOBI-KULA</strong>. Both get ₦500 on their first order.
             </p>
 
-            <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-              <div
-                style={{
-                  background: '#FFFFFF',
-                  border: '2px dashed #090C0B',
-                  borderRadius: '10px',
-                  padding: '8px 16px',
-                  fontWeight: 900,
-                  fontSize: '16px',
-                  fontFamily: 'monospace',
-                  letterSpacing: '1px',
-                }}
-              >
-                TOBI-KULA
-              </div>
-
-              <button
-                type="button"
-                onClick={() => {
-                  navigator.clipboard?.writeText('TOBI-KULA');
-                  showToast('Referral code TOBI-KULA copied! 🎁', 'success');
-                }}
-                style={{
-                  background: '#090C0B',
-                  color: '#FFFFFF',
-                  border: 'none',
-                  borderRadius: '10px',
-                  padding: '10px 16px',
-                  fontWeight: 800,
-                  fontSize: '13px',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                }}
-              >
-                <Copy size={14} />
-                <span>Copy Code</span>
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={() => {
+                navigator.clipboard?.writeText('TOBI-KULA');
+                showToast('Code TOBI-KULA copied! 🎁', 'success');
+              }}
+              style={{
+                background: '#FFFFFF',
+                border: '1px solid #FDBA74',
+                color: '#C2410C',
+                borderRadius: '6px',
+                padding: '6px 12px',
+                fontSize: '12px',
+                fontWeight: 700,
+                cursor: 'pointer',
+              }}
+            >
+              Copy Code
+            </button>
           </div>
 
           {/* Sign Out Button */}
@@ -1622,23 +1334,22 @@ export const StudentDashboard: React.FC = () => {
             onClick={logout}
             style={{
               width: '100%',
-              background: '#FFF0F0',
-              color: '#E80B2E',
-              border: '2.5px solid #E80B2E',
-              borderRadius: '16px',
-              padding: '14px',
-              fontWeight: 900,
-              fontSize: '14px',
+              background: '#FEF2F2',
+              color: '#DC2626',
+              border: '1px solid #FCA5A5',
+              borderRadius: '12px',
+              padding: '12px',
+              fontWeight: 700,
+              fontSize: '13px',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '8px',
-              boxShadow: '0 4px 0 #E80B2E',
+              gap: '6px',
             }}
           >
-            <LogOut size={16} />
-            <span>Sign Out of Kulachops</span>
+            <LogOut size={15} />
+            <span>Sign Out</span>
           </button>
         </div>
       )}

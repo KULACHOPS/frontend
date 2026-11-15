@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import {
   ShoppingBag,
-  Wallet,
+  // Wallet,
   Flame,
   Clock,
   LogIn,
@@ -21,7 +21,7 @@ export const Navbar: React.FC = () => {
     cart,
     setIsCartOpen,
     student,
-    setIsWalletModalOpen,
+    // setIsWalletModalOpen,
     orders,
     setActiveTrackingOrderId,
     setSelectedVendorForMenu,
@@ -125,7 +125,8 @@ export const Navbar: React.FC = () => {
                   </button>
                 )}
 
-                {/* Wallet Balance Pill */}
+                {/* Wallet Balance Pill (commented out) */}
+                {/*
                 <button
                   onClick={() => {
                     setSelectedVendorForMenu(null);
@@ -160,6 +161,7 @@ export const Navbar: React.FC = () => {
                   </div>
                   <span>₦{student.walletBalance.toLocaleString()}</span>
                 </button>
+                */}
 
                 {/* Sign out button (visible on desktop, in drawer on mobile) */}
                 <button
@@ -492,7 +494,8 @@ export const Navbar: React.FC = () => {
               </div>
             )}
 
-            {/* Wallet Card (when authenticated) */}
+            {/* Wallet Card (commented out) */}
+            {/*
             {isAuthenticated && (
               <div
                 style={{
@@ -552,6 +555,7 @@ export const Navbar: React.FC = () => {
                 </button>
               </div>
             )}
+            */}
 
             {/* Active Order Banner if running */}
             {activeOrder && (
@@ -690,6 +694,8 @@ export const Navbar: React.FC = () => {
                     )}
                   </button>
 
+                  {/* Campus Wallet (commented out) */}
+                  {/*
                   <button
                     onClick={() => {
                       setSelectedVendorForMenu(null);
@@ -719,6 +725,7 @@ export const Navbar: React.FC = () => {
                       ₦{student.walletBalance.toLocaleString()}
                     </span>
                   </button>
+                  */}
 
                   <button
                     onClick={() => {

@@ -2,6 +2,7 @@ import React from 'react';
 import { AppProvider, useApp } from './context/AppContext';
 import { Navbar } from './components/common/Navbar';
 import { DesktopSidebar } from './components/common/DesktopSidebar';
+import { DashboardTopNav } from './components/common/DashboardTopNav';
 import { CampusSelectorModal } from './components/common/CampusSelectorModal';
 import { Toast } from './components/common/Toast';
 import { BottomNav } from './components/common/BottomNav';
@@ -57,16 +58,22 @@ const MainLayout: React.FC = () => {
         {/* Desktop Sidebar (visible on desktop >= 960px, hidden on mobile) */}
         <DesktopSidebar />
 
-        {/* Main Content Area */}
-        <main className="kula-auth-main-content">
-          {selectedVendorForMenu ? (
-            <div style={{ maxWidth: '1160px', margin: '0 auto', padding: '24px 20px 80px' }}>
-              <VendorDetailView />
-            </div>
-          ) : (
-            <StudentDashboard />
-          )}
-        </main>
+        {/* Main Content Column with Top Nav Section */}
+        <div className="kula-auth-content-column" style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column' }}>
+          {/* Top Nav Section in the Dashboard (visible on desktop) */}
+          <DashboardTopNav />
+
+          {/* Main Content Area */}
+          <main className="kula-auth-main-content">
+            {selectedVendorForMenu ? (
+              <div style={{ maxWidth: '1160px', margin: '0 auto', padding: '24px 20px 80px' }}>
+                <VendorDetailView />
+              </div>
+            ) : (
+              <StudentDashboard />
+            )}
+          </main>
+        </div>
       </div>
 
       {/* PWA Mobile Bottom Navigation Bar (visible on mobile <= 959px, hidden on desktop) */}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
-import { Compass, Search, Receipt, Wallet, User } from 'lucide-react';
+import { Compass, Search, Receipt, /* Wallet, */ User } from 'lucide-react';
 import type { StudentTab } from '../../types';
 
 interface BottomNavProps {
@@ -18,7 +18,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({ activeTab, setActiveTab })
     { id: 'explore', label: 'Chops', icon: Compass },
     { id: 'search', label: 'Search', icon: Search },
     { id: 'orders', label: 'Orders', icon: Receipt, badge: !!activeOrder },
-    { id: 'wallet', label: 'Wallet', icon: Wallet },
+    // { id: 'wallet', label: 'Wallet', icon: Wallet },
     { id: 'profile', label: 'Profile', icon: User },
   ];
 

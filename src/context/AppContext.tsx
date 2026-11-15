@@ -100,6 +100,10 @@ interface AppContextType {
   activeTab: StudentTab;
   setActiveTab: (tab: StudentTab) => void;
 
+  // Search Query
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+
   // Authentication
   isAuthenticated: boolean;
   setIsAuthenticated: (auth: boolean) => void;
@@ -152,6 +156,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Navigation & PWA Tabs
   const [activeTab, setActiveTab] = useState<StudentTab>('explore');
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
   // Authentication state (Default false: clean landing page for visitors)
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -569,6 +574,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         showToast,
         activeTab,
         setActiveTab,
+        searchQuery,
+        setSearchQuery,
         isAuthenticated,
         setIsAuthenticated,
         isAuthModalOpen,

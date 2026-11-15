@@ -1604,8 +1604,26 @@ button:disabled {
   animation: fadeIn 0.25s ease-out;
 }
 
+.kula-desktop-only-header {
+  display: flex !important;
+}
+
+.kula-mobile-only-header {
+  display: none !important;
+}
+
+@media (max-width: 959px) {
+  .kula-desktop-only-header {
+    display: none !important;
+  }
+
+  .kula-mobile-only-header {
+    display: flex !important;
+  }
+}
+
 @media (max-width: 640px) {
   .kula-dashboard-wrapper {
-    padding: 12px 12px 90px !important;
+    padding: 12px 14px 90px !important;
   }
 }
