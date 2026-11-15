@@ -21,7 +21,11 @@ const StudentHome: React.FC = () => {
   const { selectedVendorForMenu } = useApp();
 
   if (selectedVendorForMenu) {
-    return <VendorDetailView />;
+    return (
+      <div className="app-container">
+        <VendorDetailView />
+      </div>
+    );
   }
 
   return <LandingPage />;
@@ -36,9 +40,7 @@ const MainLayout: React.FC = () => {
       <Navbar />
 
       <main className="main-content" style={{ paddingBottom: isAuthenticated ? undefined : 0 }}>
-        <div className="app-container">
-          <StudentHome />
-        </div>
+        <StudentHome />
       </main>
 
       {/* PWA Bottom Navigation Bar - ONLY displayed when student is authenticated */}

@@ -13,30 +13,41 @@ export const CampusSelectorModal: React.FC = () => {
         {/* Header */}
         <div
           style={{
-            padding: '20px 24px',
-            borderBottom: '1px solid #DDD6CA',
+            padding: '22px 24px',
+            borderBottom: '1px solid #E5EAE7',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
           }}
         >
           <div>
-            <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#241A17' }}>Select Your Campus</h3>
-            <p style={{ fontSize: '13px', color: '#574640', marginTop: '2px' }}>
-              Choose your university to browse open canteens and hostel delivery zones.
+            <h3 style={{ fontSize: '19px', fontWeight: 900, color: '#090C0B', letterSpacing: '-0.3px' }}>
+              Select Your Campus
+            </h3>
+            <p style={{ fontSize: '13px', color: '#525C57', marginTop: '2px' }}>
+              Choose your university to browse open campus canteens and hostel delivery zones.
             </p>
           </div>
           <button
             onClick={() => setIsCampusModalOpen(false)}
             style={{
-              width: '32px',
-              height: '32px',
+              width: '34px',
+              height: '34px',
               borderRadius: '50%',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              background: '#F8F5EF',
-              color: '#8C7B74',
+              background: '#F0F3F1',
+              color: '#525C57',
+              transition: 'all 0.15s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = '#E5EAE7';
+              e.currentTarget.style.color = '#090C0B';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = '#F0F3F1';
+              e.currentTarget.style.color = '#525C57';
             }}
           >
             <X size={18} />
@@ -53,49 +64,63 @@ export const CampusSelectorModal: React.FC = () => {
                 onClick={() => {
                   setSelectedCampus(campus);
                   setIsCampusModalOpen(false);
-                  showToast(`Campus switched to ${campus.name}`, 'info');
+                  showToast(`Campus switched to ${campus.name} 🎓`, 'info');
                 }}
                 style={{
-                  border: isSelected ? '2px solid #D9381E' : '1px solid #DDD6CA',
-                  borderRadius: '16px',
-                  padding: '16px',
+                  border: isSelected ? '2px solid #FF5500' : '1px solid #E5EAE7',
+                  borderRadius: '18px',
+                  padding: '18px',
                   cursor: 'pointer',
-                  background: isSelected ? '#FDF1EE' : '#FFFFFF',
+                  background: isSelected ? '#FFF0E8' : '#FFFFFF',
+                  boxShadow: isSelected ? '0 4px 14px rgba(255, 85, 0, 0.25)' : '0 1px 3px rgba(9,12,11,0.03)',
                   transition: 'all 0.15s ease',
                   position: 'relative',
                 }}
+                onMouseEnter={(e) => {
+                  if (!isSelected) {
+                    e.currentTarget.style.borderColor = '#FF5500';
+                    e.currentTarget.style.background = '#FFFDFB';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isSelected) {
+                    e.currentTarget.style.borderColor = '#E5EAE7';
+                    e.currentTarget.style.background = '#FFFFFF';
+                  }
+                }}
               >
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-                  <div style={{ display: 'flex', gap: '12px' }}>
+                  <div style={{ display: 'flex', gap: '14px' }}>
                     <div
                       style={{
-                        width: '42px',
-                        height: '42px',
-                        borderRadius: '12px',
-                        background: isSelected ? '#D9381E' : '#E9E3D8',
-                        color: isSelected ? '#FFFFFF' : '#241A17',
+                        width: '44px',
+                        height: '44px',
+                        borderRadius: '14px',
+                        background: isSelected ? '#FF5500' : '#F0F3F1',
+                        color: isSelected ? '#FFC501' : '#090C0B',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         flexShrink: 0,
+                        boxShadow: isSelected ? '0 4px 10px rgba(255, 85, 0, 0.35)' : 'none',
                       }}
                     >
-                      <Building size={20} />
+                      <Building size={22} />
                     </div>
                     <div>
-                      <h4 style={{ fontSize: '15px', fontWeight: 700, color: '#241A17' }}>{campus.name}</h4>
-                      <p style={{ fontSize: '12px', color: '#574640', marginTop: '2px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <MapPin size={12} color="#D9381E" />
+                      <h4 style={{ fontSize: '16px', fontWeight: 800, color: '#090C0B' }}>{campus.name}</h4>
+                      <p style={{ fontSize: '12px', color: '#525C57', marginTop: '2px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <MapPin size={12} color="#FF5500" />
                         {campus.city}, {campus.state}
                       </p>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px' }}>
                         <span
                           style={{
                             fontSize: '11px',
-                            fontWeight: 600,
-                            color: '#7A8469',
-                            background: 'rgba(122, 132, 105, 0.12)',
-                            padding: '2px 8px',
+                            fontWeight: 700,
+                            color: '#FF5500',
+                            background: '#FFF0E8',
+                            padding: '3px 8px',
                             borderRadius: '99px',
                             display: 'inline-flex',
                             alignItems: 'center',
@@ -104,7 +129,7 @@ export const CampusSelectorModal: React.FC = () => {
                         >
                           <Clock size={11} /> {campus.operatingHours}
                         </span>
-                        <span style={{ fontSize: '11px', color: '#8C7B74' }}>
+                        <span style={{ fontSize: '11px', color: '#8E9993', fontWeight: 600 }}>
                           {campus.deliveryZones.length} Delivery Zones
                         </span>
                       </div>
@@ -114,56 +139,24 @@ export const CampusSelectorModal: React.FC = () => {
                   {isSelected && (
                     <div
                       style={{
-                        width: '24px',
-                        height: '24px',
+                        width: '26px',
+                        height: '26px',
                         borderRadius: '50%',
-                        background: '#D9381E',
-                        color: '#fff',
+                        background: '#FF5500',
+                        color: '#FFC501',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
+                        boxShadow: '0 2px 6px rgba(255, 85, 0, 0.4)',
                       }}
                     >
                       <Check size={14} strokeWidth={3} />
                     </div>
                   )}
                 </div>
-
-                {/* Delivery Zones Pill Preview */}
-                <div style={{ marginTop: '12px', paddingTop: '10px', borderTop: '1px dashed #DDD6CA', display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
-                  {campus.deliveryZones.slice(0, 4).map((zone) => (
-                    <span
-                      key={zone.id}
-                      style={{
-                        fontSize: '10px',
-                        background: '#F8F5EF',
-                        border: '1px solid #DDD6CA',
-                        color: '#574640',
-                        padding: '2px 8px',
-                        borderRadius: '6px',
-                        fontWeight: 500,
-                      }}
-                    >
-                      {zone.name}
-                    </span>
-                  ))}
-                  {campus.deliveryZones.length > 4 && (
-                    <span style={{ fontSize: '10px', color: '#8C7B74', padding: '2px 4px', fontWeight: 600 }}>
-                      +{campus.deliveryZones.length - 4} more
-                    </span>
-                  )}
-                </div>
               </div>
             );
           })}
-        </div>
-
-        {/* Footer Note */}
-        <div style={{ padding: '12px 24px 20px', background: '#F8F5EF', borderRadius: '0 0 24px 24px' }}>
-          <p style={{ fontSize: '12px', color: '#574640', textAlign: 'center' }}>
-            Don't see your university?{' '}
-            <span style={{ color: '#D9381E', fontWeight: 700, cursor: 'pointer' }}>Request Campus Expansion</span>
-          </p>
         </div>
       </div>
     </div>

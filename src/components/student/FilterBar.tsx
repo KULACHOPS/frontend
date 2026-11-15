@@ -1,5 +1,5 @@
 import React from 'react';
-import { SlidersHorizontal, Check } from 'lucide-react';
+import { SlidersHorizontal, Check, RotateCcw } from 'lucide-react';
 
 export interface FilterState {
   onlyOpen: boolean;
@@ -20,12 +20,24 @@ export const FilterBar: React.FC<FilterBarProps> = ({ filters, setFilters, total
     setFilters((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
-  const filterChips: { key: keyof FilterState; label: string }[] = [
-    { key: 'onlyOpen', label: '🟢 Open Now' },
-    { key: 'campusSpecialOnly', label: '🔥 Campus Deals' },
-    { key: 'budgetFriendly', label: '💸 Student Budget (<₦1,500)' },
-    { key: 'topRated', label: '⭐ Top Rated (4.8+)' },
-    { key: 'fastDelivery', label: '⚡ Fast Prep (<20m)' },
+  const hasActiveFilters = Object.values(filters).some(Boolean);
+
+  const resetFilters = () => {
+    setFilters({
+      onlyOpen: false,
+      budgetFriendly: false,
+      topRated: false,
+      fastDelivery: false,
+      campusSpecialOnly: false,
+    });
+  };
+
+  const filterChips: { key: keyof FilterState; label: string; icon: string }[] = [
+    { key: 'onlyOpen', label: 'Open Now', icon: '🟢' },
+    { key: 'campusSpecialOnly', label: 'Top Picks', icon: '🔥' },
+    { key: 'budgetFriendly', label: 'Budget (<₦1,500)', icon: '💸' },
+    { key: 'topRated', label: 'Top Rated (4.8+)', icon: '⭐' },
+    { key: 'fastDelivery', label: 'Fast Prep (<20m)', icon: '⚡' },
   ];
 
   return (
@@ -36,24 +48,39 @@ export const FilterBar: React.FC<FilterBarProps> = ({ filters, setFilters, total
         gap: '8px',
         overflowX: 'auto',
         paddingBottom: '12px',
-        marginBottom: '16px',
+        marginBottom: '20px',
         scrollbarWidth: 'none',
+        msOverflowStyle: 'none',
       }}
+      className="no-scrollbar"
     >
       <div
         style={{
           display: 'flex',
           alignItems: 'center',
           gap: '6px',
-          color: '#574640',
-          fontSize: '12px',
-          fontWeight: 700,
+          color: '#4A5550',
+          fontSize: '13px',
+          fontWeight: 800,
           whiteSpace: 'nowrap',
           paddingRight: '6px',
         }}
       >
-        <SlidersHorizontal size={14} />
-        <span>Filters ({totalVendorsCount}):</span>
+        <div
+          style={{
+            width: '28px',
+            height: '28px',
+            borderRadius: '8px',
+            background: '#F0F3F1',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#090C0B',
+          }}
+        >
+          <SlidersHorizontal size={14} />
+        </div>
+        <span>Filter ({totalVendorsCount}):</span>
       </div>
 
       {filterChips.map((chip) => {
@@ -63,26 +90,66 @@ export const FilterBar: React.FC<FilterBarProps> = ({ filters, setFilters, total
             key={chip.key}
             onClick={() => toggleFilter(chip.key)}
             style={{
-              padding: '6px 14px',
+              padding: '8px 16px',
               borderRadius: '999px',
-              background: isActive ? '#FDF1EE' : '#FFFFFF',
-              color: isActive ? '#D9381E' : '#574640',
-              border: isActive ? '1.5px solid #D9381E' : '1px solid #DDD6CA',
-              fontSize: '12px',
-              fontWeight: isActive ? 700 : 500,
+              background: isActive ? '#FF5500' : '#FFFFFF',
+              color: isActive ? '#FFFFFF' : '#090C0B',
+              border: isActive ? '1.5px solid #FF5500' : '1px solid #E5EAE7',
+              fontSize: '13px',
+              fontWeight: isActive ? 800 : 600,
               display: 'inline-flex',
               alignItems: 'center',
               gap: '6px',
               whiteSpace: 'nowrap',
-              boxShadow: '0 1px 2px rgba(36,26,23,0.02)',
+              boxShadow: isActive ? '0 4px 12px rgba(255, 85, 0, 0.35)' : '0 1px 3px rgba(9,12,11,0.02)',
+              cursor: 'pointer',
               transition: 'all 0.15s ease',
             }}
+            onMouseEnter={(e) => {
+              if (!isActive) {
+                e.currentTarget.style.borderColor = '#FF5500';
+                e.currentTarget.style.background = '#FFF8F5';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (!isActive) {
+                e.currentTarget.style.borderColor = '#E5EAE7';
+                e.currentTarget.style.background = '#FFFFFF';
+              }
+            }}
           >
-            {isActive && <Check size={12} strokeWidth={3} />}
+            <span>{chip.icon}</span>
             <span>{chip.label}</span>
+            {isActive && <Check size={13} strokeWidth={3} />}
           </button>
         );
       })}
+
+      {hasActiveFilters && (
+        <button
+          onClick={resetFilters}
+          style={{
+            padding: '7px 14px',
+            borderRadius: '999px',
+            background: '#FEECEF',
+            color: '#E80B2E',
+            border: '1px solid #FCD4DB',
+            fontSize: '12px',
+            fontWeight: 800,
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '5px',
+            whiteSpace: 'nowrap',
+            cursor: 'pointer',
+            transition: 'all 0.15s ease',
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.background = '#FCD4DB')}
+          onMouseLeave={(e) => (e.currentTarget.style.background = '#FEECEF')}
+        >
+          <RotateCcw size={12} />
+          <span>Reset</span>
+        </button>
+      )}
     </div>
   );
 };

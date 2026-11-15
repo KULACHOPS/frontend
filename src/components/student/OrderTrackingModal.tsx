@@ -86,7 +86,7 @@ export const OrderTrackingModal: React.FC = () => {
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span
               style={{
-                background: '#D9381E',
+                background: '#FF5500',
                 color: '#fff',
                 fontSize: '11px',
                 fontWeight: 800,
@@ -96,7 +96,7 @@ export const OrderTrackingModal: React.FC = () => {
             >
               LIVE TRACKING
             </span>
-            <span style={{ fontSize: '14px', fontWeight: 800, color: '#241A17' }}>
+            <span style={{ fontSize: '14px', fontWeight: 800, color: '#090C0B' }}>
               Order #{order.orderNumber}
             </span>
           </div>
@@ -126,12 +126,12 @@ export const OrderTrackingModal: React.FC = () => {
               background: isCancelled
                 ? 'linear-gradient(135deg, #EF4444 0%, #B91C1C 100%)'
                 : isDelivered
-                ? 'linear-gradient(135deg, #7A8469 0%, #575E4B 100%)'
-                : 'linear-gradient(135deg, #D9381E 0%, #A92610 100%)',
+                ? 'linear-gradient(135deg, #FF5500 0%, #E04800 100%)'
+                : 'linear-gradient(135deg, #FF5500 0%, #FF7700 100%)',
               borderRadius: '20px',
               padding: '20px',
               color: '#FFFFFF',
-              boxShadow: '0 8px 24px rgba(217, 56, 30, 0.25)',
+              boxShadow: '0 8px 24px rgba(255, 85, 0, 0.35)',
               marginBottom: '20px',
             }}
           >
@@ -214,11 +214,11 @@ export const OrderTrackingModal: React.FC = () => {
                     fontSize: '24px',
                     fontWeight: 900,
                     letterSpacing: '4px',
-                    color: '#D9381E',
-                    background: '#FDF1EE',
+                    color: '#FF5500',
+                    background: '#FFF0E8',
                     padding: '4px 12px',
                     borderRadius: '8px',
-                    border: '1.5px dashed #D9381E',
+                    border: '1.5px dashed #FF5500',
                   }}
                 >
                   {order.deliveryCode}
@@ -320,18 +320,18 @@ export const OrderTrackingModal: React.FC = () => {
                       width: '36px',
                       height: '36px',
                       borderRadius: '50%',
-                      background: '#D9381E',
-                      color: '#fff',
+                      background: '#FF5500',
+                      color: '#FFC501',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      boxShadow: '0 4px 12px rgba(217, 56, 30, 0.4)',
+                      boxShadow: '0 4px 12px rgba(255, 85, 0, 0.4)',
                       margin: '0 auto 2px',
                     }}
                   >
                     <Bike size={18} />
                   </div>
-                  <span style={{ fontSize: '10px', fontWeight: 800, color: '#D9381E', background: '#fff', padding: '1px 6px', borderRadius: '4px' }}>
+                  <span style={{ fontSize: '10px', fontWeight: 800, color: '#FF5500', background: '#fff', padding: '1px 6px', borderRadius: '4px' }}>
                     Rider
                   </span>
                 </div>
@@ -385,7 +385,7 @@ export const OrderTrackingModal: React.FC = () => {
                             top: '26px',
                             bottom: '-12px',
                             width: '2px',
-                            background: isCompleted && currentStageIndex > idx ? '#D9381E' : '#DDD6CA',
+                            background: isCompleted && currentStageIndex > idx ? '#FF5500' : '#E5EAE7',
                           }}
                         />
                       )}
@@ -396,13 +396,13 @@ export const OrderTrackingModal: React.FC = () => {
                           width: '28px',
                           height: '28px',
                           borderRadius: '50%',
-                          background: isCompleted ? '#D9381E' : '#E9E3D8',
-                          color: isCompleted ? '#FFFFFF' : '#8C7B74',
+                          background: isCompleted ? '#FF5500' : '#F0F3F1',
+                          color: isCompleted ? '#FFC501' : '#8E9993',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
                           zIndex: 2,
-                          boxShadow: isCurrent ? '0 0 0 4px rgba(217, 56, 30, 0.2)' : 'none',
+                          boxShadow: isCurrent ? '0 0 0 4px rgba(255, 85, 0, 0.25)' : 'none',
                         }}
                       >
                         {isCompleted ? <CheckCircle2 size={16} strokeWidth={2.5} /> : <Clock size={14} />}
@@ -414,7 +414,7 @@ export const OrderTrackingModal: React.FC = () => {
                             style={{
                               fontSize: '13px',
                               fontWeight: isCurrent ? 800 : 600,
-                              color: isCurrent ? '#D9381E' : isCompleted ? '#241A17' : '#8C7B74',
+                              color: isCurrent ? '#FF5500' : isCompleted ? '#090C0B' : '#8E9993',
                             }}
                           >
                             {stage.label}
@@ -423,8 +423,8 @@ export const OrderTrackingModal: React.FC = () => {
                             <span
                               style={{
                                 fontSize: '10px',
-                                background: '#FDF1EE',
-                                color: '#D9381E',
+                                background: '#FFF0E8',
+                                color: '#FF5500',
                                 fontWeight: 800,
                                 padding: '1px 6px',
                                 borderRadius: '4px',
@@ -538,7 +538,7 @@ export const OrderTrackingModal: React.FC = () => {
                 }}
               >
                 <span>Paid via {order.paymentMethod === 'wallet' ? 'Student Wallet' : order.paymentMethod.toUpperCase()}</span>
-                <span style={{ color: '#D9381E' }}>₦{order.totalAmount.toLocaleString()}</span>
+                <span style={{ color: '#FF5500' }}>₦{order.totalAmount.toLocaleString()}</span>
               </div>
             </div>
           </div>

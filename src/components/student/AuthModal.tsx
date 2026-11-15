@@ -42,7 +42,7 @@ export const AuthModal: React.FC = () => {
         <div
           style={{
             padding: '24px 24px 16px',
-            borderBottom: '1px solid #E9E3D8',
+            borderBottom: '1px solid #E5EAE7',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -51,23 +51,23 @@ export const AuthModal: React.FC = () => {
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <div
               style={{
-                width: '34px',
-                height: '34px',
-                borderRadius: '10px',
-                background: 'linear-gradient(135deg, #D9381E 0%, #B59A68 100%)',
+                width: '36px',
+                height: '36px',
+                borderRadius: '12px',
+                background: '#FF5500',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#FFFFFF',
+                color: '#FFC501',
               }}
             >
-              <Flame size={18} fill="#FFFFFF" color="#FFFFFF" />
+              <Flame size={20} fill="#FFC501" color="#FFC501" />
             </div>
             <div>
-              <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#241A17' }}>
-                Sign In to KULACHOPS
+              <h3 style={{ fontSize: '16px', fontWeight: 900, color: '#090C0B' }}>
+                Sign In to KULACHOP
               </h3>
-              <p style={{ fontSize: '11px', color: '#8C7B74' }}>Fast OTP login for students</p>
+              <p style={{ fontSize: '11px', color: '#525C57' }}>Fast OTP login for students</p>
             </div>
           </div>
 
@@ -77,11 +77,11 @@ export const AuthModal: React.FC = () => {
               width: '32px',
               height: '32px',
               borderRadius: '50%',
-              background: '#F8F5EF',
+              background: '#F0F3F1',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#8C7B74',
+              color: '#525C57',
             }}
           >
             <X size={16} />
@@ -93,7 +93,7 @@ export const AuthModal: React.FC = () => {
           {step === 'phone' ? (
             <form onSubmit={handleSendOtp} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div>
-                <label style={{ fontSize: '12px', fontWeight: 700, color: '#241A17', display: 'block', marginBottom: '6px' }}>
+                <label style={{ fontSize: '12px', fontWeight: 800, color: '#090C0B', display: 'block', marginBottom: '6px' }}>
                   Your Full Name
                 </label>
                 <input
@@ -105,10 +105,10 @@ export const AuthModal: React.FC = () => {
                     width: '100%',
                     padding: '12px 14px',
                     borderRadius: '12px',
-                    border: '1.5px solid #DDD6CA',
+                    border: '1.5px solid #E5EAE7',
                     fontSize: '14px',
                     outline: 'none',
-                    color: '#241A17',
+                    color: '#090C0B',
                     fontFamily: 'inherit',
                   }}
                   required
@@ -116,26 +116,26 @@ export const AuthModal: React.FC = () => {
               </div>
 
               <div>
-                <label style={{ fontSize: '12px', fontWeight: 700, color: '#241A17', display: 'block', marginBottom: '6px' }}>
-                  Phone Number (for Rider calls & OTP)
+                <label style={{ fontSize: '12px', fontWeight: 800, color: '#090C0B', display: 'block', marginBottom: '6px' }}>
+                  Phone Number (for Courier calls & OTP)
                 </label>
                 <div
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    border: '1.5px solid #DDD6CA',
+                    border: '1.5px solid #E5EAE7',
                     borderRadius: '12px',
                     overflow: 'hidden',
                   }}
                 >
                   <span
                     style={{
-                      background: '#E9E3D8',
+                      background: '#F0F3F1',
                       padding: '12px 14px',
                       fontSize: '13px',
-                      fontWeight: 700,
-                      color: '#574640',
-                      borderRight: '1px solid #DDD6CA',
+                      fontWeight: 800,
+                      color: '#525C57',
+                      borderRight: '1px solid #E5EAE7',
                     }}
                   >
                     🇳🇬 +234
@@ -150,7 +150,7 @@ export const AuthModal: React.FC = () => {
                       outline: 'none',
                       padding: '12px 14px',
                       fontSize: '14px',
-                      color: '#241A17',
+                      color: '#090C0B',
                       width: '100%',
                       fontFamily: 'inherit',
                     }}
@@ -161,37 +161,28 @@ export const AuthModal: React.FC = () => {
 
               <div
                 style={{
-                  background: '#F8F5EF',
+                  background: '#FFF0E8',
                   padding: '10px 12px',
                   borderRadius: '10px',
                   fontSize: '11px',
-                  color: '#574640',
+                  color: '#FF5500',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '6px',
-                  border: '1px solid #DDD6CA',
+                  border: '1px solid #FFE0CC',
                 }}
               >
-                <ShieldCheck size={14} color="#7A8469" />
-                <span>No password required. We send a quick 4-digit code.</span>
+                <ShieldCheck size={14} color="#FF5500" />
+                <span>No password required. Instant 4-digit code.</span>
               </div>
 
               <button
                 type="submit"
+                className="btn-primary"
                 style={{
-                  background: 'linear-gradient(135deg, #D9381E 0%, #B82E17 100%)',
-                  color: '#FFFFFF',
+                  width: '100%',
                   padding: '14px',
                   borderRadius: '14px',
-                  fontSize: '14px',
-                  fontWeight: 800,
-                  border: 'none',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '8px',
-                  boxShadow: '0 4px 14px rgba(217, 56, 30, 0.35)',
                 }}
               >
                 <span>Continue</span>
@@ -201,21 +192,21 @@ export const AuthModal: React.FC = () => {
           ) : (
             <form onSubmit={handleVerifyOtp} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div style={{ textAlign: 'center', marginBottom: '8px' }}>
-                <p style={{ fontSize: '13px', color: '#574640' }}>
+                <p style={{ fontSize: '13px', color: '#525C57' }}>
                   We sent a 4-digit verification code to <br />
-                  <strong style={{ color: '#241A17' }}>{phone}</strong>
+                  <strong style={{ color: '#090C0B' }}>{phone}</strong>
                 </p>
                 <span
                   style={{
                     display: 'inline-block',
                     marginTop: '6px',
                     fontSize: '11px',
-                    background: '#FDF1EE',
-                    color: '#D9381E',
-                    fontWeight: 700,
+                    background: '#FFF9E6',
+                    color: '#090C0B',
+                    fontWeight: 800,
                     padding: '2px 8px',
                     borderRadius: '6px',
-                    border: '1px solid #F8C3B9',
+                    border: '1px solid #FFE58F',
                   }}
                 >
                   Demo Code: 4821
@@ -236,11 +227,11 @@ export const AuthModal: React.FC = () => {
                     letterSpacing: '8px',
                     padding: '12px',
                     borderRadius: '14px',
-                    border: '2px solid #D9381E',
+                    border: '2px solid #FF5500',
                     outline: 'none',
                     fontFamily: 'monospace',
-                    background: '#FDF1EE',
-                    color: '#241A17',
+                    background: '#FFF0E8',
+                    color: '#090C0B',
                   }}
                   autoFocus
                 />
@@ -248,20 +239,11 @@ export const AuthModal: React.FC = () => {
 
               <button
                 type="submit"
+                className="btn-yellow"
                 style={{
-                  background: 'linear-gradient(135deg, #D9381E 0%, #B82E17 100%)',
-                  color: '#FFFFFF',
+                  width: '100%',
                   padding: '14px',
                   borderRadius: '14px',
-                  fontSize: '14px',
-                  fontWeight: 800,
-                  border: 'none',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '8px',
-                  boxShadow: '0 4px 14px rgba(217, 56, 30, 0.35)',
                 }}
               >
                 <CheckCircle2 size={16} />
@@ -275,7 +257,7 @@ export const AuthModal: React.FC = () => {
                   background: 'transparent',
                   border: 'none',
                   fontSize: '12px',
-                  color: '#8C7B74',
+                  color: '#525C57',
                   cursor: 'pointer',
                   textDecoration: 'underline',
                 }}

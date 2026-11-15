@@ -1,6 +1,6 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
-import { Compass, ShoppingBag, Receipt, Wallet, User } from 'lucide-react';
+import { Compass, ShoppingBag, Receipt, Wallet } from 'lucide-react';
 
 interface BottomNavProps {
   activeTab: 'explore' | 'search' | 'orders' | 'profile';
@@ -20,14 +20,16 @@ export const BottomNav: React.FC<BottomNavProps> = ({ activeTab, setActiveTab })
         bottom: 0,
         left: 0,
         right: 0,
-        height: '64px',
-        background: '#FFFFFF',
-        borderTop: '1px solid #DDD6CA',
+        height: '66px',
+        background: 'rgba(255, 255, 255, 0.96)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        borderTop: '1px solid #E5EAE7',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-around',
-        zIndex: 35,
-        boxShadow: '0 -2px 12px rgba(36,26,23,0.06)',
+        zIndex: 45,
+        boxShadow: '0 -4px 20px rgba(9, 12, 11, 0.05)',
       }}
     >
       {/* Explore */}
@@ -38,12 +40,12 @@ export const BottomNav: React.FC<BottomNavProps> = ({ activeTab, setActiveTab })
           flexDirection: 'column',
           alignItems: 'center',
           gap: '3px',
-          color: activeTab === 'explore' ? '#D9381E' : '#8C7B74',
+          color: activeTab === 'explore' ? '#FF5500' : '#8E9993',
           fontSize: '11px',
-          fontWeight: activeTab === 'explore' ? 700 : 500,
+          fontWeight: activeTab === 'explore' ? 800 : 600,
         }}
       >
-        <Compass size={20} />
+        <Compass size={20} strokeWidth={activeTab === 'explore' ? 2.5 : 2} />
         <span>Chops</span>
       </button>
 
@@ -56,9 +58,9 @@ export const BottomNav: React.FC<BottomNavProps> = ({ activeTab, setActiveTab })
           flexDirection: 'column',
           alignItems: 'center',
           gap: '3px',
-          color: activeOrder ? '#D9381E' : '#8C7B74',
+          color: activeOrder ? '#FF5500' : '#8E9993',
           fontSize: '11px',
-          fontWeight: activeOrder ? 700 : 500,
+          fontWeight: activeOrder ? 800 : 600,
         }}
       >
         <Receipt size={20} />
@@ -71,7 +73,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({ activeTab, setActiveTab })
               right: '-4px',
               width: '8px',
               height: '8px',
-              background: '#D9381E',
+              background: '#FFC501',
               borderRadius: '50%',
               boxShadow: '0 0 0 2px #FFFFFF',
             }}
@@ -79,7 +81,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({ activeTab, setActiveTab })
         )}
       </button>
 
-      {/* Cart Center Floating / Button */}
+      {/* Cart Center Floating Button */}
       <button
         onClick={() => setIsCartOpen(true)}
         style={{
@@ -88,9 +90,9 @@ export const BottomNav: React.FC<BottomNavProps> = ({ activeTab, setActiveTab })
           flexDirection: 'column',
           alignItems: 'center',
           gap: '3px',
-          color: cartCount > 0 ? '#D9381E' : '#8C7B74',
+          color: cartCount > 0 ? '#FF5500' : '#8E9993',
           fontSize: '11px',
-          fontWeight: cartCount > 0 ? 700 : 500,
+          fontWeight: cartCount > 0 ? 800 : 600,
         }}
       >
         <div style={{ position: 'relative' }}>
@@ -101,23 +103,22 @@ export const BottomNav: React.FC<BottomNavProps> = ({ activeTab, setActiveTab })
                 position: 'absolute',
                 top: '-6px',
                 right: '-8px',
-                background: '#D9381E',
-                color: '#fff',
+                background: '#FFC501',
+                color: '#090C0B',
                 fontSize: '10px',
-                fontWeight: 800,
-                width: '16px',
-                height: '16px',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                fontWeight: 900,
+                padding: '1px 5px',
+                borderRadius: '99px',
+                minWidth: '16px',
+                textAlign: 'center',
+                boxShadow: '0 2px 5px rgba(0,0,0,0.15)',
               }}
             >
               {cartCount}
             </span>
           )}
         </div>
-        <span>Tray</span>
+        <span>Bag</span>
       </button>
 
       {/* Wallet */}
@@ -128,30 +129,13 @@ export const BottomNav: React.FC<BottomNavProps> = ({ activeTab, setActiveTab })
           flexDirection: 'column',
           alignItems: 'center',
           gap: '3px',
-          color: '#8C7B74',
+          color: '#8E9993',
           fontSize: '11px',
-          fontWeight: 500,
+          fontWeight: 600,
         }}
       >
         <Wallet size={20} />
         <span>Wallet</span>
-      </button>
-
-      {/* Profile */}
-      <button
-        onClick={() => setActiveTab('profile')}
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '3px',
-          color: activeTab === 'profile' ? '#D9381E' : '#8C7B74',
-          fontSize: '11px',
-          fontWeight: activeTab === 'profile' ? 700 : 500,
-        }}
-      >
-        <User size={20} />
-        <span>Account</span>
       </button>
     </nav>
   );

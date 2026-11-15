@@ -132,7 +132,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // Modals & Tracking
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [orders, setOrders] = useState<Order[]>(INITIAL_ORDERS);
-  const [activeTrackingOrderId, setActiveTrackingOrderId] = useState<string | null>('ord_101');
+  const [activeTrackingOrderId, setActiveTrackingOrderId] = useState<string | null>(null);
   const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
   const [isOrderHistoryOpen, setIsOrderHistoryOpen] = useState(false);
   const [isRatingModalOpen, setIsRatingModalOpen] = useState(false);

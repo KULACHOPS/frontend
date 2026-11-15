@@ -26,15 +26,24 @@ export const VendorDetailView: React.FC = () => {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '8px',
-            padding: '8px 16px',
+            padding: '8px 18px',
             background: '#FFFFFF',
-            border: '1px solid #DDD6CA',
+            border: '1px solid #E5EAE7',
             borderRadius: '999px',
             fontSize: '13px',
-            fontWeight: 700,
-            color: '#241A17',
-            boxShadow: '0 2px 4px rgba(36,26,23,0.04)',
+            fontWeight: 800,
+            color: '#090C0B',
+            boxShadow: '0 2px 4px rgba(9,12,11,0.03)',
             cursor: 'pointer',
+            transition: 'all 0.15s ease',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = '#FF5500';
+            e.currentTarget.style.color = '#FF5500';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = '#E5EAE7';
+            e.currentTarget.style.color = '#090C0B';
           }}
         >
           <ArrowLeft size={16} /> Back to all canteens
@@ -49,7 +58,7 @@ export const VendorDetailView: React.FC = () => {
           borderRadius: '24px',
           overflow: 'hidden',
           marginBottom: '20px',
-          boxShadow: '0 10px 25px rgba(36, 26, 23, 0.15)',
+          boxShadow: '0 10px 25px rgba(9, 12, 11, 0.12)',
         }}
       >
         <img
@@ -61,7 +70,7 @@ export const VendorDetailView: React.FC = () => {
           style={{
             position: 'absolute',
             inset: 0,
-            background: 'linear-gradient(to top, rgba(36, 26, 23, 0.9) 0%, rgba(36, 26, 23, 0.3) 60%, transparent 100%)',
+            background: 'linear-gradient(to top, rgba(9, 12, 11, 0.88) 0%, rgba(9, 12, 11, 0.35) 60%, transparent 100%)',
           }}
         />
 
@@ -77,42 +86,42 @@ export const VendorDetailView: React.FC = () => {
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '6px' }}>
             <span
               style={{
-                background: '#10B981',
-                color: '#fff',
-                padding: '2px 8px',
-                borderRadius: '6px',
+                background: '#FF5500',
+                color: '#FFFFFF',
+                padding: '3px 10px',
+                borderRadius: '99px',
                 fontSize: '11px',
-                fontWeight: 700,
+                fontWeight: 800,
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '4px',
               }}
             >
-              <CheckCircle2 size={12} /> Campus Vetted
+              <CheckCircle2 size={12} color="#FFC501" /> Campus Vetted
             </span>
             {selectedVendorForMenu.isCampusSpecial && (
               <span
                 style={{
-                  background: '#D9381E',
-                  color: '#fff',
-                  padding: '2px 8px',
-                  borderRadius: '6px',
+                  background: '#FFC501',
+                  color: '#090C0B',
+                  padding: '3px 10px',
+                  borderRadius: '99px',
                   fontSize: '11px',
-                  fontWeight: 700,
+                  fontWeight: 900,
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '4px',
                 }}
               >
-                <Flame size={12} /> Student Choice
+                <Flame size={12} fill="#090C0B" /> Top Pick
               </span>
             )}
           </div>
 
-          <h2 style={{ fontSize: 'clamp(22px, 3.5vw, 32px)', fontWeight: 800, color: '#FFFFFF', letterSpacing: '-0.5px' }}>
+          <h2 style={{ fontSize: 'clamp(22px, 3.5vw, 32px)', fontWeight: 900, color: '#FFFFFF', letterSpacing: '-0.5px' }}>
             {selectedVendorForMenu.name}
           </h2>
-          <p style={{ fontSize: '13px', color: '#E9E3D8', marginTop: '2px', maxWidth: '600px' }}>
+          <p style={{ fontSize: '13px', color: '#D1EBE3', marginTop: '2px', maxWidth: '600px' }}>
             {selectedVendorForMenu.tagline}
           </p>
         </div>
@@ -122,10 +131,10 @@ export const VendorDetailView: React.FC = () => {
       <div
         style={{
           background: '#FFFFFF',
-          borderRadius: '18px',
+          borderRadius: '20px',
           padding: '16px 20px',
-          border: '1px solid #DDD6CA',
-          boxShadow: '0 2px 8px rgba(36,26,23,0.04)',
+          border: '1px solid #E5EAE7',
+          boxShadow: '0 2px 8px rgba(9,12,11,0.03)',
           marginBottom: '24px',
           display: 'flex',
           alignItems: 'center',
@@ -136,28 +145,28 @@ export const VendorDetailView: React.FC = () => {
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <Star size={16} fill="#B59A68" color="#B59A68" />
-            <strong style={{ fontSize: '14px', color: '#241A17' }}>{selectedVendorForMenu.rating}</strong>
-            <span style={{ fontSize: '12px', color: '#8C7B74' }}>({selectedVendorForMenu.reviewCount} student reviews)</span>
+            <Star size={16} fill="#FFC501" color="#FFC501" />
+            <strong style={{ fontSize: '14px', color: '#090C0B' }}>{selectedVendorForMenu.rating}</strong>
+            <span style={{ fontSize: '12px', color: '#525C57' }}>({selectedVendorForMenu.reviewCount} student reviews)</span>
           </div>
 
-          <div style={{ width: '1px', height: '16px', background: '#DDD6CA' }} />
+          <div style={{ width: '1px', height: '16px', background: '#E5EAE7' }} />
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: '#574640' }}>
-            <Clock size={15} color="#D9381E" />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: '#090C0B' }}>
+            <Clock size={15} color="#FF5500" />
             <span>Prep: <strong>{selectedVendorForMenu.prepTimeEstimate}</strong></span>
           </div>
 
-          <div style={{ width: '1px', height: '16px', background: '#DDD6CA' }} />
+          <div style={{ width: '1px', height: '16px', background: '#E5EAE7' }} />
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: '#574640' }}>
-            <Bike size={15} color="#7A8469" />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: '#090C0B' }}>
+            <Bike size={15} color="#FF5500" />
             <span>Delivery: <strong>₦{selectedVendorForMenu.deliveryFee}</strong></span>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: '#8C7B74' }}>
-          <MapPin size={14} color="#D9381E" />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: '#525C57' }}>
+          <MapPin size={14} color="#FF5500" />
           <span>{selectedVendorForMenu.address}</span>
         </div>
       </div>
@@ -170,8 +179,10 @@ export const VendorDetailView: React.FC = () => {
           overflowX: 'auto',
           paddingBottom: '8px',
           marginBottom: '20px',
-          borderBottom: '1px solid #DDD6CA',
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
         }}
+        className="no-scrollbar"
       >
         {categories.map((cat) => {
           const isSelected = activeMenuCategory === cat;
@@ -180,13 +191,15 @@ export const VendorDetailView: React.FC = () => {
               key={cat}
               onClick={() => setActiveMenuCategory(cat)}
               style={{
-                padding: '8px 16px',
+                padding: '8px 18px',
                 borderRadius: '999px',
                 fontSize: '13px',
                 fontWeight: isSelected ? 800 : 600,
-                color: isSelected ? '#FFFFFF' : '#574640',
-                background: isSelected ? '#241A17' : '#E9E3D8',
+                color: isSelected ? '#FFFFFF' : '#090C0B',
+                background: isSelected ? '#FF5500' : '#FFFFFF',
+                border: isSelected ? '1.5px solid #FF5500' : '1px solid #E5EAE7',
                 whiteSpace: 'nowrap',
+                boxShadow: isSelected ? '0 4px 12px rgba(255, 85, 0, 0.35)' : '0 1px 3px rgba(9,12,11,0.02)',
                 transition: 'all 0.15s ease',
               }}
             >
@@ -210,10 +223,10 @@ export const VendorDetailView: React.FC = () => {
             onClick={() => setSelectedItemForModal(item)}
             style={{
               background: '#FFFFFF',
-              borderRadius: '16px',
+              borderRadius: '20px',
               padding: '16px',
-              border: '1px solid #DDD6CA',
-              boxShadow: '0 2px 8px rgba(36,26,23,0.03)',
+              border: '1px solid #E5EAE7',
+              boxShadow: '0 2px 8px rgba(9,12,11,0.03)',
               display: 'flex',
               justifyContent: 'space-between',
               gap: '12px',
@@ -222,26 +235,29 @@ export const VendorDetailView: React.FC = () => {
               position: 'relative',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = '#D9381E';
+              e.currentTarget.style.borderColor = '#FF5500';
               e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 8px 20px rgba(255,85,0,0.12)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = '#DDD6CA';
+              e.currentTarget.style.borderColor = '#E5EAE7';
               e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 2px 8px rgba(9,12,11,0.03)';
             }}
           >
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
-                <h4 style={{ fontSize: '15px', fontWeight: 700, color: '#241A17' }}>{item.name}</h4>
+                <h4 style={{ fontSize: '15px', fontWeight: 800, color: '#090C0B' }}>{item.name}</h4>
                 {item.isPopular && (
                   <span
                     style={{
-                      background: '#FDF1EE',
-                      color: '#D9381E',
+                      background: '#FFF9E6',
+                      color: '#090C0B',
                       fontSize: '10px',
-                      fontWeight: 800,
-                      padding: '2px 6px',
-                      borderRadius: '4px',
+                      fontWeight: 900,
+                      padding: '2px 7px',
+                      borderRadius: '99px',
+                      border: '1px solid #FFE58F',
                     }}
                   >
                     Popular
@@ -255,7 +271,7 @@ export const VendorDetailView: React.FC = () => {
               <p
                 style={{
                   fontSize: '12px',
-                  color: '#574640',
+                  color: '#525C57',
                   lineHeight: 1.35,
                   marginBottom: '12px',
                   display: '-webkit-box',
@@ -268,11 +284,11 @@ export const VendorDetailView: React.FC = () => {
               </p>
 
               <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ fontSize: '16px', fontWeight: 800, color: '#241A17' }}>
+                <span style={{ fontSize: '16px', fontWeight: 900, color: '#090C0B' }}>
                   ₦{item.price.toLocaleString()}
                 </span>
                 {item.optionGroups && item.optionGroups.length > 0 && (
-                  <span style={{ fontSize: '11px', color: '#8C7B74' }}>• Customizable</span>
+                  <span style={{ fontSize: '11px', color: '#8E9993' }}>• Customizable</span>
                 )}
               </div>
             </div>
@@ -286,7 +302,7 @@ export const VendorDetailView: React.FC = () => {
                   width: '100%',
                   height: '100%',
                   objectFit: 'cover',
-                  borderRadius: '12px',
+                  borderRadius: '14px',
                 }}
                 loading="lazy"
               />
@@ -299,7 +315,7 @@ export const VendorDetailView: React.FC = () => {
                   position: 'absolute',
                   bottom: '-6px',
                   right: '-6px',
-                  background: '#D9381E',
+                  background: '#FF5500',
                   color: '#FFFFFF',
                   width: '32px',
                   height: '32px',
@@ -307,9 +323,12 @@ export const VendorDetailView: React.FC = () => {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  boxShadow: '0 4px 10px rgba(217, 56, 30, 0.4)',
+                  boxShadow: '0 4px 10px rgba(255, 85, 0, 0.35)',
                   border: '2px solid #FFFFFF',
+                  transition: 'transform 0.15s ease',
                 }}
+                onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.1)')}
+                onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
               >
                 <Plus size={16} strokeWidth={3} />
               </button>

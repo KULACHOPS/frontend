@@ -19,6 +19,7 @@ export const MenuItemModal: React.FC = () => {
 
   useEffect(() => {
     if (selectedItemForModal) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setQuantity(1);
       setSpecialInstructions('');
       // Pre-select defaults for required option groups
@@ -136,7 +137,7 @@ export const MenuItemModal: React.FC = () => {
               width: '34px',
               height: '34px',
               borderRadius: '50%',
-              background: 'rgba(15, 23, 42, 0.75)',
+              background: 'rgba(9, 12, 11, 0.75)',
               color: '#FFFFFF',
               display: 'flex',
               alignItems: 'center',
@@ -152,14 +153,14 @@ export const MenuItemModal: React.FC = () => {
         <div style={{ padding: '20px 24px', maxHeight: '55vh', overflowY: 'auto' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '12px' }}>
             <div>
-              <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#241A17' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: 900, color: '#090C0B' }}>
                 {selectedItemForModal.name}
               </h3>
-              <p style={{ fontSize: '13px', color: '#574640', marginTop: '4px', lineHeight: 1.4 }}>
+              <p style={{ fontSize: '13px', color: '#525C57', marginTop: '4px', lineHeight: 1.4 }}>
                 {selectedItemForModal.description}
               </p>
             </div>
-            <div style={{ fontSize: '18px', fontWeight: 800, color: '#D9381E', flexShrink: 0 }}>
+            <div style={{ fontSize: '18px', fontWeight: 900, color: '#FF5500', flexShrink: 0 }}>
               ₦{selectedItemForModal.price.toLocaleString()}
             </div>
           </div>
@@ -173,19 +174,19 @@ export const MenuItemModal: React.FC = () => {
                 style={{
                   marginTop: '20px',
                   paddingTop: '16px',
-                  borderTop: '1px solid #DDD6CA',
+                  borderTop: '1px solid #E5EAE7',
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                  <h4 style={{ fontSize: '14px', fontWeight: 700, color: '#241A17' }}>{group.title}</h4>
+                  <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#090C0B' }}>{group.title}</h4>
                   <span
                     style={{
                       fontSize: '11px',
-                      fontWeight: 700,
+                      fontWeight: 800,
                       padding: '2px 8px',
                       borderRadius: '99px',
-                      background: group.required ? '#FDF1EE' : '#E9E3D8',
-                      color: group.required ? '#D9381E' : '#574640',
+                      background: group.required ? '#FFF0E8' : '#F0F3F1',
+                      color: group.required ? '#FF5500' : '#525C57',
                     }}
                   >
                     {group.required ? 'Required' : 'Optional'}
@@ -205,8 +206,8 @@ export const MenuItemModal: React.FC = () => {
                           justifyContent: 'space-between',
                           padding: '10px 14px',
                           borderRadius: '12px',
-                          border: isSelected ? '1.5px solid #D9381E' : '1px solid #DDD6CA',
-                          background: isSelected ? '#FDF1EE' : '#FFFFFF',
+                          border: isSelected ? '1.5px solid #FF5500' : '1px solid #E5EAE7',
+                          background: isSelected ? '#FFF0E8' : '#FFFFFF',
                           cursor: 'pointer',
                           transition: 'all 0.15s ease',
                         }}
@@ -217,8 +218,8 @@ export const MenuItemModal: React.FC = () => {
                               width: '18px',
                               height: '18px',
                               borderRadius: group.required ? '50%' : '5px',
-                              border: isSelected ? '2px solid #D9381E' : '2px solid #DDD6CA',
-                              background: isSelected ? '#D9381E' : 'transparent',
+                              border: isSelected ? '2px solid #FF5500' : '2px solid #CBD5E1',
+                              background: isSelected ? '#FF5500' : 'transparent',
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center',
@@ -227,13 +228,13 @@ export const MenuItemModal: React.FC = () => {
                           >
                             {isSelected && <Check size={11} strokeWidth={3} />}
                           </div>
-                          <span style={{ fontSize: '13px', fontWeight: 600, color: '#241A17' }}>
+                          <span style={{ fontSize: '13px', fontWeight: 700, color: '#090C0B' }}>
                             {opt.name}
                           </span>
                         </div>
 
                         {opt.price > 0 && (
-                          <span style={{ fontSize: '13px', fontWeight: 700, color: '#574640' }}>
+                          <span style={{ fontSize: '13px', fontWeight: 800, color: '#525C57' }}>
                             +₦{opt.price.toLocaleString()}
                           </span>
                         )}
@@ -246,8 +247,8 @@ export const MenuItemModal: React.FC = () => {
           })}
 
           {/* Special Instructions Note */}
-          <div style={{ marginTop: '20px', paddingTop: '16px', borderTop: '1px solid #DDD6CA' }}>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: 700, color: '#241A17', marginBottom: '6px' }}>
+          <div style={{ marginTop: '20px', paddingTop: '16px', borderTop: '1px solid #E5EAE7' }}>
+            <label style={{ display: 'block', fontSize: '13px', fontWeight: 800, color: '#090C0B', marginBottom: '6px' }}>
               Special Kitchen Note (Optional)
             </label>
             <textarea
@@ -259,11 +260,11 @@ export const MenuItemModal: React.FC = () => {
                 width: '100%',
                 padding: '10px 12px',
                 borderRadius: '12px',
-                border: '1px solid #DDD6CA',
+                border: '1px solid #E5EAE7',
                 fontSize: '13px',
                 fontFamily: 'inherit',
                 outline: 'none',
-                color: '#241A17',
+                color: '#090C0B',
                 resize: 'none',
               }}
             />
@@ -274,7 +275,7 @@ export const MenuItemModal: React.FC = () => {
         <div
           style={{
             padding: '16px 24px',
-            borderTop: '1px solid #DDD6CA',
+            borderTop: '1px solid #E5EAE7',
             background: '#FFFFFF',
             display: 'flex',
             alignItems: 'center',
@@ -287,7 +288,7 @@ export const MenuItemModal: React.FC = () => {
               display: 'flex',
               alignItems: 'center',
               gap: '10px',
-              background: '#E9E3D8',
+              background: '#F0F3F1',
               padding: '6px 12px',
               borderRadius: '999px',
             }}
@@ -303,13 +304,13 @@ export const MenuItemModal: React.FC = () => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#241A17',
-                boxShadow: '0 1px 2px rgba(36,26,23,0.05)',
+                color: '#090C0B',
+                boxShadow: '0 1px 2px rgba(9,12,11,0.05)',
               }}
             >
               <Minus size={13} />
             </button>
-            <span style={{ fontSize: '14px', fontWeight: 800, minWidth: '18px', textAlign: 'center', color: '#241A17' }}>
+            <span style={{ fontSize: '14px', fontWeight: 800, minWidth: '18px', textAlign: 'center', color: '#090C0B' }}>
               {quantity}
             </span>
             <button
@@ -322,21 +323,21 @@ export const MenuItemModal: React.FC = () => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#241A17',
-                boxShadow: '0 1px 2px rgba(36,26,23,0.05)',
+                color: '#090C0B',
+                boxShadow: '0 1px 2px rgba(9,12,11,0.05)',
               }}
             >
               <Plus size={13} />
             </button>
           </div>
 
-          {/* Add to Tray Button */}
+          {/* Add to Tray Button - Primary Action */}
           <button
             onClick={handleAdd}
-            className="btn-primary"
+            className="btn-yellow"
             style={{ flex: 1, padding: '12px 18px', fontSize: '14px', borderRadius: '14px' }}
           >
-            <span>Add to Tray</span>
+            <span>Add to Bag</span>
             <span>•</span>
             <span>₦{totalPrice.toLocaleString()}</span>
           </button>

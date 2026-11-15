@@ -1,11 +1,16 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
-import { MapPin, ShoppingBag, Wallet, Flame, ChevronDown, Clock, LogIn, LogOut } from 'lucide-react';
+import {
+  ShoppingBag,
+  Wallet,
+  Flame,
+  Clock,
+  LogIn,
+  LogOut,
+} from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const {
-    selectedCampus,
-    setIsCampusModalOpen,
     cart,
     setIsCartOpen,
     student,
@@ -25,236 +30,189 @@ export const Navbar: React.FC = () => {
     (o) => o.status !== 'delivered' && o.status !== 'cancelled'
   );
 
-  const scrollToSection = (id: string) => {
-    setSelectedVendorForMenu(null);
-    setTimeout(() => {
-      const el = document.getElementById(id);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }, 50);
-  };
-
   return (
     <header
       style={{
         position: 'sticky',
-        top: 0,
-        zIndex: 40,
-        background: '#FFFFFF',
-        borderBottom: '1px solid #DDD6CA',
-        boxShadow: '0 2px 10px rgba(36,26,23,0.03)',
+        top: '14px',
+        zIndex: 50,
+        width: '100%',
+        padding: '0 16px',
+        display: 'flex',
+        justifyContent: 'center',
+        background: 'transparent',
+        pointerEvents: 'none',
       }}
     >
       <div
-        className="app-container"
         style={{
+          pointerEvents: 'auto',
+          width: '100%',
+          maxWidth: '1120px',
+          background: '#FFFFFF',
+          borderRadius: '9999px',
+          border: '1.5px solid #E5EAE7',
+          boxShadow: '0 6px 24px -4px rgba(9, 12, 11, 0.08), 0 2px 6px -1px rgba(9, 12, 11, 0.04)',
+          padding: '8px 12px 8px 22px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          height: '72px',
           gap: '12px',
         }}
       >
-        {/* Brand Logo & Campus Selector */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+        {/* Left: Brand Logo */}
+        <div
+          onClick={() => setSelectedVendorForMenu(null)}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '9px',
+            cursor: 'pointer',
+            userSelect: 'none',
+          }}
+        >
           <div
-            onClick={() => setSelectedVendorForMenu(null)}
             style={{
+              width: '36px',
+              height: '36px',
+              borderRadius: '11px',
+              background: 'linear-gradient(135deg, #FF5500 0%, #FF7700 100%)',
               display: 'flex',
               alignItems: 'center',
-              gap: '8px',
-              cursor: 'pointer',
-              userSelect: 'none',
+              justifyContent: 'center',
+              color: '#FFC501',
+              boxShadow: '0 4px 12px rgba(255, 85, 0, 0.3)',
+              transition: 'transform 0.15s ease',
             }}
+            onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
+            onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
           >
-            <div
-              style={{
-                width: '38px',
-                height: '38px',
-                borderRadius: '12px',
-                background: 'linear-gradient(135deg, #D9381E 0%, #B59A68 100%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#FFFFFF',
-                boxShadow: '0 4px 12px rgba(217, 56, 30, 0.3)',
-              }}
-            >
-              <Flame size={22} fill="#FFFFFF" color="#FFFFFF" />
-            </div>
-            <div>
-              <span
-                style={{
-                  fontWeight: 900,
-                  fontSize: '20px',
-                  letterSpacing: '-0.5px',
-                  color: '#241A17',
-                }}
-              >
-                KULA<span style={{ color: '#D9381E' }}>CHOPS</span>
-              </span>
-              <span
-                style={{
-                  display: 'block',
-                  fontSize: '10px',
-                  fontWeight: 700,
-                  color: '#8C7B74',
-                  letterSpacing: '0.4px',
-                  textTransform: 'uppercase',
-                  marginTop: '-4px',
-                }}
-              >
-                Campus Food Delivery
-              </span>
-            </div>
+            <Flame size={20} fill="#FFC501" color="#FFC501" />
           </div>
-
-          {/* Campus Location Dropdown Pill */}
-          <button
-            onClick={() => setIsCampusModalOpen(true)}
+          <span
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              padding: '6px 14px',
-              background: '#F8F5EF',
-              border: '1.5px solid #DDD6CA',
-              borderRadius: '999px',
-              cursor: 'pointer',
-              fontSize: '13px',
-              fontWeight: 700,
-              color: '#241A17',
+              fontWeight: 900,
+              fontSize: '20px',
+              letterSpacing: '-0.6px',
+              color: '#090C0B',
             }}
           >
-            <MapPin size={14} color="#D9381E" />
-            <span style={{ maxWidth: '140px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-              {selectedCampus.shortName}
-            </span>
-            <ChevronDown size={14} color="#8C7B74" />
-          </button>
+            KULA<span style={{ color: '#FF5500' }}>CHOP</span>
+          </span>
         </div>
 
-        {/* Center Nav Links (Chowdeck Style) */}
-        <nav
-          style={{
-            display: 'none',
-            alignItems: 'center',
-            gap: '8px',
-            background: '#F8F5EF',
-            padding: '4px 8px',
-            borderRadius: '999px',
-            border: '1px solid #DDD6CA',
-          }}
-          className="desktop-nav"
-        >
-          <button
-            onClick={() => scrollToSection('campus-canteens-section')}
-            style={{
-              padding: '6px 14px',
-              borderRadius: '99px',
-              fontSize: '13px',
-              fontWeight: 700,
-              color: '#241A17',
-            }}
-          >
-            Canteens
-          </button>
-          <button
-            onClick={() => setIsCampusModalOpen(true)}
-            style={{
-              padding: '6px 14px',
-              borderRadius: '99px',
-              fontSize: '13px',
-              fontWeight: 600,
-              color: '#574640',
-            }}
-          >
-            Campuses
-          </button>
-          {isAuthenticated && (
-            <button
-              onClick={() => setIsWalletModalOpen(true)}
-              style={{
-                padding: '6px 14px',
-                borderRadius: '99px',
-                fontSize: '13px',
-                fontWeight: 600,
-                color: '#574640',
-              }}
-            >
-              Student Wallet
-            </button>
-          )}
-        </nav>
-
-        {/* Right Actions: Auth, Active Order pill, Wallet & Cart */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        {/* Right Actions: Auth, Active Order Live Pill, Wallet & Cart */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           {!isAuthenticated ? (
             <button
               onClick={() => setIsAuthModalOpen(true)}
               style={{
-                background: '#D9381E',
-                color: '#FFFFFF',
-                padding: '8px 18px',
-                borderRadius: '999px',
-                fontSize: '13px',
-                fontWeight: 800,
-                border: 'none',
-                cursor: 'pointer',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '6px',
-                boxShadow: '0 2px 10px rgba(217, 56, 30, 0.35)',
+                padding: '8px 18px',
+                fontSize: '13px',
+                fontWeight: 800,
+                color: '#FFFFFF',
+                background: '#090C0B',
+                borderRadius: '9999px',
+                border: 'none',
+                cursor: 'pointer',
+                boxShadow: '0 3px 10px rgba(9, 12, 11, 0.15)',
+                transition: 'all 0.15s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#FF5500';
+                e.currentTarget.style.transform = 'translateY(-1px)';
+                e.currentTarget.style.boxShadow = '0 5px 14px rgba(255, 85, 0, 0.35)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#090C0B';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 3px 10px rgba(9, 12, 11, 0.15)';
               }}
             >
-              <LogIn size={15} />
+              <LogIn size={14} />
               <span>Sign In</span>
             </button>
           ) : (
             <>
-              {/* Active order live pill if present */}
+              {/* Active order live tracking pill if present */}
               {activeOrder && (
                 <button
                   onClick={() => setActiveTrackingOrderId(activeOrder.id)}
-                  className="pulse-indicator"
                   style={{
                     display: 'flex',
                     alignItems: 'center',
                     gap: '6px',
-                    padding: '7px 14px',
-                    background: '#FDF1EE',
-                    border: '1.5px solid #F8C3B9',
-                    borderRadius: '999px',
-                    color: '#D9381E',
-                    fontSize: '13px',
-                    fontWeight: 700,
+                    padding: '6px 12px',
+                    background: '#FFF0E8',
+                    border: '1.5px solid #FF5500',
+                    borderRadius: '9999px',
+                    color: '#FF5500',
+                    fontSize: '12px',
+                    fontWeight: 800,
                     cursor: 'pointer',
+                    transition: 'all 0.15s ease',
                   }}
+                  onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-1px)')}
+                  onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
                 >
-                  <Clock size={15} />
-                  <span>Track Order</span>
-                  <span style={{ background: '#D9381E', color: '#fff', fontSize: '10px', padding: '1px 6px', borderRadius: '99px' }}>
-                    Active
-                  </span>
+                  <Clock size={13} />
+                  <span className="hidden-sm">Track Order</span>
+                  <span
+                    style={{
+                      width: '6px',
+                      height: '6px',
+                      borderRadius: '50%',
+                      background: '#FF5500',
+                      animation: 'pulseGlow 1.5s infinite',
+                    }}
+                  />
                 </button>
               )}
 
               {/* Wallet Balance Pill */}
               <button
                 onClick={() => setIsWalletModalOpen(true)}
+                title="Wallet balance"
                 style={{
                   display: 'flex',
                   alignItems: 'center',
                   gap: '6px',
-                  padding: '7px 14px',
-                  background: '#E9E3D8',
-                  borderRadius: '999px',
-                  fontSize: '13px',
-                  fontWeight: 700,
-                  color: '#241A17',
-                  border: '1px solid #DDD6CA',
+                  padding: '6px 12px',
+                  background: '#F5F7F6',
+                  borderRadius: '9999px',
+                  fontSize: '12.5px',
+                  fontWeight: 800,
+                  color: '#090C0B',
+                  border: '1px solid #E5EAE7',
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = '#FF5500';
+                  e.currentTarget.style.background = '#FFFFFF';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = '#E5EAE7';
+                  e.currentTarget.style.background = '#F5F7F6';
                 }}
               >
-                <Wallet size={16} color="#B59A68" />
+                <div
+                  style={{
+                    width: '18px',
+                    height: '18px',
+                    borderRadius: '5px',
+                    background: '#FFC501',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#090C0B',
+                  }}
+                >
+                  <Wallet size={11} />
+                </div>
                 <span>₦{student.walletBalance.toLocaleString()}</span>
               </button>
 
@@ -263,60 +221,82 @@ export const Navbar: React.FC = () => {
                 onClick={logout}
                 title="Sign out"
                 style={{
-                  fontSize: '12px',
-                  color: '#8C7B74',
-                  background: '#F8F5EF',
-                  border: '1px solid #DDD6CA',
-                  padding: '7px 12px',
-                  borderRadius: '999px',
-                  fontWeight: 600,
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '4px',
-                }}
-              >
-                <LogOut size={13} />
-                <span className="hidden-sm">Sign Out</span>
-              </button>
-            </>
-          )}
-
-          {/* Cart Tray Button */}
-          <button
-            onClick={() => setIsCartOpen(true)}
-            style={{
-              position: 'relative',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '42px',
-              height: '42px',
-              borderRadius: '50%',
-              background: totalCartItems > 0 ? '#D9381E' : '#E9E3D8',
-              color: totalCartItems > 0 ? '#FFFFFF' : '#241A17',
-              border: 'none',
-              boxShadow: totalCartItems > 0 ? '0 4px 12px rgba(217, 56, 30, 0.35)' : 'none',
-              transition: 'all 0.2s ease',
-            }}
-          >
-            <ShoppingBag size={18} />
-            {totalCartItems > 0 && (
-              <span
-                style={{
-                  position: 'absolute',
-                  top: '-4px',
-                  right: '-4px',
-                  background: '#241A17',
-                  color: '#FFFFFF',
-                  fontSize: '11px',
-                  fontWeight: 800,
-                  width: '20px',
-                  height: '20px',
+                  width: '34px',
+                  height: '34px',
                   borderRadius: '50%',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  border: '2px solid #FFFFFF',
+                  background: '#F5F7F6',
+                  border: '1px solid #E5EAE7',
+                  color: '#525C57',
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = '#E80B2E';
+                  e.currentTarget.style.borderColor = '#FCA5A5';
+                  e.currentTarget.style.background = '#FEF2F2';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = '#525C57';
+                  e.currentTarget.style.borderColor = '#E5EAE7';
+                  e.currentTarget.style.background = '#F5F7F6';
+                }}
+              >
+                <LogOut size={13} />
+              </button>
+            </>
+          )}
+
+          {/* Cart Button */}
+          <button
+            onClick={() => setIsCartOpen(true)}
+            title="View Cart"
+            style={{
+              position: 'relative',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: totalCartItems > 0 ? '7px 14px' : '7px 12px',
+              height: '38px',
+              borderRadius: '9999px',
+              background: totalCartItems > 0 ? '#FF5500' : '#F5F7F6',
+              color: totalCartItems > 0 ? '#FFFFFF' : '#090C0B',
+              border: totalCartItems > 0 ? 'none' : '1px solid #E5EAE7',
+              boxShadow: totalCartItems > 0 ? '0 4px 14px rgba(255, 85, 0, 0.35)' : 'none',
+              transition: 'all 0.15s cubic-bezier(0.16, 1, 0.3, 1)',
+              cursor: 'pointer',
+              fontWeight: 800,
+              fontSize: '13px',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.04)';
+              if (totalCartItems === 0) {
+                e.currentTarget.style.borderColor = '#FF5500';
+                e.currentTarget.style.background = '#FFFFFF';
+              }
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              if (totalCartItems === 0) {
+                e.currentTarget.style.borderColor = '#E5EAE7';
+                e.currentTarget.style.background = '#F5F7F6';
+              }
+            }}
+          >
+            <ShoppingBag size={17} />
+            {totalCartItems > 0 && (
+              <span
+                style={{
+                  background: '#FFC501',
+                  color: '#090C0B',
+                  fontSize: '11px',
+                  fontWeight: 900,
+                  padding: '1px 6px',
+                  borderRadius: '9999px',
+                  minWidth: '18px',
+                  textAlign: 'center',
                 }}
               >
                 {totalCartItems}

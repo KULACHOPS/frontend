@@ -11,7 +11,7 @@ export const WalletModal: React.FC = () => {
 
   const handleTopUp = () => {
     topUpWallet(topUpAmount);
-    showToast(`Wallet successfully funded with ₦${topUpAmount.toLocaleString()}`, 'success');
+    setIsWalletModalOpen(false);
   };
 
   return (
@@ -25,15 +25,15 @@ export const WalletModal: React.FC = () => {
         <div
           style={{
             padding: '18px 24px',
-            borderBottom: '1px solid #DDD6CA',
+            borderBottom: '1px solid #E5EAE7',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Wallet size={20} color="#D9381E" />
-            <h3 style={{ fontSize: '17px', fontWeight: 800, color: '#241A17' }}>Student Food Wallet</h3>
+            <Wallet size={20} color="#FF5500" />
+            <h3 style={{ fontSize: '17px', fontWeight: 900, color: '#090C0B' }}>Student Food Wallet</h3>
           </div>
           <button
             onClick={() => setIsWalletModalOpen(false)}
@@ -41,11 +41,11 @@ export const WalletModal: React.FC = () => {
               width: '32px',
               height: '32px',
               borderRadius: '50%',
-              background: '#F8F5EF',
+              background: '#F0F3F1',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#8C7B74',
+              color: '#525C57',
             }}
           >
             <X size={18} />
@@ -54,33 +54,33 @@ export const WalletModal: React.FC = () => {
 
         {/* Content */}
         <div style={{ padding: '24px' }}>
-          {/* Balance Card */}
+          {/* Balance Card - Vibrant Orange Style */}
           <div
             style={{
-              background: 'linear-gradient(135deg, #241A17 0%, #3D2D28 100%)',
+              background: 'linear-gradient(135deg, #FF5500 0%, #E04800 100%)',
               borderRadius: '20px',
               padding: '24px',
               color: '#FFFFFF',
-              boxShadow: '0 8px 20px rgba(36, 26, 23, 0.2)',
+              boxShadow: '0 8px 20px rgba(255, 85, 0, 0.35)',
               position: 'relative',
               overflow: 'hidden',
               marginBottom: '24px',
             }}
           >
-            <span style={{ fontSize: '12px', fontWeight: 600, color: '#B59A68', textTransform: 'uppercase' }}>
+            <span style={{ fontSize: '12px', fontWeight: 700, color: '#FFC501', textTransform: 'uppercase' }}>
               Available Balance
             </span>
             <h2 style={{ fontSize: '32px', fontWeight: 900, color: '#FFFFFF', marginTop: '4px' }}>
               ₦{student.walletBalance.toLocaleString()}
             </h2>
-            <p style={{ fontSize: '12px', color: '#E9E3D8', marginTop: '4px' }}>
+            <p style={{ fontSize: '12px', color: '#D1EBE3', marginTop: '4px' }}>
               For instant 1-click campus food orders with zero bank delays.
             </p>
           </div>
 
           {/* Quick Top-up Amount Chips */}
           <div style={{ marginBottom: '20px' }}>
-            <label style={{ fontSize: '13px', fontWeight: 700, color: '#241A17', display: 'block', marginBottom: '8px' }}>
+            <label style={{ fontSize: '13px', fontWeight: 800, color: '#090C0B', display: 'block', marginBottom: '8px' }}>
               Select Top-Up Amount
             </label>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
@@ -93,9 +93,9 @@ export const WalletModal: React.FC = () => {
                     style={{
                       padding: '10px',
                       borderRadius: '12px',
-                      border: isSelected ? '2px solid #D9381E' : '1px solid #DDD6CA',
-                      background: isSelected ? '#FDF1EE' : '#FFFFFF',
-                      color: isSelected ? '#D9381E' : '#241A17',
+                      border: isSelected ? '2px solid #FF5500' : '1px solid #E5EAE7',
+                      background: isSelected ? '#FFF0E8' : '#FFFFFF',
+                      color: isSelected ? '#FF5500' : '#090C0B',
                       fontWeight: 800,
                       fontSize: '14px',
                       transition: 'all 0.15s ease',
@@ -110,7 +110,7 @@ export const WalletModal: React.FC = () => {
 
           {/* Funding Method Toggle */}
           <div style={{ marginBottom: '20px' }}>
-            <label style={{ fontSize: '13px', fontWeight: 700, color: '#241A17', display: 'block', marginBottom: '8px' }}>
+            <label style={{ fontSize: '13px', fontWeight: 800, color: '#090C0B', display: 'block', marginBottom: '8px' }}>
               Payment Channel
             </label>
             <div style={{ display: 'flex', gap: '10px' }}>
@@ -120,11 +120,11 @@ export const WalletModal: React.FC = () => {
                   flex: 1,
                   padding: '12px',
                   borderRadius: '12px',
-                  border: fundingMethod === 'transfer' ? '2px solid #D9381E' : '1px solid #DDD6CA',
-                  background: fundingMethod === 'transfer' ? '#FDF1EE' : '#FFFFFF',
+                  border: fundingMethod === 'transfer' ? '2px solid #FF5500' : '1px solid #E5EAE7',
+                  background: fundingMethod === 'transfer' ? '#FFF0E8' : '#FFFFFF',
                   fontSize: '12px',
-                  fontWeight: 700,
-                  color: fundingMethod === 'transfer' ? '#D9381E' : '#574640',
+                  fontWeight: 800,
+                  color: fundingMethod === 'transfer' ? '#FF5500' : '#525C57',
                 }}
               >
                 🏦 Bank Transfer
@@ -135,11 +135,11 @@ export const WalletModal: React.FC = () => {
                   flex: 1,
                   padding: '12px',
                   borderRadius: '12px',
-                  border: fundingMethod === 'card' ? '2px solid #D9381E' : '1px solid #DDD6CA',
-                  background: fundingMethod === 'card' ? '#FDF1EE' : '#FFFFFF',
+                  border: fundingMethod === 'card' ? '2px solid #FF5500' : '1px solid #E5EAE7',
+                  background: fundingMethod === 'card' ? '#FFF0E8' : '#FFFFFF',
                   fontSize: '12px',
-                  fontWeight: 700,
-                  color: fundingMethod === 'card' ? '#D9381E' : '#574640',
+                  fontWeight: 800,
+                  color: fundingMethod === 'card' ? '#FF5500' : '#525C57',
                 }}
               >
                 💳 Debit Card
@@ -151,32 +151,32 @@ export const WalletModal: React.FC = () => {
           {fundingMethod === 'transfer' && (
             <div
               style={{
-                background: '#F8F5EF',
+                background: '#F0F3F1',
                 borderRadius: '14px',
                 padding: '14px',
-                border: '1px dashed #DDD6CA',
+                border: '1px dashed #FF5500',
                 marginBottom: '20px',
                 fontSize: '12px',
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                <span style={{ color: '#574640' }}>Bank Name:</span>
-                <strong style={{ color: '#241A17' }}>Wema Bank (Kulachops)</strong>
+                <span style={{ color: '#525C57' }}>Bank Name:</span>
+                <strong style={{ color: '#090C0B' }}>Wema Bank (KulaChop)</strong>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px', alignItems: 'center' }}>
-                <span style={{ color: '#574640' }}>Virtual Account:</span>
+                <span style={{ color: '#525C57' }}>Virtual Account:</span>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <strong style={{ fontSize: '13px', color: '#D9381E' }}>9823 481 029</strong>
+                  <strong style={{ fontSize: '13px', color: '#FF5500' }}>9823 481 029</strong>
                   <Copy
                     size={12}
-                    style={{ cursor: 'pointer', color: '#8C7B74' }}
+                    style={{ cursor: 'pointer', color: '#8E9993' }}
                     onClick={() => showToast('Virtual account number copied!', 'info')}
                   />
                 </div>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span style={{ color: '#574640' }}>Beneficiary:</span>
-                <strong style={{ color: '#241A17' }}>KC - {student.name}</strong>
+                <span style={{ color: '#525C57' }}>Beneficiary:</span>
+                <strong style={{ color: '#090C0B' }}>KC - {student.name}</strong>
               </div>
             </div>
           )}
@@ -184,7 +184,7 @@ export const WalletModal: React.FC = () => {
           {/* Top up CTA button */}
           <button
             onClick={handleTopUp}
-            className="btn-primary"
+            className="btn-yellow"
             style={{ width: '100%', padding: '14px', borderRadius: '14px', fontSize: '15px' }}
           >
             <Plus size={18} /> Top-Up ₦{topUpAmount.toLocaleString()} Now

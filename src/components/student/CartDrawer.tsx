@@ -24,7 +24,7 @@ export const CartDrawer: React.FC = () => {
   if (!isCartOpen) return null;
 
   const packagingFee = cartVendor?.packagingFee || 150;
-  const deliveryFee = cartVendor?.deliveryFee || 350;
+  const deliveryFee = cartVendor?.deliveryFee || 250;
   const serviceFee = 100;
 
   const discountAmount = appliedPromo ? appliedPromo.discount : 0;
@@ -35,17 +35,14 @@ export const CartDrawer: React.FC = () => {
     const found = PROMO_CODES.find((p) => p.code === cleanCode);
 
     if (found) {
-      let discount = 0;
-      if (found.discountType === 'fixed') {
-        discount = found.value;
-      } else {
-        discount = Math.round((cartSubtotal * found.value) / 100);
-      }
+      const discount = found.discountType === 'fixed'
+        ? found.value
+        : Math.round((cartSubtotal * found.value) / 100);
       setAppliedPromo({ code: found.code, discount });
       showToast(`Promo ${found.code} applied! Saved ₦${discount.toLocaleString()}`, 'success');
       setPromoInput('');
     } else {
-      showToast('Invalid promo code. Try CHOPLIFE50 or EXAMRUSH', 'error');
+      showToast('Invalid promo code. Try CHOPLIFE or EXAMRUSH', 'error');
     }
   };
 
@@ -66,7 +63,7 @@ export const CartDrawer: React.FC = () => {
         <div
           style={{
             padding: '20px 24px',
-            borderBottom: '1px solid #DDD6CA',
+            borderBottom: '1px solid #E5EAE7',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -78,8 +75,8 @@ export const CartDrawer: React.FC = () => {
                 width: '36px',
                 height: '36px',
                 borderRadius: '50%',
-                background: '#FDF1EE',
-                color: '#D9381E',
+                background: '#FFF0E8',
+                color: '#FF5500',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -88,9 +85,9 @@ export const CartDrawer: React.FC = () => {
               <ShoppingBag size={18} />
             </div>
             <div>
-              <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#241A17' }}>Your Food Tray</h3>
+              <h3 style={{ fontSize: '16px', fontWeight: 900, color: '#090C0B' }}>Your Food Bag</h3>
               {cartVendor && (
-                <p style={{ fontSize: '12px', color: '#574640', fontWeight: 600 }}>{cartVendor.name}</p>
+                <p style={{ fontSize: '12px', color: '#525C57', fontWeight: 600 }}>{cartVendor.name}</p>
               )}
             </div>
           </div>
@@ -101,11 +98,11 @@ export const CartDrawer: React.FC = () => {
               width: '32px',
               height: '32px',
               borderRadius: '50%',
-              background: '#F8F5EF',
+              background: '#F0F3F1',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#8C7B74',
+              color: '#525C57',
             }}
           >
             <X size={18} />
@@ -121,8 +118,8 @@ export const CartDrawer: React.FC = () => {
                   width: '72px',
                   height: '72px',
                   borderRadius: '50%',
-                  background: '#F8F5EF',
-                  color: '#8C7B74',
+                  background: '#F0F3F1',
+                  color: '#8E9993',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -131,8 +128,8 @@ export const CartDrawer: React.FC = () => {
               >
                 <ShoppingBag size={32} />
               </div>
-              <h4 style={{ fontSize: '16px', fontWeight: 700, color: '#241A17' }}>Your tray is empty</h4>
-              <p style={{ fontSize: '13px', color: '#574640', marginTop: '4px', maxWidth: '240px', margin: '4px auto 20px' }}>
+              <h4 style={{ fontSize: '16px', fontWeight: 800, color: '#090C0B' }}>Your food bag is empty</h4>
+              <p style={{ fontSize: '13px', color: '#525C57', marginTop: '4px', maxWidth: '240px', margin: '4px auto 20px' }}>
                 Add hot party jollof, crunchy shawarmas or cold chillers to get started!
               </p>
               <button onClick={() => setIsCartOpen(false)} className="btn-secondary">
@@ -148,7 +145,7 @@ export const CartDrawer: React.FC = () => {
                     background: '#FFFFFF',
                     borderRadius: '16px',
                     padding: '14px',
-                    border: '1px solid #DDD6CA',
+                    border: '1px solid #E5EAE7',
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '10px',
@@ -156,7 +153,7 @@ export const CartDrawer: React.FC = () => {
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
                     <div>
-                      <h4 style={{ fontSize: '14px', fontWeight: 700, color: '#241A17' }}>{item.menuItem.name}</h4>
+                      <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#090C0B' }}>{item.menuItem.name}</h4>
                       {item.selectedOptions.length > 0 && (
                         <div style={{ marginTop: '4px', display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
                           {item.selectedOptions.map((opt) => (
@@ -164,9 +161,9 @@ export const CartDrawer: React.FC = () => {
                               key={opt.optionId}
                               style={{
                                 fontSize: '11px',
-                                background: '#F8F5EF',
-                                color: '#574640',
-                                border: '1px solid #DDD6CA',
+                                background: '#F0F3F1',
+                                color: '#525C57',
+                                border: '1px solid #E5EAE7',
                                 padding: '1px 6px',
                                 borderRadius: '4px',
                               }}
@@ -177,19 +174,19 @@ export const CartDrawer: React.FC = () => {
                         </div>
                       )}
                       {item.specialInstructions && (
-                        <p style={{ fontSize: '11px', color: '#B59A68', fontStyle: 'italic', marginTop: '4px' }}>
+                        <p style={{ fontSize: '11px', color: '#FF5500', fontStyle: 'italic', marginTop: '4px' }}>
                           "{item.specialInstructions}"
                         </p>
                       )}
                     </div>
 
-                    <div style={{ fontSize: '14px', fontWeight: 800, color: '#241A17' }}>
+                    <div style={{ fontSize: '14px', fontWeight: 900, color: '#090C0B' }}>
                       ₦{item.totalPrice.toLocaleString()}
                     </div>
                   </div>
 
                   {/* Quantity & Delete Controls */}
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '8px', borderTop: '1px dashed #DDD6CA' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '8px', borderTop: '1px dashed #E5EAE7' }}>
                     <button
                       onClick={() => removeFromCart(item.id)}
                       style={{
@@ -197,8 +194,8 @@ export const CartDrawer: React.FC = () => {
                         alignItems: 'center',
                         gap: '4px',
                         fontSize: '12px',
-                        color: '#D9381E',
-                        fontWeight: 600,
+                        color: '#E80B2E',
+                        fontWeight: 700,
                       }}
                     >
                       <Trash2 size={13} /> Remove
@@ -209,7 +206,7 @@ export const CartDrawer: React.FC = () => {
                         display: 'flex',
                         alignItems: 'center',
                         gap: '8px',
-                        background: '#E9E3D8',
+                        background: '#F0F3F1',
                         padding: '4px 10px',
                         borderRadius: '99px',
                       }}
@@ -224,12 +221,12 @@ export const CartDrawer: React.FC = () => {
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          color: '#241A17',
+                          color: '#090C0B',
                         }}
                       >
                         <Minus size={11} />
                       </button>
-                      <span style={{ fontSize: '13px', fontWeight: 800, minWidth: '16px', textAlign: 'center', color: '#241A17' }}>
+                      <span style={{ fontSize: '13px', fontWeight: 800, minWidth: '16px', textAlign: 'center', color: '#090C0B' }}>
                         {item.quantity}
                       </span>
                       <button
@@ -242,7 +239,7 @@ export const CartDrawer: React.FC = () => {
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          color: '#241A17',
+                          color: '#090C0B',
                         }}
                       >
                         <Plus size={11} />
@@ -255,10 +252,10 @@ export const CartDrawer: React.FC = () => {
               {/* Promo Code Input Box */}
               <div
                 style={{
-                  background: '#F8F5EF',
+                  background: '#F0F3F1',
                   borderRadius: '14px',
                   padding: '12px',
-                  border: '1px solid #DDD6CA',
+                  border: '1px solid #E5EAE7',
                   marginTop: '8px',
                 }}
               >
@@ -272,13 +269,13 @@ export const CartDrawer: React.FC = () => {
                       background: '#FFFFFF',
                       borderRadius: '10px',
                       padding: '8px 12px',
-                      border: '1px solid #DDD6CA',
+                      border: '1px solid #E5EAE7',
                     }}
                   >
-                    <Tag size={15} color="#8C7B74" />
+                    <Tag size={15} color="#8E9993" />
                     <input
                       type="text"
-                      placeholder="Enter promo code (e.g. CHOPLIFE50)"
+                      placeholder="Enter promo code (e.g. CHOPLIFE)"
                       value={promoInput}
                       onChange={(e) => setPromoInput(e.target.value.toUpperCase())}
                       style={{
@@ -287,7 +284,7 @@ export const CartDrawer: React.FC = () => {
                         width: '100%',
                         fontSize: '12px',
                         fontWeight: 600,
-                        color: '#241A17',
+                        color: '#090C0B',
                         fontFamily: 'inherit',
                       }}
                     />
@@ -295,12 +292,12 @@ export const CartDrawer: React.FC = () => {
                   <button
                     onClick={handleApplyPromo}
                     style={{
-                      background: '#241A17',
+                      background: '#FF5500',
                       color: '#FFFFFF',
                       padding: '8px 14px',
                       borderRadius: '10px',
                       fontSize: '12px',
-                      fontWeight: 700,
+                      fontWeight: 800,
                     }}
                   >
                     Apply
@@ -315,14 +312,14 @@ export const CartDrawer: React.FC = () => {
                       alignItems: 'center',
                       justifyContent: 'space-between',
                       fontSize: '12px',
-                      color: '#7A8469',
-                      fontWeight: 700,
+                      color: '#FF5500',
+                      fontWeight: 800,
                     }}
                   >
                     <span>✓ Code {appliedPromo.code} applied</span>
                     <button
                       onClick={() => setAppliedPromo(null)}
-                      style={{ color: '#D9381E', fontSize: '11px', textDecoration: 'underline' }}
+                      style={{ color: '#E80B2E', fontSize: '11px', textDecoration: 'underline' }}
                     >
                       Remove
                     </button>
@@ -336,32 +333,32 @@ export const CartDrawer: React.FC = () => {
                   background: '#FFFFFF',
                   borderRadius: '16px',
                   padding: '16px',
-                  border: '1px solid #DDD6CA',
+                  border: '1px solid #E5EAE7',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '8px',
                   fontSize: '13px',
                 }}
               >
-                <div style={{ display: 'flex', justifyContent: 'space-between', color: '#574640' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', color: '#525C57' }}>
                   <span>Food Items Subtotal</span>
-                  <span style={{ fontWeight: 600, color: '#241A17' }}>₦{cartSubtotal.toLocaleString()}</span>
+                  <span style={{ fontWeight: 700, color: '#090C0B' }}>₦{cartSubtotal.toLocaleString()}</span>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', color: '#574640' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', color: '#525C57' }}>
                   <span>Campus Packaging Fee</span>
-                  <span style={{ fontWeight: 600, color: '#241A17' }}>₦{packagingFee.toLocaleString()}</span>
+                  <span style={{ fontWeight: 700, color: '#090C0B' }}>₦{packagingFee.toLocaleString()}</span>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', color: '#574640' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', color: '#525C57' }}>
                   <span>Hostel Delivery Fee</span>
-                  <span style={{ fontWeight: 600, color: '#241A17' }}>₦{deliveryFee.toLocaleString()}</span>
+                  <span style={{ fontWeight: 700, color: '#090C0B' }}>₦{deliveryFee.toLocaleString()}</span>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', color: '#574640' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', color: '#525C57' }}>
                   <span>Student Service Fee</span>
-                  <span style={{ fontWeight: 600, color: '#241A17' }}>₦{serviceFee.toLocaleString()}</span>
+                  <span style={{ fontWeight: 700, color: '#090C0B' }}>₦{serviceFee.toLocaleString()}</span>
                 </div>
 
                 {appliedPromo && (
-                  <div style={{ display: 'flex', justifyContent: 'space-between', color: '#7A8469', fontWeight: 700 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', color: '#FF5500', fontWeight: 800 }}>
                     <span>Promo Discount ({appliedPromo.code})</span>
                     <span>-₦{appliedPromo.discount.toLocaleString()}</span>
                   </div>
@@ -371,14 +368,14 @@ export const CartDrawer: React.FC = () => {
                   style={{
                     paddingTop: '10px',
                     marginTop: '4px',
-                    borderTop: '1.5px solid #DDD6CA',
+                    borderTop: '1.5px solid #E5EAE7',
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
                   }}
                 >
-                  <span style={{ fontSize: '15px', fontWeight: 800, color: '#241A17' }}>Total Amount</span>
-                  <span style={{ fontSize: '18px', fontWeight: 900, color: '#D9381E' }}>
+                  <span style={{ fontSize: '15px', fontWeight: 900, color: '#090C0B' }}>Total Amount</span>
+                  <span style={{ fontSize: '19px', fontWeight: 900, color: '#FF5500' }}>
                     ₦{finalTotal.toLocaleString()}
                   </span>
                 </div>
@@ -392,14 +389,14 @@ export const CartDrawer: React.FC = () => {
           <div
             style={{
               padding: '16px 24px',
-              borderTop: '1px solid #DDD6CA',
+              borderTop: '1px solid #E5EAE7',
               background: '#FFFFFF',
-              boxShadow: '0 -4px 12px rgba(36,26,23,0.04)',
+              boxShadow: '0 -4px 12px rgba(9,12,11,0.04)',
             }}
           >
             <button
               onClick={handleProceedToCheckout}
-              className="btn-primary"
+              className="btn-yellow"
               style={{ width: '100%', padding: '14px', borderRadius: '16px', fontSize: '15px' }}
             >
               <span>Proceed to Checkout</span>
@@ -413,10 +410,10 @@ export const CartDrawer: React.FC = () => {
                 gap: '6px',
                 marginTop: '10px',
                 fontSize: '11px',
-                color: '#574640',
+                color: '#525C57',
               }}
             >
-              <ShieldCheck size={14} color="#7A8469" />
+              <ShieldCheck size={14} color="#FF5500" />
               <span>Safe student payment with 4-digit handover verification</span>
             </div>
           </div>

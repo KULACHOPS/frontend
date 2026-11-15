@@ -582,6 +582,7 @@ export const INITIAL_ORDERS: Order[] = [
 ];
 
 export const PROMO_CODES = [
+  { code: 'KULAWEB', discountType: 'fixed', value: 300, description: '₦300 off your first campus order' },
   { code: 'CHOPLIFE50', discountType: 'fixed', value: 350, description: 'Free campus delivery (₦350 off)' },
   { code: 'EXAMRUSH', discountType: 'fixed', value: 500, description: '₦500 off orders above ₦3,000' },
   { code: 'FIRSTCHOP', discountType: 'percent', value: 20, description: '20% off first student order' },

@@ -188,8 +188,8 @@ export const CheckoutModal: React.FC = () => {
                       style={{
                         padding: '14px',
                         borderRadius: '14px',
-                        border: isSelected ? '2px solid #D9381E' : '1px solid #DDD6CA',
-                        background: isSelected ? 'rgba(217, 56, 30, 0.04)' : '#FFFFFF',
+                        border: isSelected ? '2px solid #FF5500' : '1px solid #E5EAE7',
+                        background: isSelected ? '#FFF0E8' : '#FFFFFF',
                         cursor: 'pointer',
                         display: 'flex',
                         alignItems: 'flex-start',
@@ -197,24 +197,24 @@ export const CheckoutModal: React.FC = () => {
                         transition: 'all 0.15s ease',
                       }}
                     >
-                      <MapPin size={18} color={isSelected ? '#D9381E' : '#8C7B74'} style={{ marginTop: '2px', flexShrink: 0 }} />
+                      <MapPin size={18} color={isSelected ? '#FF5500' : '#8E9993'} style={{ marginTop: '2px', flexShrink: 0 }} />
                       <div style={{ flex: 1 }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                          <strong style={{ fontSize: '13px', color: '#241A17' }}>{addr.label}</strong>
+                          <strong style={{ fontSize: '13px', color: '#090C0B' }}>{addr.label}</strong>
                           {addr.isDefault && (
-                            <span style={{ fontSize: '10px', background: '#E9E3D8', color: '#574640', padding: '1px 6px', borderRadius: '4px', fontWeight: 600 }}>
+                            <span style={{ fontSize: '10px', background: '#F0F3F1', color: '#525C57', padding: '1px 6px', borderRadius: '4px', fontWeight: 600 }}>
                               Default
                             </span>
                           )}
                         </div>
-                        <p style={{ fontSize: '12px', color: '#574640', marginTop: '2px' }}>
+                        <p style={{ fontSize: '12px', color: '#525C57', marginTop: '2px' }}>
                           {addr.hostelOrBuilding} • {addr.blockOrFloor} • {addr.roomOrNumber}
                         </p>
-                        <p style={{ fontSize: '11px', color: '#8C7B74', marginTop: '2px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <p style={{ fontSize: '11px', color: '#8E9993', marginTop: '2px', display: 'flex', alignItems: 'center', gap: '4px' }}>
                           <Phone size={10} /> {addr.phoneNumber}
                         </p>
                       </div>
-                      {isSelected && <CheckCircle2 size={18} color="#D9381E" />}
+                      {isSelected && <CheckCircle2 size={18} color="#FF5500" />}
                     </div>
                   );
                 })}
@@ -259,8 +259,8 @@ export const CheckoutModal: React.FC = () => {
                 style={{
                   padding: '14px',
                   borderRadius: '14px',
-                  border: paymentMethod === 'wallet' ? '2px solid #D9381E' : '1px solid #DDD6CA',
-                  background: paymentMethod === 'wallet' ? 'rgba(217, 56, 30, 0.04)' : '#FFFFFF',
+                  border: paymentMethod === 'wallet' ? '2px solid #FF5500' : '1px solid #E5EAE7',
+                  background: paymentMethod === 'wallet' ? '#FFF0E8' : '#FFFFFF',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
@@ -273,8 +273,8 @@ export const CheckoutModal: React.FC = () => {
                       width: '36px',
                       height: '36px',
                       borderRadius: '10px',
-                      background: 'rgba(217, 56, 30, 0.1)',
-                      color: '#D9381E',
+                      background: '#FFC501',
+                      color: '#090C0B',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -284,29 +284,29 @@ export const CheckoutModal: React.FC = () => {
                   </div>
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <strong style={{ fontSize: '13px', color: '#241A17' }}>In-App Student Wallet</strong>
+                      <strong style={{ fontSize: '13px', color: '#090C0B' }}>In-App Student Wallet</strong>
                       <span
                         style={{
                           fontSize: '10px',
-                          background: 'rgba(122, 132, 105, 0.12)',
-                          color: '#7A8469',
+                          background: '#FFF0E8',
+                          color: '#FF5500',
                           padding: '1px 6px',
                           borderRadius: '4px',
-                          fontWeight: 700,
+                          fontWeight: 800,
                         }}
                       >
-                        Fastest • Zero Failure
+                        Fastest • 1-Tap Pay
                       </span>
                     </div>
-                    <p style={{ fontSize: '12px', color: '#8C7B74', marginTop: '2px' }}>
-                      Available Balance: <strong style={{ color: '#241A17' }}>₦{student.walletBalance.toLocaleString()}</strong>
+                    <p style={{ fontSize: '12px', color: '#525C57', marginTop: '2px' }}>
+                      Available Balance: <strong style={{ color: '#090C0B' }}>₦{student.walletBalance.toLocaleString()}</strong>
                       {student.walletBalance < finalTotal && (
-                        <span style={{ color: '#D9381E', marginLeft: '6px', fontWeight: 700 }}>(Insufficient)</span>
+                        <span style={{ color: '#E80B2E', marginLeft: '6px', fontWeight: 800 }}>(Insufficient)</span>
                       )}
                     </p>
                   </div>
                 </div>
-                {paymentMethod === 'wallet' && <CheckCircle2 size={18} color="#D9381E" />}
+                {paymentMethod === 'wallet' && <CheckCircle2 size={18} color="#FF5500" />}
               </div>
 
               {/* Option 2: Instant Bank Transfer */}
@@ -315,8 +315,8 @@ export const CheckoutModal: React.FC = () => {
                 style={{
                   padding: '14px',
                   borderRadius: '14px',
-                  border: paymentMethod === 'bank_transfer' ? '2px solid #D9381E' : '1px solid #DDD6CA',
-                  background: paymentMethod === 'bank_transfer' ? 'rgba(217, 56, 30, 0.04)' : '#FFFFFF',
+                  border: paymentMethod === 'bank_transfer' ? '2px solid #FF5500' : '1px solid #E5EAE7',
+                  background: paymentMethod === 'bank_transfer' ? '#FFF0E8' : '#FFFFFF',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
@@ -329,8 +329,8 @@ export const CheckoutModal: React.FC = () => {
                       width: '36px',
                       height: '36px',
                       borderRadius: '10px',
-                      background: 'rgba(181, 154, 104, 0.15)',
-                      color: '#B59A68',
+                      background: '#F0F3F1',
+                      color: '#FF5500',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -339,13 +339,13 @@ export const CheckoutModal: React.FC = () => {
                     <Building2 size={18} />
                   </div>
                   <div>
-                    <strong style={{ fontSize: '13px', color: '#241A17' }}>Bank Transfer (Virtual Account)</strong>
-                    <p style={{ fontSize: '12px', color: '#8C7B74', marginTop: '2px' }}>
+                    <strong style={{ fontSize: '13px', color: '#090C0B' }}>Bank Transfer (Virtual Account)</strong>
+                    <p style={{ fontSize: '12px', color: '#525C57', marginTop: '2px' }}>
                       Dynamic virtual account with instant confirmation
                     </p>
                   </div>
                 </div>
-                {paymentMethod === 'bank_transfer' && <CheckCircle2 size={18} color="#D9381E" />}
+                {paymentMethod === 'bank_transfer' && <CheckCircle2 size={18} color="#FF5500" />}
               </div>
 
               {/* Option 3: Debit Card */}
@@ -354,8 +354,8 @@ export const CheckoutModal: React.FC = () => {
                 style={{
                   padding: '14px',
                   borderRadius: '14px',
-                  border: paymentMethod === 'card' ? '2px solid #D9381E' : '1px solid #DDD6CA',
-                  background: paymentMethod === 'card' ? 'rgba(217, 56, 30, 0.04)' : '#FFFFFF',
+                  border: paymentMethod === 'card' ? '2px solid #FF5500' : '1px solid #E5EAE7',
+                  background: paymentMethod === 'card' ? '#FFF0E8' : '#FFFFFF',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
@@ -368,8 +368,8 @@ export const CheckoutModal: React.FC = () => {
                       width: '36px',
                       height: '36px',
                       borderRadius: '10px',
-                      background: '#E9E3D8',
-                      color: '#241A17',
+                      background: '#F0F3F1',
+                      color: '#090C0B',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -378,13 +378,13 @@ export const CheckoutModal: React.FC = () => {
                     <CreditCard size={18} />
                   </div>
                   <div>
-                    <strong style={{ fontSize: '13px', color: '#241A17' }}>Debit Card (Mastercard / Visa / Verve)</strong>
-                    <p style={{ fontSize: '12px', color: '#8C7B74', marginTop: '2px' }}>
+                    <strong style={{ fontSize: '13px', color: '#090C0B' }}>Debit Card (Mastercard / Visa / Verve)</strong>
+                    <p style={{ fontSize: '12px', color: '#525C57', marginTop: '2px' }}>
                       Secured via licensed PCI-DSS payment gateway
                     </p>
                   </div>
                 </div>
-                {paymentMethod === 'card' && <CheckCircle2 size={18} color="#D9381E" />}
+                {paymentMethod === 'card' && <CheckCircle2 size={18} color="#FF5500" />}
               </div>
             </div>
 
@@ -464,7 +464,7 @@ export const CheckoutModal: React.FC = () => {
               }}
             >
               <span>Amount to Pay:</span>
-              <span style={{ color: '#D9381E', fontSize: '16px' }}>₦{finalTotal.toLocaleString()}</span>
+              <span style={{ color: '#FF5500', fontSize: '17px' }}>₦{finalTotal.toLocaleString()}</span>
             </div>
           </div>
         </div>
@@ -473,25 +473,19 @@ export const CheckoutModal: React.FC = () => {
         <div
           style={{
             padding: '16px 24px',
-            borderTop: '1px solid #DDD6CA',
+            borderTop: '1px solid #E5EAE7',
             background: '#FFFFFF',
           }}
         >
           <button
             onClick={handlePlaceOrder}
             disabled={isProcessingPayment}
-            className="btn-primary"
+            className="btn-yellow"
             style={{
               width: '100%',
               padding: '14px',
               borderRadius: '16px',
               fontSize: '15px',
-              background: '#D9381E',
-              color: '#FFFFFF',
-              boxShadow: '0 4px 14px rgba(217, 56, 30, 0.35)',
-              border: 'none',
-              cursor: 'pointer',
-              fontWeight: 700,
             }}
           >
             {isProcessingPayment ? (
